@@ -258,6 +258,19 @@ export default function App() {
                 src={logoImg} 
                 alt="Nahanjoo Logo" 
                 className="w-full h-full object-cover rounded-lg block"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  if (!target.dataset.tried) {
+                    target.dataset.tried = '1';
+                    target.src = '/logo.jpg';
+                  } else if (target.dataset.tried === '1') {
+                    target.dataset.tried = '2';
+                    target.src = '/logo.png';
+                  } else if (target.dataset.tried === '2') {
+                    target.dataset.tried = '3';
+                    target.src = '/logo.svg';
+                  }
+                }}
               />
             </div>
             <div>
