@@ -1,4 +1,4 @@
-# Nahanjoo Website (نه‌هانجو)
+# Nahanjoo Website (نهانجو)
 
 [![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
@@ -7,7 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-The official public landing page and interactive client-side simulator for **[Nahanjoo (نه‌هانجو)](https://github.com/ZhiwarSajadi/Nahanjoo)** — a portable, ultra-secure, 100% client-side offline Retrieval-Augmented Generation (RAG) platform.
+The official public landing page and interactive client-side simulator for **[Nahanjoo (نهانجو)](https://github.com/ZhiwarSajadi/Nahanjoo)** — a portable, ultra-secure, 100% client-side offline Retrieval-Augmented Generation (RAG) platform.
 
 ---
 
