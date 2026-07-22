@@ -1,0 +1,6 @@
+{
+  "name": "Nahanjoo Website",
+  "description": "Official public introduction website and interactive simulator for Nahanjoo (نهانجو) — a portable, secure, client-side offline RAG solution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
