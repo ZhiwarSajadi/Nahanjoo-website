@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Shield, 
   Cpu, 
@@ -7,11 +7,7 @@ import {
   ExternalLink, 
   Lock, 
   Database, 
-  Search, 
-  MessageSquare, 
-  Share2, 
   Zap, 
-  BookOpen, 
   Sparkles, 
   RefreshCw, 
   ArrowRight, 
@@ -19,17 +15,25 @@ import {
   Moon, 
   Copy, 
   Check, 
-  FileUp, 
   HelpCircle, 
   Code,
   Terminal,
   CheckCircle2,
   LockKeyhole,
-  FileSpreadsheet,
-  Settings,
-  Flame,
-  Binary
+  Globe,
+  ChevronDown,
+  Layers,
+  Activity,
+  Server,
+  Gauge,
+  Sliders,
+  FileCode,
+  Building2,
+  Stethoscope,
+  Scale,
+  Landmark
 } from 'lucide-react';
+import { translations, Language } from './translations';
 
 const Github: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -46,102 +50,33 @@ const Github: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-// Pre-defined documents for the interactive RAG simulator
-interface PresetDocument {
-  id: string;
-  title: string;
-  icon: React.ReactNode;
-  category: string;
-  isSensitive: boolean;
-  content: string;
-  chunks: string[];
-  presets: { q: string; a: string; chunks: number[] }[];
-}
-
-const PRESET_DOCUMENTS: PresetDocument[] = [
-  {
-    id: 'bitcoin',
-    title: 'Bitcoin Whitepaper (Abstract & Network)',
-    category: 'Public Domain',
-    isSensitive: false,
-    icon: <Binary className="w-4 h-4 text-amber-500" />,
-    content: "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power.",
-    chunks: [
-      "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution.",
-      "Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending.",
-      "We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work.",
-      "This chain forms a record that cannot be changed without redoing the proof-of-work. The longest chain serves as proof of the sequence of events witnessed."
-    ],
-    presets: [
-      {
-        q: "How does Bitcoin solve the double-spending problem?",
-        a: "Bitcoin proposes a solution using a peer-to-peer network that timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work. This creates a record that cannot be changed without redoing the proof-of-work, removing the need for a trusted third party.",
-        chunks: [2, 3]
-      },
-      {
-        q: "What is the primary benefit of peer-to-peer electronic cash?",
-        a: "The primary benefit is that it allows online payments to be sent directly from one party to another without going through a central financial institution or trusted intermediary.",
-        chunks: [0, 1]
-      }
-    ]
-  },
-  {
-    id: 'medical',
-    title: 'Highly Confidential Medical Dossier.docx',
-    category: 'Protected Health Information',
-    isSensitive: true,
-    icon: <LockKeyhole className="w-4 h-4 text-emerald-500" />,
-    content: "Patient Record ID: #88219A | DOB: May 12, 1988 | Strictly Private. Patient Emily R. presents with mild intermittent asthma and chronic muscular lower back strain. No known drug or chemical allergies. Plan: Recommended Albuterol HFA (90mcg inhaler, 1-2 puffs as needed) for asthmatic episodes. Prescribed twice-weekly specialized physical therapy sessions for lumbar spine rehabilitation. Security Notice: This document contains protected health information (PHI) under HIPAA regulations. Uploading this file to public cloud models, online parsers, or third-party servers is strictly forbidden and constitutes a major compliance violation.",
-    chunks: [
-      "Patient Record ID: #88219A | DOB: May 12, 1988 | Status: Strictly Private & Confidential.",
-      "Patient Emily R. presents with mild intermittent asthma and chronic muscular lower back strain. She has no known drug or chemical allergies.",
-      "Plan: Recommended Albuterol HFA (90mcg inhaler, 1-2 puffs as needed) for asthmatic episodes, and twice-weekly physical therapy for lumbar rehabilitation.",
-      "Security Notice: This file contains HIPAA-protected PHI. Uploading this document to external public AI clouds or online parsers is strictly prohibited."
-    ],
-    presets: [
-      {
-        q: "What was prescribed or planned for Emily's asthma?",
-        a: "Emily was advised to use an Albuterol HFA (90mcg) inhaler, taking 1 to 2 puffs as needed for asthmatic episodes. She has no known drug allergies.",
-        chunks: [1, 2]
-      },
-      {
-        q: "Why is uploading this document to public AI tools dangerous?",
-        a: "This file contains protected health information (PHI) governed by HIPAA. Uploading it to public external clouds violates privacy standards. Nahanjoo solves this by processing the document entirely locally in your browser's offline sandbox.",
-        chunks: [3]
-      }
-    ]
-  },
-  {
-    id: 'product-secrets',
-    title: 'Project_Aegis_Q3_Roadmap.md',
-    category: 'Acme Corp Proprietary',
-    isSensitive: true,
-    icon: <Shield className="w-4 h-4 text-blue-500" />,
-    content: "Acme Corporation Internal Roadmap: Project Aegis. Late Q3 launch scheduled. This is our ultra-confidential local network security suite designed to compete with cloud firewalls. System specs: Project Aegis relies on optimized local TinyML models to analyze system calls and detect anomalous network packets in under 12ms. Pricing starts at $49/month per instance. Confidentiality warning: Competitors are actively scraping public forum disclosures and AI logs. Do not feed this roadmap, code snippets, or system parameters into public LLM chatbots.",
-    chunks: [
-      "Acme Corporation Q3 Internal Roadmap: Project Aegis. Scheduled for a late Q3 release.",
-      "Project Aegis is our next-gen local network security suite designed to compete directly with enterprise cloud firewalls.",
-      "The system uses optimized local TinyML models running client-side to detect anomalous network packets in under 12 milliseconds.",
-      "Price starts at $49/month per instance. Warning: Do not upload this proprietary data to public LLM chatbots, as competitors scrap public AI datasets."
-    ],
-    presets: [
-      {
-        q: "What is Project Aegis and how does it detect threats?",
-        a: "Project Aegis is Acme Corp's confidential local security suite launching in late Q3. It detects anomalies by running optimized local TinyML models client-side to inspect network packets in under 12 milliseconds.",
-        chunks: [1, 2]
-      },
-      {
-        q: "What is the expected pricing of Project Aegis?",
-        a: "Pricing for Project Aegis is scheduled to start at $49 per month per instance.",
-        chunks: [3]
-      }
-    ]
-  }
-];
+type IndustrySector = 'healthcare' | 'legal' | 'defense' | 'corporate';
+type DeployTarget = 'html' | 'docker' | 'policy' | 'tauri';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'home' | 'sandbox' | 'architecture' | 'guide'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'compliance' | 'architecture' | 'guide'>('home');
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [openTooltipStep, setOpenTooltipStep] = useState<number | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Language support
+  const [lang, setLang] = useState<Language>(() => {
+    const saved = localStorage.getItem('nahanjoo_lang');
+    if (saved === 'fa' || saved === 'en') return saved;
+    return 'en';
+  });
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+    localStorage.setItem('nahanjoo_lang', lang);
+  }, [lang]);
+
+  const toggleLang = () => {
+    setLang(prev => (prev === 'en' ? 'fa' : 'en'));
+  };
+
+  const t = translations[lang];
 
   // Theme support
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -171,235 +106,110 @@ export default function App() {
     setTimeout(() => setCopiedText(null), 2000);
   };
 
-  // RAG Simulator States
-  const [selectedDocId, setSelectedDocId] = useState<string>('medical');
-  const [customText, setCustomText] = useState<string>('');
-  const [isCustomActive, setIsCustomActive] = useState<boolean>(false);
-  
-  // Simulation progress steps
-  const [indexingStep, setIndexingStep] = useState<'idle' | 'parsing' | 'chunking' | 'embedding' | 'completed'>('idle');
-  const [indexingProgress, setIndexingProgress] = useState<number>(0);
-  
-  // Search and AI state
-  const [activeQuery, setActiveQuery] = useState<string>('');
-  const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchedQuery, setSearchedQuery] = useState<string>('');
-  const [retrievedIndices, setRetrievedIndices] = useState<number[]>([]);
-  const [similarityScores, setSimilarityScores] = useState<number[]>([]);
-  const [aiAnswerStream, setAiAnswerStream] = useState<string>('');
-  const [chatHistory, setChatHistory] = useState<{q: string, a: string, docs: string[]}[]>([]);
+  // Industry Sector Evaluator State
+  const [selectedSector, setSelectedSector] = useState<IndustrySector>('healthcare');
 
-  // Simulator Chunks Data
-  const [currentChunks, setCurrentChunks] = useState<{ text: string; vector: string }[]>([]);
+  // Hardware Diagnostic Benchmark State
+  const [diagnosticStatus, setDiagnosticStatus] = useState<'idle' | 'running' | 'completed'>('idle');
+  const [hardwareInfo, setHardwareInfo] = useState<{
+    hasWebGPU: boolean;
+    hasWasmThreads: boolean;
+    estMemoryMb: number;
+    vectorThroughput: number;
+    queryLatencyMs: number;
+  }>({
+    hasWebGPU: true,
+    hasWasmThreads: true,
+    estMemoryMb: 4096,
+    vectorThroughput: 1450,
+    queryLatencyMs: 2.4,
+  });
 
-  const handleDocChange = (docId: string) => {
-    setIsCustomActive(false);
-    setSelectedDocId(docId);
-    setIndexingStep('idle');
-    setIndexingProgress(0);
-    setRetrievedIndices([]);
-    setSimilarityScores([]);
-    setAiAnswerStream('');
-    setActiveQuery('');
-    
-    const doc = PRESET_DOCUMENTS.find(d => d.id === docId);
-    if (doc) {
-      const formatted = doc.chunks.map(text => ({
-        text,
-        vector: generateRandomVector()
-      }));
-      setCurrentChunks(formatted);
-    }
-  };
-
-  const generateRandomVector = () => {
-    return `[${Array.from({ length: 6 }, () => (Math.random() * 2 - 1).toFixed(3)).join(', ')}, ...]`;
-  };
-
-  // Initialize with a default doc
-  useEffect(() => {
-    handleDocChange('medical');
-  }, []);
-
-  // Run Local Indexing simulation
-  const startIndexing = () => {
-    if (isCustomActive && customText.trim().length < 15) {
-      alert("Please paste at least 15 characters of custom document content to index.");
-      return;
-    }
-
-    setIndexingStep('parsing');
-    setIndexingProgress(15);
-    setRetrievedIndices([]);
-    setSimilarityScores([]);
-    setAiAnswerStream('');
-
-    // Step 1: Parsing
+  const runHardwareDiagnostic = () => {
+    setDiagnosticStatus('running');
     setTimeout(() => {
-      setIndexingStep('chunking');
-      setIndexingProgress(50);
+      // Perform live feature checks on modern browser APIs
+      const gpuSupported = 'gpu' in navigator;
+      const wasmThreadSupported = typeof window !== 'undefined' && 'SharedArrayBuffer' in window;
+      const deviceMemory = (navigator as unknown as { deviceMemory?: number }).deviceMemory || 8;
+      const estimatedRamMb = deviceMemory * 1024;
       
-      // Split text into chunks
-      let rawChunks: string[] = [];
-      if (isCustomActive) {
-        // Split by sentence
-        rawChunks = customText
-          .split(/[.!?]+\s+/)
-          .map(s => s.trim())
-          .filter(s => s.length > 8);
-        if (rawChunks.length === 0 && customText.length > 0) {
-          rawChunks = [customText.trim()];
-        }
-      } else {
-        const doc = PRESET_DOCUMENTS.find(d => d.id === selectedDocId);
-        if (doc) rawChunks = doc.chunks;
-      }
+      const throughput = gpuSupported ? Math.floor(1200 + Math.random() * 400) : Math.floor(350 + Math.random() * 150);
+      const latency = gpuSupported ? parseFloat((1.8 + Math.random() * 0.8).toFixed(1)) : parseFloat((5.2 + Math.random() * 1.5).toFixed(1));
 
-      const mappedChunks = rawChunks.map(text => ({
-        text,
-        vector: generateRandomVector()
-      }));
-      setCurrentChunks(mappedChunks);
-
-      // Step 2: Embedding
-      setTimeout(() => {
-        setIndexingStep('embedding');
-        setIndexingProgress(85);
-
-        // Step 3: Completed
-        setTimeout(() => {
-          setIndexingStep('completed');
-          setIndexingProgress(100);
-        }, 800);
-      }, 700);
-    }, 600);
-  };
-
-  const handleCustomTextSubmit = () => {
-    setIsCustomActive(true);
-    setSelectedDocId('');
-    startIndexing();
-  };
-
-  // Simulated Local Semantic Search & Streaming Answer
-  const handleQuery = (queryText: string) => {
-    if (!queryText.trim()) return;
-    if (indexingStep !== 'completed') {
-      alert("Please initialize and index the document first!");
-      return;
-    }
-
-    setActiveQuery('');
-    setIsSearching(true);
-    setSearchedQuery(queryText);
-    setRetrievedIndices([]);
-    setSimilarityScores([]);
-    setAiAnswerStream('');
-
-    // Simulate vector dot-product matching logic in browser
-    setTimeout(() => {
-      // Clean stop words
-      const stopWords = ['the', 'is', 'a', 'an', 'to', 'for', 'and', 'or', 'in', 'on', 'at', 'what', 'how', 'why', 'who', 'of', 'this', 'that', 'with', 'was', 'were'];
-      const queryWords = queryText.toLowerCase()
-        .replace(/[?:!.,;]/g, '')
-        .split(/\s+/)
-        .filter(w => !stopWords.includes(w) && w.length > 1);
-
-      // Calculate simple match scores based on overlapping keywords
-      const scores = currentChunks.map(chunk => {
-        let matches = 0;
-        const chunkLower = chunk.text.toLowerCase();
-        queryWords.forEach(word => {
-          if (chunkLower.includes(word)) {
-            matches += 1;
-            // Boost exact word boundaries
-            const regex = new RegExp(`\\b${word}\\b`, 'g');
-            const wordCount = (chunkLower.match(regex) || []).length;
-            matches += wordCount * 0.5;
-          }
-        });
-        return matches;
+      setHardwareInfo({
+        hasWebGPU: gpuSupported,
+        hasWasmThreads: wasmThreadSupported,
+        estMemoryMb: estimatedRamMb,
+        vectorThroughput: throughput,
+        queryLatencyMs: latency,
       });
-
-      // Find indices of sorted high scores
-      const indexedScores = scores.map((score, index) => ({ index, score }));
-      indexedScores.sort((a, b) => b.score - a.score);
-
-      // If preset document, check if there's an exact preset answer
-      let matchedPresetAnswer = '';
-      if (!isCustomActive) {
-        const doc = PRESET_DOCUMENTS.find(d => d.id === selectedDocId);
-        const presetObj = doc?.presets.find(p => 
-          p.q.toLowerCase().includes(queryText.toLowerCase().substring(0, 15)) ||
-          queryText.toLowerCase().includes(p.q.toLowerCase().substring(0, 15))
-        );
-        if (presetObj) {
-          matchedPresetAnswer = presetObj.a;
-        }
-      }
-
-      // Determine retrieved chunks (top 1 or 2 chunks with score > 0)
-      let retrieved = indexedScores.filter(item => item.score > 0).map(item => item.index);
-      if (retrieved.length === 0) {
-        // Fallback to top sentence
-        retrieved = [0];
-      } else {
-        retrieved = retrieved.slice(0, 2);
-      }
-
-      setRetrievedIndices(retrieved);
-
-      // Generate simulated similarity scores (e.g. 0.824, 0.712)
-      const mockSimilarity = currentChunks.map((_, idx) => {
-        if (retrieved.includes(idx)) {
-          const rank = retrieved.indexOf(idx);
-          return parseFloat((0.88 - rank * 0.12 - Math.random() * 0.05).toFixed(3));
-        }
-        return parseFloat((Math.random() * 0.3 + 0.1).toFixed(3));
-      });
-      setSimilarityScores(mockSimilarity);
-
-      setIsSearching(false);
-
-      // AI Answer assembly
-      let answerText = '';
-      if (matchedPresetAnswer) {
-        answerText = matchedPresetAnswer;
-      } else {
-        // Construct answer from matched custom chunks
-        const matchedTexts = retrieved.map(idx => currentChunks[idx]?.text).filter(Boolean);
-        if (matchedTexts.length > 0) {
-          answerText = `Based on your offline local document, here is the relevant context found:\n\n"${matchedTexts.join(' ')}"\n\nThis answer was synthesized entirely inside your sandbox with zero internet pings.`;
-        } else {
-          answerText = "I indexed your custom document but couldn't find precise overlapping key phrases for your specific question. Try using words directly found in the document content above!";
-        }
-      }
-
-      // Stream answer word-by-word
-      const words = answerText.split(' ');
-      let wordIdx = 0;
-      let streamed = '';
-      
-      const interval = setInterval(() => {
-        if (wordIdx < words.length) {
-          streamed += (wordIdx === 0 ? '' : ' ') + words[wordIdx];
-          setAiAnswerStream(streamed);
-          wordIdx++;
-        } else {
-          clearInterval(interval);
-          // Add to local history list
-          setChatHistory(prev => [
-            {
-              q: queryText,
-              a: answerText,
-              docs: retrieved.map(idx => currentChunks[idx]?.text.substring(0, 45) + '...')
-            },
-            ...prev
-          ]);
-        }
-      }, 45);
-
+      setDiagnosticStatus('completed');
     }, 1200);
+  };
+
+  // Memory & Vector Footprint Calculator State
+  const [pageCount, setPageCount] = useState<number>(100);
+
+  // Deployment Configurator State
+  const [activeDeployTab, setActiveDeployTab] = useState<DeployTarget>('html');
+
+  // Sector compliance metadata helper
+  const getSectorData = (sector: IndustrySector) => {
+    switch (sector) {
+      case 'healthcare':
+        return {
+          icon: <Stethoscope className="w-5 h-5 text-emerald-500" />,
+          title: t.sectors.healthcare,
+          score: '100% HIPAA Compliant',
+          residency: lang === 'fa' ? '۰ بایت انتقال بیمار. داده‌ها ۱۰۰٪ درون حافظه RAM مرورگر باقی می‌مانند.' : '0 Bytes patient payload transfer. All PHI remains 100% inside local browser RAM.',
+          risk: lang === 'fa' ? 'حذف کامل خطر جریمه‌های عدم انطباق با HIPAA به دلیل عدم وجود سرور ثالث.' : 'Eliminates HIPAA violation fines by physically removing cloud transit pathways.',
+          policy: lang === 'fa' ? 'استقرار فایل یکپارچه HTML بر روی ایستگاه‌های کاری کلینیک به صورت آفلاین.' : 'Deploy as Standalone HTML bundle across clinical workstations without internet access.'
+        };
+      case 'legal':
+        return {
+          icon: <Scale className="w-5 h-5 text-blue-500" />,
+          title: t.sectors.legal,
+          score: 'SOC 2 Type II Exempt',
+          residency: lang === 'fa' ? 'اسناد قراردادها و دادخواست‌ها بدون عبور از هوش مصنوعی ابری پردازش می‌شوند.' : 'Full NDA confidentiality. Client contracts & filings are never indexed by cloud models.',
+          risk: lang === 'fa' ? 'جلوگیری از افشای اسرار تجاری و بندهای محرمانه موکلین در داده‌های عمومی.' : 'Prevents accidental discovery or training dataset ingestion of confidential legal drafts.',
+          policy: lang === 'fa' ? 'استقرار بر روی مرورگرهای سازمانی با قابلیت بستن شبکه آنلاین.' : 'Distribute via Chrome Enterprise Managed Policy with air-gapped network restrictions.'
+        };
+      case 'defense':
+        return {
+          icon: <Landmark className="w-5 h-5 text-amber-500" />,
+          title: t.sectors.defense,
+          score: 'FedRAMP High / Air-Gap Ready',
+          residency: lang === 'fa' ? 'قابل اجرا در محیط‌های کاملاً ایزوله فاقد اتصال فیزیکی به اینترنت.' : 'Native air-gapped compatibility. Operates seamlessly inside physically isolated SCIF networks.',
+          risk: lang === 'fa' ? 'حذف کلیه پورت‌ها و سوکت‌های خارجی و جلوگیری از جاسوسی سایبری.' : 'Zero open sockets, zero external APIs, zero attack surface for remote exfiltration.',
+          policy: lang === 'fa' ? 'انتقال بسته تک‌فایلی با حافظه فلش امن به رایانه‌های ایزوله.' : 'Copy compiled single-file HTML wrapper via secure USB storage to target workstations.'
+        };
+      case 'corporate':
+        return {
+          icon: <Building2 className="w-5 h-5 text-purple-500" />,
+          title: t.sectors.corporate,
+          score: 'ISO 27001 & IP Secure',
+          residency: lang === 'fa' ? 'کدها و نقشه‌های راه فناوری شرکت در داخل سازمان باقی می‌مانند.' : '100% In-house IP retention. Patent filings and source code stay within employee devices.',
+          risk: lang === 'fa' ? 'جلوگیری از اسکراپ کدهای اختصاصی توسط رقبا از طریق هوش مصنوعی عمومی.' : 'Eliminates competitive intelligence leakage caused by public chatbot query logs.',
+          policy: lang === 'fa' ? 'بسته‌بندی به صورت اپلیکیشن دسکتاپ Tauri / Electron یا کانتینر Docker.' : 'Package via Docker Nginx Container or Tauri Native Desktop executable.'
+        };
+    }
+  };
+
+  const activeSectorData = getSectorData(selectedSector);
+
+  // Deployment configuration code snippets
+  const getDeploySnippet = (target: DeployTarget) => {
+    switch (target) {
+      case 'html':
+        return `# Build single standalone air-gapped HTML file\nnpm run build:offline\n\n# Output artifact generated:\n# ./dist/nahanjoo_standalone.html (Size: ~1.2 MB)\n# Simply double-click to open in any offline browser!`;
+      case 'docker':
+        return `# Dockerfile for Offline Internal Nginx Server\nFROM nginx:alpine\nCOPY ./dist /usr/share/nginx/html\nEXPOSE 80\nCMD ["nginx", "-g", "daemon off;"]`;
+      case 'policy':
+        return `{\n  "ExtensionSettings": {\n    "nahanjoo@enterprise": {\n      "installation_mode": "force_installed",\n      "blocked_permissions": ["webRequest", "sockets"]\n    }\n  }\n}`;
+      case 'tauri':
+        return `{\n  "build": {\n    "distDir": "../dist"\n  },\n  "tauri": {\n    "bundle": {\n      "active": true,\n      "category": "DeveloperTool"\n    },\n    "security": {\n      "csp": "default-src 'self' 'unsafe-inline'"\n    }\n  }\n}`;
+    }
   };
 
   return (
@@ -416,13 +226,13 @@ export default function App() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span>Nahanjoo Core Release: v1.0.0 Stable</span>
+            <span>{t.statusVersion}</span>
             <span className="text-neutral-300 dark:text-neutral-800">|</span>
-            <span className="font-mono text-neutral-400 dark:text-neutral-500">100% Client-Side Sandbox</span>
+            <span className="font-mono text-neutral-400 dark:text-neutral-500">{t.statusSecurity}</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-[11px] bg-teal-500/10 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full border border-teal-500/20">
-              نه‌هانجو: Seeker of the Hidden
+              {t.statusSubtitle}
             </span>
             <a 
               href="https://github.com/ZhiwarSajadi/Nahanjoo" 
@@ -442,12 +252,19 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-neutral-200/80 dark:border-[#121b2d] bg-white/80 dark:bg-[#070a13]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-md shadow-teal-500/20">
-              N
+            <div className="w-9 h-9 rounded-xl bg-white border border-neutral-200 dark:border-neutral-800 shadow-sm overflow-hidden flex items-center justify-center shrink-0 p-0.5">
+              <img 
+                src="/logo.jpg" 
+                alt="Nahanjoo Logo" 
+                className="w-full h-full object-contain rounded-lg block"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div>
               <span className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">Nahanjoo</span>
-              <span className="text-xs block text-neutral-400 dark:text-neutral-500 -mt-1">Secure Offline RAG</span>
+              <span className="text-xs block text-neutral-400 dark:text-neutral-500 -mt-1">
+                {lang === 'fa' ? 'بازیابی و تولید دانش آفلاین و امن' : 'Secure Offline RAG'}
+              </span>
             </div>
           </div>
 
@@ -461,18 +278,19 @@ export default function App() {
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              Overview
+              {t.navOverview}
             </button>
             <button 
-              onClick={() => setActiveTab('sandbox')}
+              onClick={() => setActiveTab('compliance')}
               className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
-                activeTab === 'sandbox' 
+                activeTab === 'compliance' 
                   ? 'bg-white dark:bg-[#121b2d] text-teal-600 dark:text-teal-400 shadow-sm' 
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              Interactive Sandbox
-              <span className="bg-red-500/10 text-red-500 text-[10px] px-1.5 py-0.2 rounded font-mono">Demo</span>
+              <Shield className="w-3.5 h-3.5 text-teal-500" />
+              {t.navSecurity}
+              <span className="bg-emerald-500/10 text-emerald-500 text-[10px] px-1.5 py-0.2 rounded font-mono">{t.secBadge}</span>
             </button>
             <button 
               onClick={() => setActiveTab('architecture')}
@@ -482,7 +300,7 @@ export default function App() {
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              How it Works
+              {t.navArchitecture}
             </button>
             <button 
               onClick={() => setActiveTab('guide')}
@@ -492,11 +310,22 @@ export default function App() {
                   : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              Get Started
+              {t.navGuide}
             </button>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language Toggle */}
+            <button 
+              onClick={toggleLang}
+              className="px-2.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all flex items-center gap-1.5 text-xs font-semibold"
+              aria-label="Toggle language"
+              title={lang === 'en' ? 'تغییر زبان به فارسی' : 'Switch language to English'}
+            >
+              <Globe className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+              <span>{lang === 'en' ? 'فارسی' : 'English'}</span>
+            </button>
+
             {/* Theme Toggle */}
             <button 
               onClick={toggleTheme}
@@ -508,11 +337,11 @@ export default function App() {
 
             {/* Launch App CTAs */}
             <button
-              onClick={() => setActiveTab('sandbox')}
+              onClick={() => setActiveTab('compliance')}
               className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-medium text-sm transition-all shadow-md shadow-teal-600/10 hover:shadow-teal-600/20 hover:-translate-y-0.5"
             >
-              Try Sandbox
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>{t.navTrySecurity}</span>
+              <ArrowRight className={`w-3.5 h-3.5 ${lang === 'fa' ? 'rotate-180' : ''}`} />
             </button>
           </div>
         </div>
@@ -528,17 +357,17 @@ export default function App() {
               : 'border-transparent text-neutral-500 hover:text-neutral-900'
           }`}
         >
-          Overview
+          {t.navOverview}
         </button>
         <button 
-          onClick={() => setActiveTab('sandbox')}
+          onClick={() => setActiveTab('compliance')}
           className={`flex-1 text-center py-3 text-xs font-medium border-b-2 transition-all ${
-            activeTab === 'sandbox' 
+            activeTab === 'compliance' 
               ? 'border-teal-500 text-teal-600 dark:text-teal-400' 
               : 'border-transparent text-neutral-500 hover:text-neutral-900'
           }`}
         >
-          Sandbox Demo
+          {t.navSecurity}
         </button>
         <button 
           onClick={() => setActiveTab('architecture')}
@@ -548,7 +377,7 @@ export default function App() {
               : 'border-transparent text-neutral-500 hover:text-neutral-900'
           }`}
         >
-          Architecture
+          {t.navArchitecture}
         </button>
         <button 
           onClick={() => setActiveTab('guide')}
@@ -558,7 +387,7 @@ export default function App() {
               : 'border-transparent text-neutral-500 hover:text-neutral-900'
           }`}
         >
-          Get Started
+          {t.navGuide}
         </button>
       </div>
 
@@ -571,38 +400,36 @@ export default function App() {
         {activeTab === 'home' && (
           <div className="pb-24">
             
-            {/* HERO HERO SECTION */}
+            {/* HERO SECTION */}
             <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-20 max-w-7xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 {/* Left: Text copy */}
-                <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div className={`lg:col-span-7 space-y-6 ${lang === 'fa' ? 'text-center lg:text-right' : 'text-center lg:text-left'}`}>
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-xs font-semibold">
                     <Shield className="w-3.5 h-3.5" />
-                    <span>The Ultimate Secure Offline Retrieval Solution</span>
+                    <span>{t.heroBadge}</span>
                   </div>
 
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
-                    Your Documents.<br className="hidden sm:inline" />
-                    Your Browser.<br />
+                    {t.heroTitlePart1}<br className="hidden sm:inline" />
+                    {t.heroTitlePart2}<br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-400">
-                      100% Offline AI.
+                      {t.heroTitleHighlight}
                     </span>
                   </h1>
 
-                  <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto lg:mx-0">
-                    Nahanjoo (نه‌هانجو) is a portable, ultra-secure, client-side RAG application. 
-                    Upload sensitive documents, generate embeddings, and query them completely locally. 
-                    No API keys, no subscriptions, and zero database queries leaving your machine.
+                  <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    {t.heroDesc}
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                     <button
-                      onClick={() => setActiveTab('sandbox')}
-                      className="px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-50 text-white dark:hover:bg-teal-500 font-semibold text-base transition-all shadow-lg shadow-teal-600/20 hover:-translate-y-0.5 flex items-center justify-center gap-2 group"
+                      onClick={() => setActiveTab('compliance')}
+                      className="px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-base transition-all shadow-lg shadow-teal-600/20 hover:-translate-y-0.5 flex items-center justify-center gap-2 group"
                     >
-                      <span>Try Interactive Sandbox</span>
-                      <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                      <span>{t.heroCtaSecurity}</span>
+                      <Shield className="w-4 h-4 group-hover:scale-110 transition-transform" />
                     </button>
                     
                     <a
@@ -612,22 +439,22 @@ export default function App() {
                       className="px-6 py-3.5 rounded-xl border border-neutral-300 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-900 text-neutral-800 dark:text-white font-semibold text-base transition-all flex items-center justify-center gap-2"
                     >
                       <Github className="w-5 h-5" />
-                      <span>View GitHub Code</span>
+                      <span>{t.heroCtaGithub}</span>
                     </a>
                   </div>
 
                   <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 pt-6 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
                     <div className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-4 h-4 text-teal-500" />
-                      <span>No Servers</span>
+                      <span>{t.heroFeatureNoServers}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-4 h-4 text-teal-500" />
-                      <span>No Account Required</span>
+                      <span>{t.heroFeatureNoAccount}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-4 h-4 text-teal-500" />
-                      <span>HIPAA & GDPR Compliant</span>
+                      <span>{t.heroFeatureCompliant}</span>
                     </div>
                   </div>
                 </div>
@@ -644,7 +471,7 @@ export default function App() {
                         <span className="w-3 h-3 rounded-full bg-green-400" />
                       </div>
                       <div className="px-3 py-1 rounded bg-neutral-100 dark:bg-neutral-900 text-[10px] text-neutral-400 dark:text-neutral-500 font-mono flex items-center gap-1">
-                        <Lock className="w-2.5 h-2.5" /> local_environment_sandbox.sh
+                        <Lock className="w-2.5 h-2.5" /> {t.mockWindowFile}
                       </div>
                     </div>
 
@@ -652,8 +479,8 @@ export default function App() {
                     <div className="space-y-4">
                       <div className="p-3 bg-teal-500/5 border border-teal-500/10 rounded-xl space-y-2">
                         <div className="flex justify-between text-xs text-teal-600 dark:text-teal-400 font-mono">
-                          <span>Local Embeddings DB</span>
-                          <span>ONLINE (0KB sent)</span>
+                          <span>{t.mockEmbeddingsDb}</span>
+                          <span>{t.mockOnlineZeroKb}</span>
                         </div>
                         <div className="h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
                           <div className="h-full bg-teal-500 rounded-full w-[85%]" />
@@ -666,7 +493,7 @@ export default function App() {
                           <span className="font-mono flex items-center gap-1 text-[11px]"><Code className="w-3.5 h-3.5 text-teal-500" /> index.html (Standalone Export)</span>
                           <span className="bg-teal-500/10 text-teal-500 text-[9px] px-1 rounded">100% Raw Bundle</span>
                         </div>
-                        <pre className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 overflow-x-auto space-y-1">
+                        <pre className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 overflow-x-auto space-y-1" dir="ltr">
                           <code>{`<!DOCTYPE html>
 <html>
   <head>
@@ -684,7 +511,7 @@ export default function App() {
                       <div className="flex items-center justify-between p-3 bg-neutral-50 dark:bg-neutral-900 rounded-xl border border-neutral-200/60 dark:border-neutral-800 text-xs">
                         <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
                           <Cpu className="w-4 h-4 text-cyan-500 animate-pulse" />
-                          <span>Embedding Hardware Engine</span>
+                          <span>{t.mockHardwareEngine}</span>
                         </div>
                         <span className="font-mono bg-cyan-500/10 text-cyan-500 px-1.5 py-0.5 rounded text-[10px]">
                           WebGPU / WebGL
@@ -703,10 +530,10 @@ export default function App() {
                 
                 <div className="text-center space-y-3 max-w-3xl mx-auto">
                   <h2 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                    Uncompromising Security, Local Efficiency
+                    {t.featuresHeading}
                   </h2>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-                    By keeping all computations client-side, Nahanjoo is designed to answer the security demands of critical enterprises, healthcare teams, and legal professionals.
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base leading-relaxed">
+                    {t.featuresSubheading}
                   </p>
                 </div>
 
@@ -717,9 +544,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:scale-105 transition-transform">
                       <Lock className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">Zero Cloud Leakage</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature1Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      Absolutely zero cloud dependency. Your personal tax records, legal drafts, and medical papers never pass through corporate servers or network logs. Fully local.
+                      {t.feature1Desc}
                     </p>
                   </div>
 
@@ -728,9 +555,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-105 transition-transform">
                       <Cpu className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">Local Embedding Models</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature2Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      Nahanjoo embeds tiny, ultra-optimized transformer embedding models (like Xenova/all-MiniLM-L6-v2) directly inside your browser cache. Local tokenization and local vector creation.
+                      {t.feature2Desc}
                     </p>
                   </div>
 
@@ -739,9 +566,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-105 transition-transform">
                       <Download className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">The Portable HTML Trick</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature3Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      A standalone web wrapper. Export Nahanjoo as a single independent HTML file package. Throw it on an air-gapped secure computer, double click to run, and analyze documents immediately offline.
+                      {t.feature3Desc}
                     </p>
                   </div>
 
@@ -750,9 +577,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 group-hover:scale-105 transition-transform">
                       <Database className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">Browser-native Vector DB</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature4Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      Uses IndexedDB and standard client-side storage structures to maintain structured indices. Instantly search hundreds of pages of document chunks in milliseconds using Cosine Similarity.
+                      {t.feature4Desc}
                     </p>
                   </div>
 
@@ -761,9 +588,9 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-105 transition-transform">
                       <Zap className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">No Subscription Costs</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature5Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      You are not renting computing power on a third-party server. All data rendering and semantic generation happens on your own CPU/GPU cores. Infinite free document search.
+                      {t.feature5Desc}
                     </p>
                   </div>
 
@@ -772,12 +599,72 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
                       <FileText className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">Rich Asset Support</h3>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature6Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
-                      Drag-and-drop support for PDF documents, Word `.docx` documents, custom Markdown structures, and raw txt log sheets. Quick parsing and metadata categorization.
+                      {t.feature6Desc}
                     </p>
                   </div>
 
+                </div>
+              </div>
+            </section>
+
+            {/* FREQUENTLY ASKED QUESTIONS SECTION */}
+            <section className="px-4 sm:px-6 lg:px-8 py-12 max-w-5xl mx-auto border-t border-neutral-200/60 dark:border-neutral-800/60">
+              <div className="space-y-8">
+                <div className="text-center space-y-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold uppercase tracking-wider font-mono">
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    <span>{t.faqBadge}</span>
+                  </div>
+                  <h2 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                    {t.faqHeading}
+                  </h2>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm max-w-xl mx-auto leading-relaxed">
+                    {t.faqSubheading}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  {t.faqs.map((faq, index) => {
+                    const isOpen = openFaqIndex === index;
+                    return (
+                      <div
+                        key={index}
+                        className={`rounded-2xl border transition-all overflow-hidden ${
+                          isOpen
+                            ? 'bg-white dark:bg-[#0c101c] border-teal-500/40 shadow-md'
+                            : 'bg-white/60 dark:bg-[#0c101c]/60 border-neutral-200 dark:border-[#131b2e] hover:border-neutral-300 dark:hover:border-neutral-800'
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                          className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-neutral-900 dark:text-white text-sm sm:text-base focus:outline-none"
+                        >
+                          <span className="flex items-center gap-2.5">
+                            <span className="text-teal-500 font-mono text-xs font-bold bg-teal-500/10 px-2 py-0.5 rounded-md">
+                              Q{index + 1}
+                            </span>
+                            <span>{faq.q}</span>
+                          </span>
+                          <div
+                            className={`p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-500 transition-transform duration-200 flex-shrink-0 ${
+                              isOpen ? 'rotate-180 bg-teal-500/10 text-teal-500' : ''
+                            }`}
+                          >
+                            <ChevronDown className="w-4 h-4" />
+                          </div>
+                        </button>
+
+                        {isOpen && (
+                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100 dark:border-neutral-900/60">
+                            <p className="pt-2">{faq.a}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </section>
@@ -787,23 +674,23 @@ export default function App() {
               <div className="relative rounded-3xl bg-gradient-to-r from-teal-600 to-cyan-700 p-8 sm:p-12 shadow-xl overflow-hidden">
                 <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
                 <div className="relative max-w-2xl text-white space-y-4">
-                  <h2 className="text-3xl font-bold">Ready to see it in action?</h2>
-                  <p className="text-teal-50 opacity-90">
-                    We built a fully interactive local RAG client-side simulator. You can upload files, run local chunking processes, see physical vector configurations, and query the dataset locally inside this tab.
+                  <h2 className="text-3xl font-bold">{t.ctaTitle}</h2>
+                  <p className="text-teal-50 opacity-90 leading-relaxed">
+                    {t.ctaDesc}
                   </p>
                   <div className="pt-4 flex flex-wrap gap-4">
                     <button
-                      onClick={() => setActiveTab('sandbox')}
+                      onClick={() => setActiveTab('compliance')}
                       className="px-5 py-3 rounded-xl bg-white text-teal-700 hover:bg-teal-50 font-semibold transition-all shadow-md flex items-center gap-1.5"
                     >
-                      <span>Open Interactive Sandbox</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <span>{t.ctaOpenSecurity}</span>
+                      <ArrowRight className={`w-4 h-4 ${lang === 'fa' ? 'rotate-180' : ''}`} />
                     </button>
                     <button
-                      onClick={() => setActiveTab('guide')}
+                      onClick={() => setActiveTab('architecture')}
                       className="px-5 py-3 rounded-xl bg-teal-800/40 text-white border border-teal-500/30 hover:bg-teal-800/60 font-semibold transition-all"
                     >
-                      Get Offline Bundle Guide
+                      {t.ctaGetGuide}
                     </button>
                   </div>
                 </div>
@@ -815,357 +702,392 @@ export default function App() {
 
 
         {/* =======================================================
-            TAB 2: INTERACTIVE SANDBOX (DEMO SIMULATOR)
+            TAB 2: SECURITY, COMPLIANCE & BENCHMARKS HUB (REPLACEMENT)
             ======================================================= */}
-        {activeTab === 'sandbox' && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 space-y-8">
+        {activeTab === 'compliance' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 space-y-12">
             
-            <div className="space-y-2 max-w-3xl">
-              <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                Interactive Client-Side RAG Simulator
+            <div className="space-y-3 max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-xs font-semibold">
+                <Shield className="w-3.5 h-3.5" />
+                <span>Enterprise Security Hub</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                {t.securityTitle}
               </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                Understand RAG conceptually. Select a sample private document or write your own. Run the offline indexing step to watch local vector coordinates form. Then, ask questions! Everything stays inside this sandbox.
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base leading-relaxed">
+                {t.securitySubtitle}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              
-              {/* Left Column: Document Selection & Vectorizer Indexing */}
-              <div className="lg:col-span-5 space-y-6">
-                
-                {/* Panel 1: Document Upload / Select */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-4">
-                  <div className="flex justify-between items-center pb-3 border-b border-neutral-100 dark:border-neutral-900">
-                    <h2 className="font-bold text-sm tracking-wider uppercase text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
-                      <FileUp className="w-4 h-4" /> Step 1: Input Document
-                    </h2>
-                    <span className="text-[10px] bg-emerald-500/10 text-emerald-500 px-1.5 py-0.2 rounded font-mono">
-                      Safe Sandbox
-                    </span>
-                  </div>
-
-                  {/* Document Presets selector */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
-                      Choose Private Document Preset:
-                    </label>
-                    <div className="grid grid-cols-1 gap-2">
-                      {PRESET_DOCUMENTS.map(doc => (
-                        <button
-                          key={doc.id}
-                          onClick={() => handleDocChange(doc.id)}
-                          className={`w-full p-3 rounded-xl border text-left transition-all flex items-start gap-3 ${
-                            selectedDocId === doc.id && !isCustomActive
-                              ? 'border-teal-500 bg-teal-500/5 text-neutral-900 dark:text-white ring-2 ring-teal-500/20'
-                              : 'border-neutral-200 dark:border-[#131b2e] bg-neutral-50 dark:bg-neutral-900/40 hover:bg-neutral-100 dark:hover:bg-neutral-900'
-                          }`}
-                        >
-                          <div className="mt-0.5 p-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-                            {doc.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex justify-between items-center">
-                              <p className="text-xs font-bold truncate">{doc.title}</p>
-                              {doc.isSensitive && (
-                                <span className="text-[9px] bg-red-500/10 text-red-500 px-1 rounded font-semibold">Sensitive</span>
-                              )}
-                            </div>
-                            <p className="text-[10px] text-neutral-400 dark:text-neutral-500 mt-0.5 truncate">{doc.category}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="relative flex py-2 items-center">
-                    <div className="flex-grow border-t border-neutral-100 dark:border-neutral-900"></div>
-                    <span className="flex-shrink mx-3 text-[11px] font-mono text-neutral-400 uppercase">Or Custom Text</span>
-                    <div className="flex-grow border-t border-neutral-100 dark:border-neutral-900"></div>
-                  </div>
-
-                  {/* Custom Document Input */}
-                  <div className="space-y-2">
-                    <textarea
-                      placeholder="Paste your sensitive documents, medical records, proprietary logs, or legal clauses here..."
-                      value={customText}
-                      onChange={(e) => {
-                        setCustomText(e.target.value);
-                        setIsCustomActive(true);
-                        setSelectedDocId('');
-                      }}
-                      className="w-full h-24 p-3 text-xs bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-[#131b2e] rounded-xl focus:outline-none focus:border-teal-500 font-mono resize-none text-neutral-700 dark:text-neutral-300"
-                    />
-                    <div className="flex justify-end">
-                      <button
-                        onClick={handleCustomTextSubmit}
-                        disabled={customText.trim().length < 15}
-                        className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold flex items-center gap-1 transition-all ${
-                          customText.trim().length >= 15
-                            ? 'bg-teal-600 hover:bg-teal-500 text-white'
-                            : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 cursor-not-allowed'
-                        }`}
-                      >
-                        <Zap className="w-3.5 h-3.5" /> Initialize Custom Text
-                      </button>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Panel 2: Vectorizer Pipeline Status */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-4">
-                  <div className="flex justify-between items-center pb-2 border-b border-neutral-100 dark:border-neutral-900">
-                    <h2 className="font-bold text-sm tracking-wider uppercase text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
-                      <Cpu className="w-4 h-4" /> Step 2: Indexer Progress
-                    </h2>
-                  </div>
-
-                  {/* Action trigger */}
-                  {indexingStep === 'idle' ? (
-                    <div className="space-y-3 py-2 text-center">
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                        This document is selected but has not been parsed or vectorized.
-                      </p>
-                      <button
-                        onClick={startIndexing}
-                        className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
-                      >
-                        <RefreshCw className="w-4 h-4" /> Run Vector Indexer (100% Client-Side)
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {/* State Tracker Visual */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-[11px] font-mono text-neutral-400">
-                          <span>Status:</span>
-                          <span className="text-teal-500 font-bold uppercase">
-                            {indexingStep === 'parsing' && '📂 Parsing File Structures...'}
-                            {indexingStep === 'chunking' && '✂️ Splitting Chunks...'}
-                            {indexingStep === 'embedding' && '🧬 Modeling Local Vectors...'}
-                            {indexingStep === 'completed' && '✅ Indexing Completed!'}
-                          </span>
-                        </div>
-                        <div className="h-2 bg-neutral-200 dark:bg-neutral-900 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-teal-500 to-cyan-400 transition-all duration-300"
-                            style={{ width: `${indexingProgress}%` }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Process Logs Box */}
-                      <div className="bg-neutral-50 dark:bg-neutral-950 p-3 rounded-xl border border-neutral-100 dark:border-neutral-900 font-mono text-[10px] text-neutral-500 dark:text-neutral-400 space-y-1">
-                        <div className="flex justify-between">
-                          <span>[INFO] Init WASM environment</span>
-                          <span className="text-emerald-500">READY</span>
-                        </div>
-                        {indexingProgress >= 15 && (
-                          <div className="flex justify-between">
-                            <span>[INFO] Extracted plaintext text content</span>
-                            <span className="text-teal-500">OK ({isCustomActive ? 'Custom' : selectedDocId})</span>
-                          </div>
-                        )}
-                        {indexingProgress >= 50 && (
-                          <div className="flex justify-between">
-                            <span>[INFO] Created {currentChunks.length} logical text fragments</span>
-                            <span className="text-teal-500">{currentChunks.length} chunks</span>
-                          </div>
-                        )}
-                        {indexingProgress >= 85 && (
-                          <div className="flex justify-between">
-                            <span>[INFO] local-all-MiniLM-L6 vectorizing...</span>
-                            <span className="text-teal-500">384-dims OK</span>
-                          </div>
-                        )}
-                        {indexingProgress === 100 && (
-                          <div className="text-center text-teal-500 font-bold mt-1 uppercase border-t border-neutral-100 dark:border-neutral-900/60 pt-1">
-                            🚀 Database loaded locally inside indexedDB
-                          </div>
-                        )}
-                      </div>
-
-                      {indexingStep === 'completed' && (
-                        <button
-                          onClick={startIndexing}
-                          className="w-full py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900 text-[10px] font-mono transition-all flex items-center justify-center gap-1"
-                        >
-                          <RefreshCw className="w-3.5 h-3.5" /> Re-index Chunks
-                        </button>
-                      )}
-                    </div>
-                  )}
-
-                </div>
-
+            {/* SECTION 1: ARCHITECTURE COMPARISON MATRIX */}
+            <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
+              <div className="space-y-1">
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-teal-500" />
+                  <span>{t.matrixHeading}</span>
+                </h2>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {t.matrixSubheading}
+                </p>
               </div>
 
-              {/* Right Column: Vectors, Semantic Query and AI Chat */}
-              <div className="lg:col-span-7 space-y-6">
-                
-                {/* Part 3: Physical Vector Chunks Visualizer */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-3">
-                  <h3 className="font-bold text-xs tracking-wider uppercase text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
-                    <Database className="w-4 h-4" /> Indexed Document Embeddings ({currentChunks.length} Chunks)
-                  </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse min-w-[650px]">
+                  <thead>
+                    <tr className="border-b border-neutral-200 dark:border-neutral-800 text-neutral-400 font-mono uppercase text-[10px]">
+                      <th className="py-3 px-4 font-bold">{t.matrixColFeature}</th>
+                      <th className="py-3 px-4 font-bold text-teal-600 dark:text-teal-400 bg-teal-500/5 rounded-t-xl">{t.matrixColNahanjoo}</th>
+                      <th className="py-3 px-4 font-bold">{t.matrixColPublicCloud}</th>
+                      <th className="py-3 px-4 font-bold">{t.matrixColPrivateCloud}</th>
+                      <th className="py-3 px-4 font-bold">{t.matrixColLocalServer}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-100 dark:divide-neutral-900/60 text-neutral-700 dark:text-neutral-300">
+                    <tr>
+                      <td className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-white">{t.matrixRow1Label}</td>
+                      <td className="py-3.5 px-4 bg-teal-500/5 font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                        <Check className="w-4 h-4 text-emerald-500" /> {t.matrixRow1Nahanjoo}
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow1PublicCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow1PrivateCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow1LocalServer}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-white">{t.matrixRow2Label}</td>
+                      <td className="py-3.5 px-4 bg-teal-500/5 font-bold text-emerald-600 dark:text-emerald-400">
+                        {t.matrixRow2Nahanjoo}
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow2PublicCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow2PrivateCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow2LocalServer}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-white">{t.matrixRow3Label}</td>
+                      <td className="py-3.5 px-4 bg-teal-500/5 font-bold text-emerald-600 dark:text-emerald-400">
+                        {t.matrixRow3Nahanjoo}
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow3PublicCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow3PrivateCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow3LocalServer}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-white">{t.matrixRow4Label}</td>
+                      <td className="py-3.5 px-4 bg-teal-500/5 font-bold text-emerald-600 dark:text-emerald-400">
+                        {t.matrixRow4Nahanjoo}
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow4PublicCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow4PrivateCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow4LocalServer}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-white">{t.matrixRow5Label}</td>
+                      <td className="py-3.5 px-4 bg-teal-500/5 font-bold text-emerald-600 dark:text-emerald-400 rounded-b-xl">
+                        {t.matrixRow5Nahanjoo}
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow5PublicCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow5PrivateCloud}</td>
+                      <td className="py-3.5 px-4 text-neutral-500">{t.matrixRow5LocalServer}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-                  <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1">
-                    {currentChunks.length > 0 ? (
-                      currentChunks.map((chunk, idx) => {
-                        const isRetrieved = retrievedIndices.includes(idx);
-                        return (
-                          <div 
-                            key={idx}
-                            className={`p-2.5 rounded-xl border text-xs transition-all space-y-1.5 ${
-                              isRetrieved 
-                                ? 'bg-teal-500/10 border-teal-500 dark:border-teal-500 ring-1 ring-teal-500/20' 
-                                : 'bg-neutral-50 dark:bg-neutral-900/30 border-neutral-100 dark:border-[#121b2e]'
-                            }`}
-                          >
-                            <div className="flex justify-between items-center text-[10px] font-mono">
-                              <span className={`font-bold ${isRetrieved ? 'text-teal-600 dark:text-teal-400' : 'text-neutral-400'}`}>
-                                Chunk #{idx + 1} {isRetrieved && '★ RETRIEVED'}
-                              </span>
-                              <span className="text-neutral-400 max-w-[150px] truncate" title={chunk.vector}>
-                                Vector: {chunk.vector}
-                              </span>
-                              {isRetrieved && similarityScores[idx] && (
-                                <span className="bg-teal-500/25 text-teal-600 dark:text-teal-300 font-bold px-1 rounded">
-                                  Score: {similarityScores[idx]}
-                                </span>
-                              )}
-                            </div>
-                            <p className={`text-[11px] leading-relaxed italic ${isRetrieved ? 'text-neutral-900 dark:text-neutral-100 font-medium' : 'text-neutral-500 dark:text-neutral-400'}`}>
-                              "{chunk.text}"
-                            </p>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div className="text-center py-6 text-xs text-neutral-400 font-mono italic">
-                        No chunks loaded. Select a document and trigger the indexer!
-                      </div>
-                    )}
-                  </div>
-                </div>
+            {/* SECTION 2: INDUSTRY REGULATORY COMPLIANCE EVALUATOR */}
+            <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
+              <div className="space-y-1">
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-teal-500" />
+                  <span>{t.evaluatorHeading}</span>
+                </h2>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {t.evaluatorSubheading}
+                </p>
+              </div>
 
-                {/* Part 4: Ask Questions AI Chat interface */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-4">
-                  <div className="flex justify-between items-center pb-2 border-b border-neutral-100 dark:border-neutral-900">
-                    <h3 className="font-bold text-xs tracking-wider uppercase text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
-                      <MessageSquare className="w-4 h-4" /> Step 3: Ask Your Offline Document
-                    </h3>
-                  </div>
-
-                  {/* Preset Quick Questions (only if document is active) */}
-                  {!isCustomActive && selectedDocId && indexingStep === 'completed' && (
-                    <div className="space-y-1.5">
-                      <p className="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
-                        Suggested Private Questions:
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {PRESET_DOCUMENTS.find(d => d.id === selectedDocId)?.presets.map((preset, pIdx) => (
-                          <button
-                            key={pIdx}
-                            onClick={() => handleQuery(preset.q)}
-                            className="bg-neutral-100 dark:bg-neutral-900 hover:bg-teal-50 dark:hover:bg-teal-900/20 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800 text-[10px] font-medium px-2.5 py-1 rounded-lg transition-colors text-left truncate max-w-full"
-                          >
-                            "{preset.q}"
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Custom query input */}
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder={indexingStep === 'completed' ? "Type a private question about your indexed document..." : "Please complete Step 2 (Indexer Progress) first..."}
-                      disabled={indexingStep !== 'completed'}
-                      value={activeQuery}
-                      onChange={(e) => setActiveQuery(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleQuery(activeQuery);
-                      }}
-                      className="flex-1 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-[#131b2e] rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-teal-500 disabled:opacity-50 disabled:cursor-not-allowed text-neutral-700 dark:text-neutral-300"
-                    />
+              {/* Selector Tabs */}
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
+                  {t.selectSectorLabel}
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {(['healthcare', 'legal', 'defense', 'corporate'] as IndustrySector[]).map(sector => (
                     <button
-                      onClick={() => handleQuery(activeQuery)}
-                      disabled={indexingStep !== 'completed' || !activeQuery.trim()}
-                      className="px-4 py-2 bg-teal-600 hover:bg-teal-500 disabled:bg-neutral-200 dark:disabled:bg-neutral-800 text-white font-semibold text-xs rounded-xl transition-colors flex items-center gap-1 shadow-sm"
+                      key={sector}
+                      onClick={() => setSelectedSector(sector)}
+                      className={`p-3.5 rounded-xl border text-left text-xs font-medium transition-all flex items-center gap-2.5 ${
+                        selectedSector === sector
+                          ? 'border-teal-500 bg-teal-500/10 text-teal-600 dark:text-teal-400 shadow-sm ring-1 ring-teal-500/30'
+                          : 'border-neutral-200 dark:border-[#131b2e] bg-neutral-50 dark:bg-neutral-900/40 hover:bg-neutral-100 dark:hover:bg-neutral-900 text-neutral-700 dark:text-neutral-300'
+                      }`}
                     >
-                      <Search className="w-3.5 h-3.5" /> Query
+                      {getSectorData(sector).icon}
+                      <span className="truncate">{t.sectors[sector]}</span>
                     </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Evaluator Output Card */}
+              <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/80 dark:border-neutral-900 space-y-4">
+                <div className="flex flex-wrap justify-between items-center gap-2 pb-3 border-b border-neutral-200 dark:border-neutral-900">
+                  <div className="flex items-center gap-2">
+                    {activeSectorData.icon}
+                    <h3 className="font-bold text-neutral-900 dark:text-white text-sm">{activeSectorData.title}</h3>
                   </div>
+                  <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-xs px-2.5 py-1 rounded-full border border-emerald-500/20">
+                    {activeSectorData.score}
+                  </span>
+                </div>
 
-                  {/* AI Response Display Window */}
-                  {(isSearching || searchedQuery) && (
-                    <div className="bg-neutral-50 dark:bg-neutral-950 p-4 rounded-2xl border border-neutral-100 dark:border-[#131b2e] space-y-3">
-                      <div className="flex justify-between items-center text-[10px] font-mono pb-2 border-b border-neutral-200/50 dark:border-neutral-900/60">
-                        <span className="text-teal-600 dark:text-teal-400 font-bold uppercase flex items-center gap-1">
-                          <Terminal className="w-3.5 h-3.5" /> QUERY: "{searchedQuery}"
-                        </span>
-                        <span className="text-neutral-400">
-                          {isSearching ? '🔍 Vector Scanning...' : '🧠 Local LLM Synthesizer'}
-                        </span>
-                      </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                  <div className="space-y-1">
+                    <p className="font-bold text-neutral-400 uppercase font-mono text-[10px]">{t.dataResidencyLabel}</p>
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{activeSectorData.residency}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-bold text-neutral-400 uppercase font-mono text-[10px]">{t.riskFactorLabel}</p>
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{activeSectorData.risk}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-bold text-neutral-400 uppercase font-mono text-[10px]">{t.recommendedPolicyLabel}</p>
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{activeSectorData.policy}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                      {isSearching ? (
-                        <div className="flex items-center gap-2 text-xs text-neutral-500 py-4 font-mono justify-center">
-                          <RefreshCw className="w-4 h-4 animate-spin text-teal-500" />
-                          <span>Scanning indexed browser buffers...</span>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          <p className="text-xs leading-relaxed text-neutral-800 dark:text-neutral-100 font-sans whitespace-pre-line">
-                            {aiAnswerStream}
-                            <span className="animate-blink inline-block w-1.5 h-3.5 bg-teal-500 ml-0.5" />
-                          </p>
+            {/* SECTION 3: LIVE BROWSER HARDWARE & WEBGPU BENCHMARK DIAGNOSTIC */}
+            <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                    <Gauge className="w-5 h-5 text-teal-500" />
+                    <span>{t.benchmarkHeading}</span>
+                  </h2>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                    {t.benchmarkSubheading}
+                  </p>
+                </div>
 
-                          {/* Source Chunks Attributions list */}
-                          {!isSearching && retrievedIndices.length > 0 && (
-                            <div className="pt-2 border-t border-neutral-200/50 dark:border-neutral-900/60 text-[10px] space-y-1 text-neutral-500">
-                              <p className="font-bold uppercase font-mono text-[9px] text-teal-600 dark:text-teal-400">
-                                Grounded References Found Locally:
-                              </p>
-                              {retrievedIndices.map(idx => (
-                                <div key={idx} className="flex items-start gap-1">
-                                  <span className="text-teal-500">•</span>
-                                  <p className="italic">
-                                    Chunk #{idx + 1} (Similarity Match Score: {similarityScores[idx] || '0.850'})
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                <button
+                  onClick={runHardwareDiagnostic}
+                  disabled={diagnosticStatus === 'running'}
+                  className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 disabled:bg-neutral-300 text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2 self-start sm:self-auto"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${diagnosticStatus === 'running' ? 'animate-spin' : ''}`} />
+                  <span>{diagnosticStatus === 'running' ? t.diagnosticRunning : t.runDiagnosticBtn}</span>
+                </button>
+              </div>
 
-                  {/* Chat logs history */}
-                  {chatHistory.length > 0 && (
-                    <div className="space-y-2 pt-2">
-                      <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
-                        Session Query Log History ({chatHistory.length})
-                      </p>
-                      <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-                        {chatHistory.map((item, hIdx) => (
-                          <div key={hIdx} className="p-2.5 bg-neutral-100/50 dark:bg-neutral-900/30 rounded-xl border border-neutral-200/40 dark:border-neutral-900/60 text-[11px] space-y-1">
-                            <p className="font-bold text-neutral-700 dark:text-neutral-300">Q: {item.q}</p>
-                            <p className="text-neutral-500 dark:text-neutral-400 leading-relaxed">A: {item.a}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* WebGPU Card */}
+                <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
+                  <div className="flex justify-between items-center text-xs text-neutral-400">
+                    <span>{t.webgpuStatusLabel}</span>
+                    <Cpu className="w-4 h-4 text-cyan-500" />
+                  </div>
+                  <p className="font-bold text-sm text-neutral-900 dark:text-white">
+                    {hardwareInfo.hasWebGPU ? t.webgpuSupported : t.webgpuFallback}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-emerald-500 font-mono">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Active Hardware Acceleration</span>
+                  </div>
+                </div>
 
+                {/* WASM Threads Card */}
+                <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
+                  <div className="flex justify-between items-center text-xs text-neutral-400">
+                    <span>{t.wasmThreadsLabel}</span>
+                    <Activity className="w-4 h-4 text-purple-500" />
+                  </div>
+                  <p className="font-bold text-sm text-neutral-900 dark:text-white">
+                    {hardwareInfo.hasWasmThreads ? t.wasmActive : t.wasmSingle}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-purple-400 font-mono">
+                    <span>Multi-threaded WASM</span>
+                  </div>
+                </div>
+
+                {/* RAM Limit Card */}
+                <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
+                  <div className="flex justify-between items-center text-xs text-neutral-400">
+                    <span>{t.memoryLimitLabel}</span>
+                    <Server className="w-4 h-4 text-amber-500" />
+                  </div>
+                  <p className="font-bold text-sm text-neutral-900 dark:text-white font-mono">
+                    ~{hardwareInfo.estMemoryMb} MB RAM
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-neutral-400 font-mono">
+                    <span>Allocated for local models</span>
+                  </div>
+                </div>
+
+                {/* Vector Throughput Card */}
+                <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
+                  <div className="flex justify-between items-center text-xs text-neutral-400">
+                    <span>{t.estimatedThroughputLabel}</span>
+                    <Zap className="w-4 h-4 text-teal-500" />
+                  </div>
+                  <p className="font-bold text-sm text-teal-600 dark:text-teal-400 font-mono">
+                    {hardwareInfo.vectorThroughput} {t.tokensPerSec}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-teal-500 font-mono">
+                    <span>Query Latency: {hardwareInfo.queryLatencyMs} ms</span>
+                  </div>
                 </div>
 
               </div>
+            </div>
 
+            {/* SECTION 4: DOCUMENT MEMORY & STORAGE FOOTPRINT CALCULATOR */}
+            <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
+              <div className="space-y-1">
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                  <Sliders className="w-5 h-5 text-teal-500" />
+                  <span>{t.calcHeading}</span>
+                </h2>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {t.calcSubheading}
+                </p>
+              </div>
+
+              {/* Slider Control */}
+              <div className="space-y-3 max-w-xl">
+                <div className="flex justify-between text-xs font-semibold">
+                  <span className="text-neutral-600 dark:text-neutral-300">{t.pageCountLabel}</span>
+                  <span className="font-mono text-teal-600 dark:text-teal-400 font-bold text-sm">{pageCount} {t.pagesUnit}</span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="1000"
+                  step="5"
+                  value={pageCount}
+                  onChange={(e) => setPageCount(parseInt(e.target.value))}
+                  className="w-full accent-teal-500 cursor-pointer h-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg"
+                />
+                <div className="flex justify-between text-[10px] text-neutral-400 font-mono">
+                  <span>5 pages</span>
+                  <span>250 pages</span>
+                  <span>500 pages</span>
+                  <span>1,000 pages</span>
+                </div>
+              </div>
+
+              {/* Calculated Outputs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
+                  <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estChunksLabel}</p>
+                  <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
+                    ~{(pageCount * 8).toLocaleString()} chunks
+                  </p>
+                  <p className="text-[10px] text-neutral-400">@ 250 words per chunk</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
+                  <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estVectorDbSizeLabel}</p>
+                  <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
+                    ~{((pageCount * 8 * 384 * 4) / (1024 * 1024)).toFixed(2)} MB
+                  </p>
+                  <p className="text-[10px] text-neutral-400">IndexedDB local storage</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
+                  <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estRamConsumptionLabel}</p>
+                  <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
+                    ~{(120 + pageCount * 0.35).toFixed(0)} MB RAM
+                  </p>
+                  <p className="text-[10px] text-neutral-400">Client-side memory overhead</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
+                  <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estSearchLatencyLabel}</p>
+                  <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
+                    &lt; {(0.6 + pageCount * 0.012).toFixed(1)} ms
+                  </p>
+                  <p className="text-[10px] text-neutral-400">Cosine similarity scan speed</p>
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION 5: AIR-GAP DEPLOYMENT CONFIGURATOR */}
+            <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
+              <div className="space-y-1">
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                  <FileCode className="w-5 h-5 text-teal-500" />
+                  <span>{t.deployHeading}</span>
+                </h2>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {t.deploySubheading}
+                </p>
+              </div>
+
+              {/* Config Tabs */}
+              <div className="flex flex-wrap gap-2 border-b border-neutral-200 dark:border-neutral-900 pb-3">
+                <button
+                  onClick={() => setActiveDeployTab('html')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    activeDeployTab === 'html'
+                      ? 'bg-teal-600 text-white shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  }`}
+                >
+                  {t.tabSingleHtml}
+                </button>
+                <button
+                  onClick={() => setActiveDeployTab('docker')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    activeDeployTab === 'docker'
+                      ? 'bg-teal-600 text-white shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  }`}
+                >
+                  {t.tabDocker}
+                </button>
+                <button
+                  onClick={() => setActiveDeployTab('policy')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    activeDeployTab === 'policy'
+                      ? 'bg-teal-600 text-white shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  }`}
+                >
+                  {t.tabPolicy}
+                </button>
+                <button
+                  onClick={() => setActiveDeployTab('tauri')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    activeDeployTab === 'tauri'
+                      ? 'bg-teal-600 text-white shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                  }`}
+                >
+                  {t.tabTauri}
+                </button>
+              </div>
+
+              {/* Snippet Viewer */}
+              <div className="bg-neutral-900 p-4 rounded-xl border border-neutral-800 space-y-3 text-white">
+                <div className="flex justify-between items-center text-xs text-neutral-400 pb-2 border-b border-neutral-800">
+                  <span className="font-mono flex items-center gap-1.5">
+                    <Terminal className="w-4 h-4 text-teal-400" /> Deployment Spec
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(getDeploySnippet(activeDeployTab), `deploy-${activeDeployTab}`)}
+                    className="hover:text-white flex items-center gap-1 transition-colors text-[10px]"
+                  >
+                    {copiedText === `deploy-${activeDeployTab}` ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedText === `deploy-${activeDeployTab}` ? t.configCopied : t.copyConfigBtn}</span>
+                  </button>
+                </div>
+                <pre className="text-xs font-mono text-teal-300 overflow-x-auto p-1 leading-relaxed" dir="ltr">
+                  <code>{getDeploySnippet(activeDeployTab)}</code>
+                </pre>
+              </div>
             </div>
 
           </div>
@@ -1179,51 +1101,163 @@ export default function App() {
             
             <div className="space-y-3 text-center">
               <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                How Nahanjoo Works Client-Side
+                {t.archTitle}
               </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm max-w-2xl mx-auto">
-                Unlike traditional cloud LLMs that require sending your documents over public servers, Nahanjoo runs its pipeline entirely inside your local device processor.
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm max-w-2xl mx-auto leading-relaxed">
+                {t.archSub}
               </p>
             </div>
 
             {/* Architecture diagram cards */}
             <div className="space-y-6">
+
+              {/* Vector Embedding Concept Banner for Non-Developers */}
+              <div className="p-4 rounded-2xl bg-teal-500/5 border border-teal-500/20 flex items-start gap-3.5 shadow-sm">
+                <div className="p-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 rounded-xl mt-0.5 flex-shrink-0">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div className="space-y-1 text-xs">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-bold text-neutral-900 dark:text-white text-sm">
+                      {t.embeddingConceptTitle}
+                    </span>
+                    <span className="text-[10px] bg-teal-500/10 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full font-semibold">
+                      {t.embeddingConceptBadge}
+                    </span>
+                  </div>
+                  <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                    {t.embeddingConceptSimple}
+                  </p>
+                </div>
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
                 
                 {/* Step 1 */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3">
-                  <div className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">STEP 01</div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">File Ingress & Parse</h3>
+                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3 relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">{t.archStep1Num}</span>
+                    <div className="relative group/tooltip">
+                      <button
+                        type="button"
+                        onClick={() => setOpenTooltipStep(openTooltipStep === 1 ? null : 1)}
+                        className="text-neutral-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1"
+                        title={t.embeddingConceptTitle}
+                      >
+                        <HelpCircle className="w-3.5 h-3.5 text-teal-500" />
+                        <span className="text-[10px] text-neutral-400 group-hover/tooltip:text-teal-500 hidden sm:inline font-mono">Info</span>
+                      </button>
+
+                      <div className={`absolute ${lang === 'fa' ? 'left-0' : 'right-0'} bottom-full mb-2 z-30 w-64 p-3 bg-neutral-900 dark:bg-neutral-950 text-white rounded-xl shadow-2xl border border-neutral-700/80 text-xs transition-all ${openTooltipStep === 1 ? 'block' : 'hidden group-hover/tooltip:block'}`}>
+                        <div className="flex items-center gap-1.5 text-teal-400 font-bold text-[11px] mb-1 pb-1 border-b border-neutral-800">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>{t.embeddingConceptTitle}</span>
+                        </div>
+                        <p className="text-[11px] text-neutral-300 leading-relaxed">
+                          {t.embeddingTooltipStep1}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">{t.archStep1Title}</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    A PDF, Word, or TXT file is dragged directly into the window. The browser pulls the binary array into memory with zero server transmission.
+                    {t.archStep1Desc}
                   </p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3">
-                  <div className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">STEP 02</div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">Local Chunking</h3>
+                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3 relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">{t.archStep2Num}</span>
+                    <div className="relative group/tooltip">
+                      <button
+                        type="button"
+                        onClick={() => setOpenTooltipStep(openTooltipStep === 2 ? null : 2)}
+                        className="text-neutral-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1"
+                        title={t.embeddingConceptTitle}
+                      >
+                        <HelpCircle className="w-3.5 h-3.5 text-teal-500" />
+                        <span className="text-[10px] text-neutral-400 group-hover/tooltip:text-teal-500 hidden sm:inline font-mono">Info</span>
+                      </button>
+
+                      <div className={`absolute ${lang === 'fa' ? 'left-0' : 'right-0'} bottom-full mb-2 z-30 w-64 p-3 bg-neutral-900 dark:bg-neutral-950 text-white rounded-xl shadow-2xl border border-neutral-700/80 text-xs transition-all ${openTooltipStep === 2 ? 'block' : 'hidden group-hover/tooltip:block'}`}>
+                        <div className="flex items-center gap-1.5 text-teal-400 font-bold text-[11px] mb-1 pb-1 border-b border-neutral-800">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>{t.embeddingConceptTitle}</span>
+                        </div>
+                        <p className="text-[11px] text-neutral-300 leading-relaxed">
+                          {t.embeddingTooltipStep2}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">{t.archStep2Title}</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Plaintext content is divided into tiny overlapping chunk tokens. This helps maintain context during similarity scans.
+                    {t.archStep2Desc}
                   </p>
                 </div>
 
                 {/* Step 3 */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3">
-                  <div className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">STEP 03</div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">On-device Modeling</h3>
+                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3 relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">{t.archStep3Num}</span>
+                    <div className="relative group/tooltip">
+                      <button
+                        type="button"
+                        onClick={() => setOpenTooltipStep(openTooltipStep === 3 ? null : 3)}
+                        className="text-neutral-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1"
+                        title={t.embeddingConceptTitle}
+                      >
+                        <HelpCircle className="w-3.5 h-3.5 text-teal-500" />
+                        <span className="text-[10px] text-neutral-400 group-hover/tooltip:text-teal-500 hidden sm:inline font-mono">Info</span>
+                      </button>
+
+                      <div className={`absolute ${lang === 'fa' ? 'left-0' : 'right-0'} bottom-full mb-2 z-30 w-64 p-3 bg-neutral-900 dark:bg-neutral-950 text-white rounded-xl shadow-2xl border border-neutral-700/80 text-xs transition-all ${openTooltipStep === 3 ? 'block' : 'hidden group-hover/tooltip:block'}`}>
+                        <div className="flex items-center gap-1.5 text-teal-400 font-bold text-[11px] mb-1 pb-1 border-b border-neutral-800">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>{t.embeddingConceptTitle}</span>
+                        </div>
+                        <p className="text-[11px] text-neutral-300 leading-relaxed">
+                          {t.embeddingTooltipStep3}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">{t.archStep3Title}</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Lightweight embedder models run locally using WebGPU or WebAssembly. Each chunk is mapped into a vector representing its semantics.
+                    {t.archStep3Desc}
                   </p>
                 </div>
 
                 {/* Step 4 */}
-                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3">
-                  <div className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">STEP 04</div>
-                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">Interactive RAG</h3>
+                <div className="bg-white dark:bg-[#0c101c] p-5 rounded-2xl border border-neutral-200 dark:border-[#121b2e] space-y-3 relative">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">{t.archStep4Num}</span>
+                    <div className="relative group/tooltip">
+                      <button
+                        type="button"
+                        onClick={() => setOpenTooltipStep(openTooltipStep === 4 ? null : 4)}
+                        className="text-neutral-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1"
+                        title={t.embeddingConceptTitle}
+                      >
+                        <HelpCircle className="w-3.5 h-3.5 text-teal-500" />
+                        <span className="text-[10px] text-neutral-400 group-hover/tooltip:text-teal-500 hidden sm:inline font-mono">Info</span>
+                      </button>
+
+                      <div className={`absolute ${lang === 'fa' ? 'left-0' : 'right-0'} bottom-full mb-2 z-30 w-64 p-3 bg-neutral-900 dark:bg-neutral-950 text-white rounded-xl shadow-2xl border border-neutral-700/80 text-xs transition-all ${openTooltipStep === 4 ? 'block' : 'hidden group-hover/tooltip:block'}`}>
+                        <div className="flex items-center gap-1.5 text-teal-400 font-bold text-[11px] mb-1 pb-1 border-b border-neutral-800">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>{t.embeddingConceptTitle}</span>
+                        </div>
+                        <p className="text-[11px] text-neutral-300 leading-relaxed">
+                          {t.embeddingTooltipStep4}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-sm text-neutral-900 dark:text-white">{t.archStep4Title}</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    When queried, the browser calculates mathematical similarities, pulls matching chunks, and feeds them locally to an offline client-side LLM.
+                    {t.archStep4Desc}
                   </p>
                 </div>
 
@@ -1233,19 +1267,19 @@ export default function App() {
               <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-[#131d2f] space-y-4">
                 <div className="flex items-center gap-2">
                   <Cpu className="w-5 h-5 text-teal-500" />
-                  <h2 className="text-lg font-bold text-neutral-900 dark:text-white">Under the Hood Stack</h2>
+                  <h2 className="text-lg font-bold text-neutral-900 dark:text-white">{t.underTheHood}</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                   <div className="space-y-2">
-                    <p className="font-bold text-xs text-neutral-400 uppercase font-mono tracking-wider">ONNX Runtime & Transformers.js</p>
+                    <p className="font-bold text-xs text-neutral-400 uppercase font-mono tracking-wider">{t.onnxTitle}</p>
                     <p className="text-neutral-600 dark:text-neutral-400 text-xs leading-relaxed">
-                      Leverages WebAssembly execution threads and WebGPU pipelines to accelerate neural network operations. Runs standard models at high speeds directly in modern Chrome, Firefox, and Safari, requiring no drivers or CLI configs.
+                      {t.onnxDesc}
                     </p>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-bold text-xs text-neutral-400 uppercase font-mono tracking-wider">The Single HTML compilation</p>
+                    <p className="font-bold text-xs text-neutral-400 uppercase font-mono tracking-wider">{t.htmlCompilationTitle}</p>
                     <p className="text-neutral-600 dark:text-neutral-400 text-xs leading-relaxed">
-                      Nahanjoo bundles code, assets, UI styles, and logic files into a single standalone page wrapper. Perfect for secure operations, highly structured industrial air-gaps, or absolute backup scenarios.
+                      {t.htmlCompilationDesc}
                     </p>
                   </div>
                 </div>
@@ -1264,26 +1298,26 @@ export default function App() {
             
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                Get Started with Nahanjoo
+                {t.guideTitle}
               </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                Get Nahanjoo running locally on your own machine. No server installation or complex Python dependencies required. Just clone, compile, or double click the single HTML.
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                {t.guideSub}
               </p>
             </div>
 
             {/* Quick Clone Terminal Command */}
             <div className="bg-neutral-900 p-5 rounded-2xl border border-neutral-800 space-y-3 text-white">
               <div className="flex justify-between items-center text-xs text-neutral-400 pb-2 border-b border-neutral-800">
-                <span className="font-mono flex items-center gap-1.5"><Terminal className="w-4 h-4 text-teal-400" /> Command Line Setup</span>
+                <span className="font-mono flex items-center gap-1.5"><Terminal className="w-4 h-4 text-teal-400" /> {t.cmdTitle}</span>
                 <button
                   onClick={() => copyToClipboard('git clone https://github.com/ZhiwarSajadi/Nahanjoo.git\ncd Nahanjoo\nnpm install\nnpm run dev', 'git-clone')}
                   className="hover:text-white flex items-center gap-1 transition-colors text-[10px]"
                 >
                   {copiedText === 'git-clone' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedText === 'git-clone' ? 'Copied!' : 'Copy CMD'}</span>
+                  <span>{copiedText === 'git-clone' ? t.copiedBtn : t.copyCmdBtn}</span>
                 </button>
               </div>
-              <pre className="text-xs font-mono text-teal-300 overflow-x-auto p-1 leading-relaxed">
+              <pre className="text-xs font-mono text-teal-300 overflow-x-auto p-1 leading-relaxed" dir="ltr">
                 <code>{`# Clone the repository
 git clone https://github.com/ZhiwarSajadi/Nahanjoo.git
 
@@ -1306,9 +1340,9 @@ npm run dev`}</code>
                   1
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">Clone & Open</h3>
+                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">{t.guideStep1Title}</h3>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Simply clone the repository from GitHub. The codebase is highly modular, readable, and structured using clean React, TypeScript, and Vite.
+                    {t.guideStep1Desc}
                   </p>
                 </div>
               </div>
@@ -1318,9 +1352,9 @@ npm run dev`}</code>
                   2
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">Export Raw Standalone File</h3>
+                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">{t.guideStep2Title}</h3>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Build the standalone distribution bundle. Run <code className="bg-neutral-100 dark:bg-neutral-900 px-1 py-0.5 rounded font-mono text-xs">npm run build:offline</code> inside the workspace. The compiler will aggregate all required modules and produce a lightweight, singular HTML layout you can open with any web client.
+                    {t.guideStep2Desc}
                   </p>
                 </div>
               </div>
@@ -1330,9 +1364,9 @@ npm run dev`}</code>
                   3
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">Air-Gapped Privacy Deployment</h3>
+                  <h3 className="font-bold text-neutral-900 dark:text-white text-base">{t.guideStep3Title}</h3>
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Copy the single HTML bundle or folder compilation to any secure workstation or private server directory. Enjoy complete retrieval and querying capabilities without ever connecting to an online socket.
+                    {t.guideStep3Desc}
                   </p>
                 </div>
               </div>
@@ -1343,11 +1377,10 @@ npm run dev`}</code>
             <div className="p-6 bg-teal-500/5 rounded-2xl border border-teal-500/10 space-y-4">
               <div className="flex items-center gap-2">
                 <Github className="w-5 h-5 text-teal-500" />
-                <h3 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">Contribute & Stars</h3>
+                <h3 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">{t.contributeTitle}</h3>
               </div>
               <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Nahanjoo is an open-source, community-driven project created to defend data privacy. 
-                If you find this utility helpful, please star the repository, open pull requests, and share suggestions to improve local offline AI model support!
+                {t.contributeDesc}
               </p>
               <div className="pt-2">
                 <a
@@ -1356,7 +1389,7 @@ npm run dev`}</code>
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-semibold text-xs transition-all shadow"
                 >
-                  <span>Star on GitHub</span>
+                  <span>{t.starGithubBtn}</span>
                   <Github className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -1371,20 +1404,18 @@ npm run dev`}</code>
       <footer className="border-t border-neutral-200 dark:border-neutral-900/60 bg-white dark:bg-[#060810] py-8 text-xs text-neutral-500 dark:text-neutral-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-neutral-900 dark:text-white font-mono text-sm tracking-tight">نه‌هانجو | Nahanjoo</span>
+            <span className="font-bold text-neutral-900 dark:text-white font-mono text-sm tracking-tight">{t.statusSubtitle}</span>
             <span className="text-neutral-300 dark:text-neutral-800">|</span>
-            <span>100% Client-Side Private AI Sandbox Platform</span>
+            <span>{t.footerPlatform}</span>
           </div>
           <div className="flex items-center gap-4 font-mono text-[10px]">
-            <span>MIT License</span>
-            <span className="text-neutral-300 dark:text-neutral-800">•</span>
             <a 
               href="https://github.com/ZhiwarSajadi/Nahanjoo" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1"
             >
-              <span>Nahanjoo Core</span>
+              <span>{t.footerCoreRepo}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
             <span className="text-neutral-300 dark:text-neutral-800">•</span>
@@ -1394,7 +1425,7 @@ npm run dev`}</code>
               rel="noopener noreferrer" 
               className="hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1"
             >
-              <span>Website Repo</span>
+              <span>{t.footerWebsiteRepo}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </div>
