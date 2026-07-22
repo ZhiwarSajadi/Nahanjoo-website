@@ -257,14 +257,7 @@ export default function App() {
               <img 
                 src={logoImg} 
                 alt="Nahanjoo Logo" 
-                className="w-full h-full object-contain rounded-lg block"
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  if (!target.dataset.fallback) {
-                    target.dataset.fallback = 'true';
-                    target.src = '/logo.svg';
-                  }
-                }}
+                className="w-full h-full object-cover rounded-lg block"
               />
             </div>
             <div>
