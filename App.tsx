@@ -34,6 +34,7 @@ import {
   Landmark
 } from 'lucide-react';
 import { translations, Language } from './translations';
+import logoImg from './src/assets/images/logo.jpg';
 
 const Github: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -254,10 +255,16 @@ export default function App() {
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-white border border-neutral-200 dark:border-neutral-800 shadow-sm overflow-hidden flex items-center justify-center shrink-0 p-0.5">
               <img 
-                src="/logo.jpg" 
+                src={logoImg} 
                 alt="Nahanjoo Logo" 
                 className="w-full h-full object-contain rounded-lg block"
-                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = '/logo.svg';
+                  }
+                }}
               />
             </div>
             <div>
