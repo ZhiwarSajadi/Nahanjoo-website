@@ -7,19 +7,20 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-The official public landing page and interactive client-side simulator for **[Nahanjoo (نهانجو)](https://github.com/ZhiwarSajadi/Nahanjoo)** — a portable, ultra-secure, 100% client-side offline Retrieval-Augmented Generation (RAG) platform.
+The official public landing page and architecture showcase for **[Nahanjoo (نهانجو)](https://github.com/ZhiwarSajadi/Nahanjoo)** — a fully offline, privacy-first local Retrieval-Augmented Generation (RAG) desktop application for Persian PDF document analysis powered by PySide6, Qwen 2.5 3B, and FAISS.
 
 ---
 
 ## 🌟 Overview
 
-**Nahanjoo Website** serves as the public introduction and interactive sandbox for the core Nahanjoo project. It allows visitors to explore the privacy-first architecture of Nahanjoo, test an interactive computer-based RAG simulation (parsing, chunking, embedding, and semantic similarity search), and learn how to run Nahanjoo in air-gapped or sensitive environments.
+**Nahanjoo Website** serves as the public introduction and interactive showcase for the core **Nahanjoo** desktop project ([github.com/ZhiwarSajadi/Nahanjoo](https://github.com/ZhiwarSajadi/Nahanjoo)). It allows visitors to explore the air-gapped architecture of Nahanjoo, learn how custom Persian text normalization and FAISS vector retrieval function locally, inspect hardware benchmarks, and access setup instructions.
 
 ### Key Highlights
-- **Interactive Sandbox Demo**: Test RAG indexing and similarity querying right on your computer with preset confidential medical/technical documents or custom text.
-- **Architecture Breakdown**: Deep dive into how client-side ONNX Runtime, Transformers.js, and WebAssembly deliver zero-server AI retrieval.
-- **Responsive Dark/Light UI**: Built with React, Tailwind CSS, Lucide Icons, and Motion transitions.
-- **Zero API Key Requirements for Basic Exploration**: Demonstrates client-side document processing in complete isolation.
+- **Official Introduction to Nahanjoo Core**: Details the PySide6 (Qt6) desktop assistant for Persian PDF document analysis.
+- **Persian Text Normalization Breakdown**: Explains how `PersianNormalizer` fixes PyMuPDF extraction quirks, RTL rendering, ZWNJ spaces (`نیم‌فاصله`), and character encoding inconsistencies.
+- **Local AI Architecture**: Highlights local CPU inference via **Qwen 2.5 3B Instruct** GGUF (`llama-cpp-python`) and **FAISS** vector indexing with multilingual embeddings (`paraphrase-multilingual-MiniLM-L12-v2`).
+- **Interactive Security & Hardware Hub**: Evaluates hardware specs, vector RAM consumption, and deployment specs.
+- **Bilingual Interface**: Seamless switching between English (`LTR`) and Persian (`RTL`) languages.
 
 ---
 
@@ -27,12 +28,12 @@ The official public landing page and interactive client-side simulator for **[Na
 
 | Repository | Purpose | Link |
 | :--- | :--- | :--- |
-| **Nahanjoo Core** | The offline, portable client-side RAG application source code | [github.com/ZhiwarSajadi/Nahanjoo](https://github.com/ZhiwarSajadi/Nahanjoo) |
-| **Nahanjoo Website** | The public introduction page & interactive showcase (this repository) | [github.com/ZhiwarSajadi/Nahanjoo-website](https://github.com/ZhiwarSajadi/Nahanjoo-website) |
+| **Nahanjoo Core** | The 100% offline, PySide6/Qwen 2.5 3B/FAISS desktop application source code | [github.com/ZhiwarSajadi/Nahanjoo](https://github.com/ZhiwarSajadi/Nahanjoo) |
+| **Nahanjoo Website** | The public introduction page & showcase website (this repository) | [github.com/ZhiwarSajadi/Nahanjoo-website](https://github.com/ZhiwarSajadi/Nahanjoo-website) |
 
 ---
 
-## 🚀 Quick Start (Local Development)
+## 🚀 Quick Start (Website Development)
 
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher
@@ -40,7 +41,7 @@ The official public landing page and interactive client-side simulator for **[Na
 
 ### Steps
 
-1. **Clone the Repository**
+1. **Clone the Website Repository**
    ```bash
    git clone https://github.com/ZhiwarSajadi/Nahanjoo-website.git
    cd Nahanjoo-website
@@ -51,7 +52,7 @@ The official public landing page and interactive client-side simulator for **[Na
    npm install
    ```
 
-3. **Start Development Server**
+3. **Start Local Development Server**
    ```bash
    npm run dev
    ```
@@ -69,32 +70,10 @@ The official public landing page and interactive client-side simulator for **[Na
 
 This repository is optimized for one-click deployment on **Vercel**.
 
-### Option 1: Vercel Dashboard (Recommended)
-
 1. Go to [Vercel Dashboard](https://vercel.com/new).
 2. Import the `ZhiwarSajadi/Nahanjoo-website` repository from GitHub.
-3. Configure the build parameters (auto-detected by `vercel.json`):
-   - **Framework Preset**: `Vite`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. Click **Deploy**. Vercel will build and host the site with automatic HTTPS.
-
-### Option 2: Vercel CLI
-
-```bash
-npm install -g vercel
-vercel
-```
-
----
-
-## 🛠️ Built With
-
-- **Framework**: [React 19](https://react.dev/) & [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Animations**: [Motion](https://motion.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
+3. Build command: `npm run build` | Output directory: `dist`.
+4. Click **Deploy**.
 
 ---
 

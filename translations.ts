@@ -4,136 +4,136 @@ export const translations = {
   en: {
     // Top status rail
     statusVersion: "Nahanjoo Core Release: v1.0.0 Stable",
-    statusSecurity: "100% Air-Gapped & Compliant",
-    statusSubtitle: "Nahanjoo",
+    statusSecurity: "100% Offline PySide6 & Qwen 2.5 3B",
+    statusSubtitle: "Nahanjoo Desktop",
 
     // Navigation
     navOverview: "Overview",
     navSecurity: "Security & Benchmarks",
-    navArchitecture: "How it Works",
+    navArchitecture: "System Architecture",
     navGuide: "Get Started",
     navTrySecurity: "Security Hub",
     secBadge: "Enterprise",
 
     // Hero Section
-    heroBadge: "The Ultimate Secure Offline Retrieval Solution",
+    heroBadge: "Local RAG Desktop Assistant for Persian Documents",
     heroTitlePart1: "Your Documents.",
-    heroTitlePart2: "Your Computer.",
-    heroTitleHighlight: "100% Offline AI.",
-    heroDesc: "Nahanjoo (نهانجو) is a portable, ultra-secure, client-side RAG application. Process sensitive documents, generate embeddings, and query them completely locally. No API keys, no subscriptions, and zero database queries leaving your machine.",
-    heroCtaSecurity: "Explore Security & Benchmarks",
-    heroCtaGithub: "View GitHub Code",
-    heroFeatureNoServers: "No Servers",
-    heroFeatureNoAccount: "No Account Required",
-    heroFeatureCompliant: "HIPAA & GDPR Compliant",
+    heroTitlePart2: "Your Hardware.",
+    heroTitleHighlight: "100% Local Persian AI.",
+    heroDesc: "Nahanjoo (نهانجو) is a privacy-first, fully offline Retrieval-Augmented Generation (RAG) desktop application built with PySide6, Qwen 2.5 3B Instruct, FAISS vector search, and a specialized Persian Text Normalizer. Index confidential Persian PDFs and query them completely on your local computer.",
+    heroCtaSecurity: "Explore Architecture & Security",
+    heroCtaGithub: "View Core Repo on GitHub",
+    heroFeatureNoServers: "No External APIs",
+    heroFeatureNoAccount: "100% Offline (No Internet)",
+    heroFeatureCompliant: "Air-Gapped & Privacy-First",
 
     // Hero Mock App
-    mockWindowFile: "local_environment_security.sh",
-    mockEmbeddingsDb: "Local Embeddings DB",
-    mockOnlineZeroKb: "ONLINE (0KB sent)",
-    mockHardwareEngine: "Embedding Hardware Engine",
+    mockWindowFile: "main.py (PySide6 Qt6 GUI)",
+    mockEmbeddingsDb: "FAISS Vector Store (MiniLM-L12-v2)",
+    mockOnlineZeroKb: "LOCAL CPU (0 KB sent)",
+    mockHardwareEngine: "Qwen 2.5 3B GGUF (llama-cpp-python)",
 
     // Feature Section
-    featuresHeading: "Uncompromising Security, Local Efficiency",
-    featuresSubheading: "By keeping all computations client-side, Nahanjoo is designed to answer the security demands of critical enterprises, healthcare teams, and legal professionals.",
+    featuresHeading: "Engineered for Persian PDF Processing & Local Privacy",
+    featuresSubheading: "Designed specifically to overcome Persian PDF text extraction quirks, RTL rendering challenges, and cloud data privacy risks.",
     
-    feature1Title: "Zero Cloud Leakage",
-    feature1Desc: "Absolutely zero cloud dependency. Your personal tax records, legal drafts, and medical papers never pass through corporate servers or network logs. Fully local.",
+    feature1Title: "100% Offline & Privacy-Preserving",
+    feature1Desc: "All text extraction, vector embeddings, similarity search, and LLM inference occur strictly locally on CPU/RAM. Zero cloud API calls or network telemetry.",
     
-    feature2Title: "Local Embedding Models",
-    feature2Desc: "Nahanjoo embeds tiny, ultra-optimized transformer embedding models (like Xenova/all-MiniLM-L6-v2) directly inside your computer's local cache. Local tokenization and local vector creation.",
+    feature2Title: "Persian Ligature & Unicode Normalizer",
+    feature2Desc: "Custom regex & dictionary pipeline (PersianNormalizer) fixing PyMuPDF extraction bugs, RTL rendering, ZWNJ space handling, and character unification.",
     
-    feature3Title: "The Portable HTML Trick",
-    feature3Desc: "A standalone web wrapper. Export Nahanjoo as a single independent HTML file package. Throw it on an air-gapped secure computer, double click to run, and analyze documents immediately offline.",
+    feature3Title: "Quantized Local LLM (Qwen 2.5 3B)",
+    feature3Desc: "High-speed local CPU inference with Qwen 2.5 3B Instruct (Q4_K_M GGUF) via llama-cpp-python, offering real-time token streaming with zero latency lag.",
     
-    feature4Title: "Computer-native Vector DB",
-    feature4Desc: "Uses IndexedDB and standard client-side storage structures to maintain structured indices. Instantly search hundreds of pages of document chunks in milliseconds using Cosine Similarity.",
+    feature4Title: "FAISS High-Precision Vector Store",
+    feature4Desc: "Powered by HuggingFace paraphrase-multilingual-MiniLM-L12-v2 embeddings and chunk deduplication to retrieve highly accurate source context passages.",
     
-    feature5Title: "No Subscription Costs",
-    feature5Desc: "You are not renting computing power on a third-party server. All data rendering and semantic generation happens on your own CPU/GPU cores. Infinite free document search.",
+    feature5Title: "Bilingual PySide6 Desktop GUI",
+    feature5Desc: "Sleek dark-themed Qt6 interface with an instant language toggle (🌐 English / 🌐 فارسی) switching between Persian (RTL) and English (LTR) layouts.",
     
-    feature6Title: "Rich Asset Support",
-    feature6Desc: "Drag-and-drop support for PDF documents, Word `.docx` documents, custom Markdown structures, and raw txt log sheets. Quick parsing and metadata categorization.",
+    feature6Title: "Portable USB Runtime Builder",
+    feature6Desc: "Includes build_usb_portable.py to package an isolated Python 3.12 runtime, pre-cached models, and FAISS index into a self-contained portable USB folder.",
 
     // CTA Banner
-    ctaTitle: "Need Enterprise Air-Gapped Security?",
-    ctaDesc: "Explore our interactive Security Matrix, run real-time computer hardware diagnostics, calculate vector memory footprints, and generate air-gap deployment configurations.",
+    ctaTitle: "Need Air-Gapped Persian Document Analysis?",
+    ctaDesc: "Explore Nahanjoo's system architecture, run local hardware diagnostics, calculate vector storage footprints, and inspect setup instructions.",
     ctaOpenSecurity: "Explore Security Hub",
-    ctaGetGuide: "Get Offline Bundle Guide",
+    ctaGetGuide: "Get Setup & USB Guide",
 
     // FAQ Section
     faqBadge: "Got Questions?",
     faqHeading: "Frequently Asked Questions",
-    faqSubheading: "Everything you need to know about local RAG technology, data security, and offline document analysis.",
+    faqSubheading: "Everything you need to know about Nahanjoo desktop application, local RAG technology, and Persian PDF processing.",
     faqs: [
       {
-        q: "How does local RAG differ from traditional cloud-based AI tools?",
-        a: "Traditional RAG sends your uploaded documents over the internet to remote cloud servers for vector embedding and retrieval. Nahanjoo performs document parsing, vector generation, and semantic similarity searching 100% locally on your computer using WebGPU and WebAssembly. Zero bytes leave your machine."
+        q: "What makes Nahanjoo different from standard PDF RAG tools?",
+        a: "Standard PDF tools fail on Persian text due to RTL rendering quirks, broken ligatures (like 'ال' vs 'لا'), character encoding mismatches, and cloud privacy risks. Nahanjoo features a dedicated PersianTextNormalizer, runs 100% offline via PySide6, FAISS, and Qwen 2.5 3B Instruct on your local CPU."
       },
       {
-        q: "Is my document data completely private and safe from AI training?",
-        a: "Yes! Absolute privacy is enforced by physical architecture. Because Nahanjoo processes all files inside your computer's local memory and local storage, no third party, cloud server, or AI training pipeline ever receives your documents or search queries."
+        q: "Does Nahanjoo send any document data to cloud servers?",
+        a: "No! Absolute privacy is enforced physically. PDF parsing, text normalization, vector embedding generation (paraphrase-multilingual-MiniLM-L12-v2), FAISS indexing, and LLM text generation (Qwen 2.5 3B) happen entirely on your computer's local hardware without any network connections."
       },
       {
-        q: "What file formats and sizes are supported?",
-        a: "Nahanjoo supports PDF documents, Microsoft Word files (.docx), Markdown files (.md), and plain text logs (.txt). There are no artificial paywall limits; processing performance scales with your computer's memory (RAM), easily handling hundreds of document pages."
+        q: "What hardware is required to run Nahanjoo Desktop?",
+        a: "Nahanjoo runs smoothly on standard modern computers (Windows 10/11) with 8GB or more RAM. The LLM is quantized in Q4_K_M GGUF format and runs efficiently on local CPU cores using llama-cpp-python without requiring an expensive dedicated GPU."
       },
       {
-        q: "Do I need an active internet connection or specialized GPU?",
-        a: "No! Once loaded, Nahanjoo operates completely offline without any internet connection. It utilizes ultra-lightweight transformer models (like all-MiniLM-L6-v2) engineered to run smoothly on standard laptop CPUs and integrated graphics."
+        q: "How does the bilingual query and CoT answering system work?",
+        a: "Nahanjoo features an automatic query language detector. If you ask a question in English, it responds in English with structured Chain-of-Thought (CoT) sections ('Analysis:' / 'Final Answer:'). If asked in Persian, it responds in Persian ('تحلیل:' / 'پاسخ نهایی:')."
       },
       {
-        q: "Can Nahanjoo be deployed in air-gapped or restricted corporate networks?",
-        a: "Yes. You can compile Nahanjoo into a single standalone HTML bundle (index.html). Transfer this bundle to an air-gapped workstation via a secure flash drive and run full document RAG without installing local servers, Node.js, or CLI dependencies."
+        q: "Can I run Nahanjoo from a USB flash drive on an air-gapped machine?",
+        a: "Yes! Nahanjoo includes a portable runtime builder (`python build_usb_portable.py`). It compiles an isolated Python environment and pre-caches the model files into a single portable folder that can be run from a USB drive on any air-gapped PC."
       },
       {
-        q: "Are there any subscription fees or query limits?",
-        a: "None. You are utilizing your own computer's processing power rather than renting remote cloud servers. All semantic search and document retrieval is 100% free with unlimited local queries."
+        q: "Where are chat logs and document vector indices saved?",
+        a: "Document vector indices are stored locally in `./VectorStore`, document metadata tracking in `source_metadata.json`, and chat history in `./Chats` as structured JSON files. You can reload, switch, or delete past sessions anytime."
       }
     ],
 
     // Security & Compliance Hub Tab
-    securityTitle: "Enterprise Security, Compliance & Benchmarks",
-    securitySubtitle: "Evaluate Nahanjoo's air-gapped security posture, run live computer hardware diagnostics, calculate local vector storage footprints, and export air-gap deployment policies.",
+    securityTitle: "Enterprise Security, Compliance & System Metrics",
+    securitySubtitle: "Evaluate Nahanjoo's air-gapped desktop security posture, run live hardware diagnostics, calculate vector storage footprints, and inspect local deployment specs.",
     
     // Security Matrix Comparison
     matrixHeading: "1. Security & Architecture Posture Matrix",
-    matrixSubheading: "Compare Nahanjoo against traditional public AI clouds, enterprise private clouds, and local server solutions.",
+    matrixSubheading: "Compare Nahanjoo's local desktop architecture against public cloud AI, private cloud LLMs, and remote API gateways.",
     matrixColFeature: "Security Vector",
-    matrixColNahanjoo: "Nahanjoo (Client RAG)",
+    matrixColNahanjoo: "Nahanjoo Desktop (Local PySide6)",
     matrixColPublicCloud: "Public Cloud AI (SaaS)",
     matrixColPrivateCloud: "Private Cloud LLM",
-    matrixColLocalServer: "Local Server (Ollama)",
+    matrixColLocalServer: "Remote API Gateway",
 
     matrixRow1Label: "Data Transmission",
-    matrixRow1Nahanjoo: "Zero Network Sockets (0 KB)",
+    matrixRow1Nahanjoo: "Zero Network Calls (0 KB)",
     matrixRow1PublicCloud: "Public Internet Payload",
     matrixRow1PrivateCloud: "VPC / TLS Tunnel",
-    matrixRow1LocalServer: "Local Host Loopback",
+    matrixRow1LocalServer: "Local Network Sockets",
 
-    matrixRow2Label: "HIPAA / PHI Safety",
-    matrixRow2Nahanjoo: "Native Air-Gapped Compliant",
-    matrixRow2PublicCloud: "Requires BAA Agreement",
-    matrixRow2PrivateCloud: "Configurable BAA",
-    matrixRow2LocalServer: "Compliance Dependent",
+    matrixRow2Label: "Persian Text Accuracy",
+    matrixRow2Nahanjoo: "Custom PersianNormalizer Pipeline",
+    matrixRow2PublicCloud: "Generic / Broken Ligatures",
+    matrixRow2PrivateCloud: "Standard Tokenizer",
+    matrixRow2LocalServer: "Unoptimized for Persian",
 
-    matrixRow3Label: "GDPR Right to Erase",
-    matrixRow3Nahanjoo: "Instant (Clear Local Storage)",
+    matrixRow3Label: "Data Privacy & SLA",
+    matrixRow3Nahanjoo: "100% Local (Inside CPU/RAM)",
     matrixRow3PublicCloud: "30-90 Day Provider SLA",
     matrixRow3PrivateCloud: "Manual DB Purge",
-    matrixRow3LocalServer: "Local File Delete",
+    matrixRow3LocalServer: "Local File Logs",
 
     matrixRow4Label: "AI Model Retraining",
-    matrixRow4Nahanjoo: "Impossible (No Ingestion)",
+    matrixRow4Nahanjoo: "Impossible (No External Ingestion)",
     matrixRow4PublicCloud: "Risk of Training Data Ingestion",
     matrixRow4PrivateCloud: "Contractual Non-Training",
     matrixRow4LocalServer: "Impossible",
 
     matrixRow5Label: "Infrastructure Cost",
-    matrixRow5Nahanjoo: "$0 (Uses Client Hardware)",
-    matrixRow5PublicCloud: "Per-Token API Subscription",
-    matrixRow5PrivateCloud: "High Hourly GPU Server Billing",
-    matrixRow5LocalServer: "Local Hardware Purchase",
+    matrixRow5Nahanjoo: "$0 (Uses Local Computer CPU/RAM)",
+    matrixRow5PublicCloud: "Per-Token API Billing",
+    matrixRow5PrivateCloud: "Heavy Hourly GPU Server Cost",
+    matrixRow5LocalServer: "Hardware Purchasing",
 
     // Industry Compliance Evaluator
     evaluatorHeading: "2. Industry Regulatory Compliance Assessment",
@@ -142,7 +142,7 @@ export const translations = {
     sectors: {
       healthcare: "Healthcare & Life Sciences (HIPAA / HITECH)",
       legal: "Legal, Banking & Financial Services (SOC 2 / SEC)",
-      defense: "Defense & Government (Air-Gapped / FedRAMP)",
+      defense: "Defense & Government (Air-Gapped / SCIF)",
       corporate: "Corporate R&D & IP Protection (ISO 27001)"
     },
     complianceScoreLabel: "Air-Gapped Compliance Score",
@@ -151,236 +151,236 @@ export const translations = {
     recommendedPolicyLabel: "Recommended Deployment Strategy",
 
     // Hardware Benchmark Diagnostic Tool
-    benchmarkHeading: "3. Live Computer Hardware & Accelerator Diagnostic",
-    benchmarkSubheading: "Inspect your computer's local processing engine, WebGPU hardware acceleration, WebAssembly thread pool, and estimated vector throughput.",
-    runDiagnosticBtn: "Run Computer Environment Diagnostic",
-    diagnosticRunning: "Analyzing Hardware Pipeline...",
-    webgpuStatusLabel: "WebGPU Acceleration",
-    webgpuSupported: "Hardware Accelerated (Active)",
-    webgpuFallback: "Fallback to CPU WASM Engine",
-    wasmThreadsLabel: "WebAssembly Multi-Threading",
-    wasmActive: "SharedArrayBuffer Multi-Thread Active",
-    wasmSingle: "Single-Thread Standard",
+    benchmarkHeading: "3. Live Computer Hardware Diagnostic",
+    benchmarkSubheading: "Inspect your computer's local processing capability, available RAM, multi-threading support, and estimated local token throughput for Qwen 2.5 3B.",
+    runDiagnosticBtn: "Run Computer Hardware Diagnostic",
+    diagnosticRunning: "Analyzing Local Hardware...",
+    webgpuStatusLabel: "CPU Multi-Threading (llama-cpp)",
+    webgpuSupported: "AVX2 / Hardware Accelerated",
+    webgpuFallback: "Standard CPU Execution",
+    wasmThreadsLabel: "PySide6 Qt6 GUI Engine",
+    wasmActive: "Asynchronous QThread Active",
+    wasmSingle: "Single-Threaded",
     memoryLimitLabel: "Available Computer Memory",
-    estimatedThroughputLabel: "Est. Vector Throughput",
+    estimatedThroughputLabel: "Est. Token Streaming Speed",
     tokensPerSec: "tokens/sec",
-    queryLatencyLabel: "Est. Local Vector Query Latency",
+    queryLatencyLabel: "Est. FAISS Vector Search Latency",
 
     // Memory Footprint Calculator
-    calcHeading: "4. Document Memory & Storage Footprint Calculator",
-    calcSubheading: "Estimate IndexedDB vector database size, RAM allocation, and search speed based on your target document page count.",
-    pageCountLabel: "Document Page Count:",
+    calcHeading: "4. Document Memory & FAISS Storage Calculator",
+    calcSubheading: "Estimate FAISS vector database size, RAM allocation, and search speed based on your PDF page count.",
+    pageCountLabel: "PDF Page Count:",
     pagesUnit: "pages",
-    estChunksLabel: "Text Chunks Generated",
-    estVectorDbSizeLabel: "IndexedDB Storage Size",
-    estRamConsumptionLabel: "Peak RAM Usage",
-    estSearchLatencyLabel: "Cosine Search Speed",
+    estChunksLabel: "Text Chunks (800 char)",
+    estVectorDbSizeLabel: "FAISS Storage Size",
+    estRamConsumptionLabel: "Peak RAM Allocation",
+    estSearchLatencyLabel: "FAISS Search Speed",
 
     // Deployment Configurator
-    deployHeading: "5. Air-Gap Deployment Configurator",
-    deploySubheading: "Copy production-ready deployment configurations for restricted enterprise environments.",
-    tabSingleHtml: "Single HTML Bundle",
-    tabDocker: "Docker Offline Nginx",
-    tabPolicy: "Chrome Policy JSON",
-    tabTauri: "Tauri Desktop Config",
+    deployHeading: "5. Environment & Portable Deployment Specs",
+    deploySubheading: "Copy execution and deployment specifications for Nahanjoo local desktop and portable USB build.",
+    tabSingleHtml: "Python Local Execution",
+    tabDocker: "USB Portable Builder",
+    tabPolicy: "FAISS Indexing Spec",
+    tabTauri: "PySide6 Qt6 UI Spec",
     copyConfigBtn: "Copy Configuration",
     configCopied: "Copied to Clipboard!",
 
     // How It Works / Architecture Tab
-    archTitle: "How Nahanjoo Works Client-Side",
-    archSub: "Unlike traditional cloud LLMs that require sending your documents over public servers, Nahanjoo runs its pipeline entirely inside your local device processor.",
+    archTitle: "Nahanjoo System Architecture & Pipelines",
+    archSub: "Nahanjoo operates through two primary execution pipelines: Document Ingestion & Indexing and RAG Query Retrieval & CoT Generation.",
     
-    archStep1Num: "STEP 01",
-    archStep2Num: "STEP 02",
-    archStep3Num: "STEP 03",
-    archStep4Num: "STEP 04",
+    archStep1Num: "PIPELINE 01 - STEP 1",
+    archStep2Num: "PIPELINE 01 - STEP 2",
+    archStep3Num: "PIPELINE 01 - STEP 3",
+    archStep4Num: "PIPELINE 02 - QUERY",
 
-    archStep1Title: "File Ingress & Parse",
-    archStep1Desc: "A PDF, Word, or TXT file is loaded. The application pulls the binary array into memory on your computer with zero server transmission.",
+    archStep1Title: "Persian PDF Ingestion & PyMuPDF",
+    archStep1Desc: "PDFs in ./Documents are parsed via PyMuPDF (fitz) and passed through the specialized PersianNormalizer (NFKC, ZWNJ, ligature fixes).",
     
-    archStep2Title: "Local Chunking",
-    archStep2Desc: "Plaintext content is divided into tiny overlapping chunk tokens. This helps maintain context during similarity scans.",
+    archStep2Title: "Recursive Text Splitting",
+    archStep2Desc: "Normalized text is divided into overlapping chunks (800 chars, 200 overlap) to preserve semantic context across sentences.",
     
-    archStep3Title: "On-device Modeling",
-    archStep3Desc: "Lightweight embedder models run locally using WebGPU or WebAssembly. Each chunk is mapped into a vector representing its semantics.",
+    archStep3Title: "FAISS Vector Store Indexing",
+    archStep3Desc: "HuggingFace paraphrase-multilingual-MiniLM-L12-v2 computes embeddings on CPU. Vectors are stored in ./VectorStore with SHA metadata tracking.",
     
-    archStep4Title: "Interactive RAG",
-    archStep4Desc: "When queried, your computer calculates mathematical similarities, pulls matching chunks, and feeds them locally to an offline client-side LLM.",
+    archStep4Title: "Qwen 2.5 3B CoT Querying",
+    archStep4Desc: "Queries are auto-detected for language, matched via FAISS Top-K (k=5), formatted into strict CoT system prompts, and streamed via llama-cpp-python.",
 
-    embeddingConceptBadge: "Vector Embeddings Concept",
-    embeddingConceptTitle: "What are Vector Embeddings?",
-    embeddingConceptSimple: "Vector embeddings translate text into numerical coordinates representing meaning. Sentences with similar meanings get placed close to each other in mathematical space, allowing the AI to search by concepts rather than matching exact words!",
+    embeddingConceptBadge: "Persian RAG Concept",
+    embeddingConceptTitle: "Why is Persian Text Normalization Essential?",
+    embeddingConceptSimple: "Standard PDF text extractors scramble Persian ligatures (e.g. 'ال' vs 'لا'), break zero-width non-joiners (ZWNJ/نیم‌فاصله), and confuse Arabic/Persian numbers. Nahanjoo's PersianNormalizer cleans all text before embedding generation!",
 
-    embeddingTooltipStep1: "In Step 1, your document's raw text is extracted locally in memory so it can be transformed into vector embeddings (numerical maps of meaning) in Step 3.",
-    embeddingTooltipStep2: "Text is broken into smaller chunks so that each vector embedding accurately captures a single focused concept without losing detail.",
-    embeddingTooltipStep3: "The local AI converts text chunks into lists of numbers (vectors). Phrases with similar meanings end up close together in mathematical space!",
-    embeddingTooltipStep4: "Your question is also converted into a vector. The system compares your question vector against document vectors on your computer to find the most relevant paragraphs instantly.",
+    embeddingTooltipStep1: "In Step 1, PyMuPDF extracts raw text and PersianNormalizer fixes ligatures, NFKC unicode, and ZWNJ spaces.",
+    embeddingTooltipStep2: "Text chunks are generated with 800-character windows and 200-character overlaps for precise vector embedding.",
+    embeddingTooltipStep3: "The multilingual embedding model translates chunks into 384-dimensional vectors stored inside FAISS local vector indices.",
+    embeddingTooltipStep4: "Qwen 2.5 3B Instruct analyzes top matched FAISS passages and streams a zero-hallucination Chain-of-Thought answer with page citations.",
 
-    underTheHood: "Under the Hood Stack",
-    onnxTitle: "ONNX Runtime & Transformers.js",
-    onnxDesc: "Leverages WebAssembly execution threads and WebGPU pipelines to accelerate neural network operations. Runs standard models at high speeds directly in modern Chrome, Firefox, and Safari, requiring no drivers or CLI configs.",
-    htmlCompilationTitle: "The Single HTML compilation",
-    htmlCompilationDesc: "Nahanjoo bundles code, assets, UI styles, and logic files into a single standalone page wrapper. Perfect for secure operations, highly structured industrial air-gaps, or absolute backup scenarios.",
+    underTheHood: "Technical Under-the-Hood Stack",
+    onnxTitle: "Qwen 2.5 3B Instruct & llama-cpp-python",
+    onnxDesc: "Utilizes quantized Q4_K_M GGUF format for ultra-fast local CPU inference with zero latency lag, streaming tokens in real time without cloud servers.",
+    htmlCompilationTitle: "PySide6 Qt6 GUI & Portable USB Builder",
+    htmlCompilationDesc: "Cross-platform Qt6 dark-themed interface with async QThread execution, bundled into a self-contained portable USB environment via build_usb_portable.py.",
 
     // Get Started Tab
-    guideTitle: "Get Started with Nahanjoo",
-    guideSub: "Get Nahanjoo running locally on your own machine. No server installation or complex Python dependencies required. Just clone, compile, or double click the single HTML.",
-    cmdTitle: "Command Line Setup",
+    guideTitle: "Get Started with Nahanjoo Desktop",
+    guideSub: "Run Nahanjoo locally on your Windows machine or create a portable USB distribution folder in a few simple steps.",
+    cmdTitle: "Python Environment Quick Start",
     copiedBtn: "Copied!",
-    copyCmdBtn: "Copy CMD",
+    copyCmdBtn: "Copy Commands",
 
-    guideStep1Title: "Clone & Open",
-    guideStep1Desc: "Simply clone the repository from GitHub. The codebase is highly modular, readable, and structured using clean React, TypeScript, and Vite.",
+    guideStep1Title: "Clone Repository & Prerequisites",
+    guideStep1Desc: "Ensure Python 3.10+ is installed on your computer. Clone the repository from GitHub: https://github.com/ZhiwarSajadi/Nahanjoo.git",
 
-    guideStep2Title: "Export Raw Standalone File",
-    guideStep2Desc: "Build the standalone distribution bundle. Run `npm run build:offline` inside the workspace. The compiler will aggregate all required modules and produce a lightweight, singular HTML layout you can open with any web client.",
+    guideStep2Title: "Install Python Dependencies",
+    guideStep2Desc: "Install PySide6, PyMuPDF, FAISS, sentence-transformers, and llama-cpp-python using: pip install -r requirements.txt",
 
-    guideStep3Title: "Air-Gapped Privacy Deployment",
-    guideStep3Desc: "Copy the single HTML bundle or folder compilation to any secure workstation or private server directory. Enjoy complete retrieval and querying capabilities without ever connecting to an online socket.",
+    guideStep3Title: "Run Nahanjoo Desktop App",
+    guideStep3Desc: "Launch the application by running `python main.py`. Place your Persian PDF files in ./Documents to automatically build the vector index!",
 
-    contributeTitle: "Contribute & Stars",
-    contributeDesc: "Nahanjoo is an open-source, community-driven project created to defend data privacy. If you find this utility helpful, please star the repository, open pull requests, and share suggestions to improve local offline AI model support!",
-    starGithubBtn: "Star on GitHub",
+    contributeTitle: "Open Source & Contributions",
+    contributeDesc: "Nahanjoo is an open-source project created as a capstone project at Azad University of Sanandaj to advance privacy-first Persian AI document retrieval. Star the repo or open PRs on GitHub!",
+    starGithubBtn: "Star Core Repo on GitHub",
 
     // Footer
-    footerPlatform: "100% Client-Side Private AI Platform",
-    footerCoreRepo: "Nahanjoo Core",
-    footerWebsiteRepo: "Website Repo"
+    footerPlatform: "100% Offline PySide6 Desktop RAG App",
+    footerCoreRepo: "Nahanjoo Core (Python)",
+    footerWebsiteRepo: "Website Showcase"
   },
 
   fa: {
     // Top status rail
     statusVersion: "نسخه اصلی نهانجو: v1.0.0 پایدار",
-    statusSecurity: "۱۰۰٪ ایزوله و منطبق با استانداردهای امنیتی",
-    statusSubtitle: "نهانجو",
+    statusSecurity: "۱۰۰٪ آفلاین — PySide6 و Qwen 2.5 3B",
+    statusSubtitle: "نهانجو دسکتاپ",
 
     // Navigation
     navOverview: "معرفی کلی",
     navSecurity: "امنیت و ارزیابی کارایی",
-    navArchitecture: "نحوه کارکرد",
-    navGuide: "راهنمای شروع",
+    navArchitecture: "معماری سیستم",
+    navGuide: "راهنمای نصب و اجرا",
     navTrySecurity: "مرکز امنیت",
     secBadge: "سازمانی",
 
     // Hero Section
-    heroBadge: "راهکار امن و نهایی بازیابی اطلاعات بدون اینترنت",
+    heroBadge: "دستیار هوشمند و آفلاین تحلیل اسناد فارسی",
     heroTitlePart1: "اسناد شما.",
-    heroTitlePart2: "کامپیوتر شما.",
-    heroTitleHighlight: "هوش مصنوعی ۱۰۰٪ آفلاین.",
-    heroDesc: "نهانجو (Nahanjoo) یک برنامه کاربردی RAG فوق‌العاده امن، قابل حمل و کاملاً سمت کاربر است. اسناد حساس خود را پردازش کنید، بردارسازی کنید و کاملاً محلی از آن‌ها سوال بپرسید. بدون نیاز به کلید API، اشتراک، یا ارسال حتی یک کوئری به بیرون.",
-    heroCtaSecurity: "بررسی امنیت و ارزیابی کارایی",
-    heroCtaGithub: "مشاهده کد در گیت‌هاب",
-    heroFeatureNoServers: "بدون سرور",
-    heroFeatureNoAccount: "بدون نیاز به حساب کاربری",
-    heroFeatureCompliant: "منطبق با استاندارد HIPAA و GDPR",
+    heroTitlePart2: "سخت‌افزار شما.",
+    heroTitleHighlight: "هوش مصنوعی ۱۰۰٪ محلی فارسی.",
+    heroDesc: "نهانجو (Nahanjoo) یک نرم‌افزار دسکتاپ بازیابی اطلاعات (RAG) ۱۰۰٪ آفلاین و حفظ‌کننده حریم خصوصی است که با PySide6، مدل Qwen 2.5 3B، پایگاه داده FAISS و نرمال‌ساز اختصاصی متون فارسی ساخته شده است.",
+    heroCtaSecurity: "بررسی معماری و امنیت",
+    heroCtaGithub: "مشاهده سورس کد در گیت‌هاب",
+    heroFeatureNoServers: "بدون API خارجی",
+    heroFeatureNoAccount: "۱۰۰٪ آفلاین (بدون اینترنت)",
+    heroFeatureCompliant: "کاملاً ایزوله و حفظ حریم خصوصی",
 
     // Hero Mock App
-    mockWindowFile: "محیط_امن_محلی.sh",
-    mockEmbeddingsDb: "پایگاه داده بردارهای محلی",
-    mockOnlineZeroKb: "فعال (۰ کیلوبایت ارسال)",
-    mockHardwareEngine: "موتور سخت‌افزاری پردازش بردار",
+    mockWindowFile: "main.py (واسط کاربری PySide6 Qt6)",
+    mockEmbeddingsDb: "پایگاه داده برداری FAISS (MiniLM-L12-v2)",
+    mockOnlineZeroKb: "پردازنده محلی (۰ کیلوبایت خروجی)",
+    mockHardwareEngine: "Qwen 2.5 3B GGUF (llama-cpp-python)",
 
     // Feature Section
-    featuresHeading: "امنیت بی‌نظیر، کارایی فوق‌العاده محلی",
-    featuresSubheading: "با نگه داشتن تمامی محاسبات در سمت کاربر، نهانجو برای پاسخگویی به نیازهای امنیتی سازمان‌های حساس، تیم‌های پزشکی و حقوقی طراحی شده است.",
+    featuresHeading: "طراحی شده برای پردازش اسناد PDF فارسی و حفظ کامل حریم خصوصی",
+    featuresSubheading: "طراحی شده به طور اختصاصی برای حل چالش‌های استخراج متن فارسی، فونت‌ها، نیم‌فاصله‌ها و مخاطرات امنیتی ابر.",
     
-    feature1Title: "صفر درصد نشت ابری",
-    feature1Desc: "کاملاً مستقل از ابر. پرونده‌های مالیاتی، پیش‌نویس‌های قانونی و مدارک پزشکی شما هرگز از سرورهای شرکتی یا شبکه رد نمی‌شوند.",
+    feature1Title: "۱۰۰٪ آفلاین و حفظ حریم خصوصی",
+    feature1Desc: "کلیه فرآیندهای استخراج متن، تولید بردارها، جستجوی شباهت و استنتاج هوش مصنوعی به طور کامل روی پردازنده و رم محلی انجام می‌شود. بدون ارتباط شبکه‌ای.",
     
-    feature2Title: "مدل‌های بردارساز محلی",
-    feature2Desc: "نهانجو مدل‌های مینیاتوری بهینه‌شده ترنسفورمر (مانند Xenova/all-MiniLM-L6-v2) را مستقیماً روی حافظه محلی کامپیوتر شما اجرا می‌کند.",
+    feature2Title: "نرمال‌ساز اختصاصی حروف و نیم‌فاصله فارسی",
+    feature2Desc: "خط‌لوله‌ی پردازشی regex و دیکشنری (PersianNormalizer) برای اصلاح اشکالات PyMuPDF، حروف عربی/فارسی، نیم‌فاصله (ZWNJ) و لیگاتورها.",
     
-    feature3Title: "فایل تک‌صفحه‌ای HTML قابل حمل",
-    feature3Desc: "امکان خروجی گرفتن از نهانجو به صورت یک فایل HTML مستقل. آن را روی سیستم ایزوله و بدون اینترنت اجرا کنید و سند را بلافاصله تحلیل نمایید.",
+    feature3Title: "مدل هوش مصنوعی محلی (Qwen 2.5 3B)",
+    feature3Desc: "اجرای پرسرعت مدل کوانتایز شده Qwen 2.5 3B Instruct (Q4_K_M GGUF) روی CPU با کتابخانه llama-cpp-python و استریم زنده پاسخ‌ها.",
     
-    feature4Title: "پایگاه داده برداری بومی کامپیوتر",
-    feature4Desc: "استفاده از IndexedDB و ساختارهای ذخیره‌سازی سمت کاربر برای جستجوی میلی‌ثانیه‌ای در صدها صفحه سند با شباهت کسینوسی.",
+    feature4Title: "پایگاه داده برداری دقیق FAISS",
+    feature4Desc: "قدرت گرفته از مدل بردارساز چندزبانه paraphrase-multilingual-MiniLM-L12-v2 و سیستم حذف داده‌های تکراری برای استخراج دقیق‌ترین پاراگراف‌ها.",
     
-    feature5Title: "بدون هزینه اشتراک",
-    feature5Desc: "شما پردازنده سرورهای ثالث را اجاره نمی‌کنید. تمامی پردازش‌ها و تولید مفاهیم روی پردازنده گرافیکی/اصلی دستگاه خودتان انجام می‌شود.",
+    feature5Title: "رابط کاربری دسکتاپ دو زبانه PySide6",
+    feature5Desc: "محیط کاربری مدرن و تاریک Qt6 با دکمه تغییر زبان آنی (🌐 English / 🌐 فارسی) با پشتیبانی کامل از راست‌به‌چپ (RTL) و چپ‌به‌راست (LTR).",
     
-    feature6Title: "پشتیبانی از انواع فایل‌ها",
-    feature6Desc: "پشتیبانی از فایل‌های PDF، Word (docx)، فرمت‌های Markdown و متون خام text با پارس سریع و دسته‌بندی خودکار.",
+    feature6Title: "سازنده نسخه قابل حمل روی فلش USB",
+    feature6Desc: "شامل اسکریپت build_usb_portable.py برای بسته‌بندی محیط پایتون، مدل‌ها و FAISS به صورت یک پوشه کامل قابل حمل روی فلش مموری.",
 
     // CTA Banner
-    ctaTitle: "نیازمند امنیت سازمانی در محیط ایزوله هستید؟",
-    ctaDesc: "ماتریس تعاملی امنیت را بررسی کنید، تست سخت‌افزاری کامپیوتر خود را اجرا نمایید، میزان حافظه مصرفی را محاسبه کرده و فایل‌های تنظیمات استقرار را دریافت کنید.",
+    ctaTitle: "نیازمند تحلیل اسناد فارسی در محیط کاملاً ایزوله هستید؟",
+    ctaDesc: "معماری سیستم نهانجو را بررسی کنید، تست سخت‌افزاری کامپیوتر را اجرا کرده و راهنمای نصب و راه‌اندازی را مشاهده نمایید.",
     ctaOpenSecurity: "ورود به مرکز امنیت",
-    ctaGetGuide: "راهنمای فایل آفلاین",
+    ctaGetGuide: "راهنمای نصب و نسخه USB",
 
     // FAQ Section
     faqBadge: "سوالات متداول",
-    faqHeading: "پرسش‌های متداول درباره نهانجو",
-    faqSubheading: "همه چیز درباره فناوری RAG محلی، امنیت داده‌ها و تحلیل اسناد بدون نیاز به اینترنت.",
+    faqHeading: "پرسش‌های متداول درباره نهانجو دسکتاپ",
+    faqSubheading: "همه چیز درباره نرم‌افزار دسکتاپ نهانجو، فناوری RAG محلی و پردازش اسناد PDF فارسی.",
     faqs: [
       {
-        q: "تفاوت RAG محلی نهانجو با ابزارهای ابری هوش مصنوعی چیست؟",
-        a: "در ابزارهای ابری، اسناد شما از طریق اینترنت به سرورهای خارجی ارسال می‌شوند. اما نهانجو فرآیند استخراج سند، تولید بردارها و جستجوی شباهت معنایی را ۱۰۰٪ به صورت محلی روی کامپیوتر شما (با فناوری WebGPU و WebAssembly) انجام می‌دهد و حتی یک بایت داده از دستگاه شما خارج نمی‌شود."
+        q: "چه چیزی نهانجو را از سایر ابزارهای ابری RAG متفاوت می سازد؟",
+        a: "ابزارهای استاندارد در خواندن متون فارسی به دلیل بهم‌ریختگی حروف، نیم‌فاصله‌ها و کلمات بهم چسبیده دچار خطا می‌شوند. نهانجو دارای موتور اختصاصی PersianNormalizer است و ۱۰۰٪ آفلاین با PySide6، FAISS و Qwen 2.5 3B روی سیستم شما اجرا می‌شود."
       },
       {
-        q: "آیا اسناد من کاملاً خصوصی و امن باقی می‌مانند؟",
-        a: "بله! امنیت و حریم خصوصی در نهانجو بر اساس معماری فیزیکی تضمین شده است. از آنجا که کلیه فایل‌ها درون حافظه موقت کامپیوتر و پایگاه داده محلی دستگاه شما پردازش می‌شوند، هیچ سرور ابری، شخص ثالث یا سیستم آموزش هوش مصنوعی به اسناد یا سوالات شما دسترسی ندارد."
+        q: "آیا اسناد من به سرورهای ابری ارسال می‌شوند؟",
+        a: "خیر! امنیت و حریم خصوصی به صورت فیزیکی تضمین شده است. استخراج PDF، نرمال‌سازی متن، بردارسازی، جستجوی FAISS و تولید پاسخ توسط Qwen 2.5 3B تماماً روی پردازنده کامپیوتر خودتان انجام می‌گیرد."
       },
       {
-        q: "چه فرمت‌ها و حجم‌هایی از فایل پشتیبانی می‌شوند؟",
-        a: "نهانجو از فایل‌های PDF، Word (.docx)، فایل‌های Markdown (.md) و متون خام (.txt) پشتیبانی می‌کند. هیچ محدودیت پرداختی وجود ندارد و سرعت پردازش مستقیماً به حافظه رم دستگاه شما بستگی دارد که به راحتی صدها صفحه سند را مدیریت می‌کند."
+        q: "چه سخت‌افزاری برای اجرای نهانجو دسکتاپ مورد نیاز است؟",
+        a: "نهانجو روی کامپیوترهای معمولی (ویندوز ۱۰/۱۱) با حداقل ۸ گیگابایت رم به راحتی اجرا می‌شود. مدل هوش مصنوعی با فرمت GGUF بهینه‌سازی شده و نیازی به کارت گرافیک گران‌قیمت ندارد."
       },
       {
-        q: "آیا برای استفاده به اینترنت یا کارت گرافیک قدرتمند نیاز است؟",
-        a: "خیر! پس از بارگذاری اولیه صفحه، نهانجو به طور کامل بدون اتصال به اینترنت کار می‌کند. این ابزار از مدل‌های هوش مصنوعی فوق‌العاده سبک استفاده می‌کند که روی پردازنده‌های معمولی لپ‌تاپ و موبایل روان اجرا می‌شوند."
+        q: "سیستم پاسخ‌دهی دو زبانه و زنجیره تفکر (CoT) چگونه کار می‌کند؟",
+        a: "نهانجو زبان سوال شما را به طور خودکار تشخیص می‌دهد. اگر سوال انگلیسی بپرسید، پاسخ انگلیسی با بخش‌های 'Analysis:' / 'Final Answer:' دریافت می‌کنید و اگر فارسی بپرسید پاسخ فارسی با 'تحلیل:' / 'پاسخ نهایی:' تولید می‌شود."
       },
       {
-        q: "آیا امکان استفاده در شبکه‌های ایزوله (Air-Gapped) و سازمانی وجود دارد؟",
-        a: "بله. می‌توانید نهانجو را به صورت یک فایل HTML تک‌صفحه‌ای (index.html) خروجی بگیرید. این فایل را با یک حافظه فلش به رایانه ایزوله منتقل کنید و بدون نیاز به نصب هیچ نرم‌افزار جانبی یا سرور محلی، اسناد خود را کاوش نمایید."
+        q: "آیا امکان اجرای برنامه از روی فلش مموری USB وجود دارد؟",
+        a: "بله! نهانجو شامل اسکریپت `python build_usb_portable.py` است که محیط پایتون و مدل‌ها را درون یک پوشه پرتابل بسته‌بندی می‌کند تا بدون نیاز به اینترنت روی هر کامپیوتری اجرا شود."
       },
       {
-        q: "آیا هزینه‌ای برای اشتراک یا محدودیت در تعداد پرسش‌ها وجود دارد؟",
-        a: "خیر، هیچ هزینه یا محدودیتی وجود ندارد. شما از قدرت پردازشی دستگاه خودتان استفاده می‌کنید و نیازی به اجاره سرورهای ابری نیست. تمامی جستجوها و پرسش‌ها به صورت کاملاً رایگان و نامحدود انجام می‌شوند."
+        q: "تاریخچه چت‌ها و بردارهای اسناد در کجا ذخیره می‌شوند؟",
+        a: "بردارهای اسناد در پوشه محلی `./VectorStore`، متادیتاها در `source_metadata.json` و چت‌ها در پوشه `./Chats` به صورت فایل‌های JSON ذخیره می‌شوند."
       }
     ],
 
     // Security & Compliance Hub Tab
-    securityTitle: "امنیت سازمانی، انطباق‌پذیری و ارزیابی کارایی",
-    securitySubtitle: "ارزیابی معماری ایزوله نهانجو، اجرای تست‌های سخت‌افزاری کامپیوتر، محاسبه میزان حافظه مصرفی و دریافت پیکربندی‌های استقرار سازمانی.",
+    securityTitle: "امنیت سازمانی، انطباق‌پذیری و مشخصات سیستم",
+    securitySubtitle: "ارزیابی معماری دسکتاپ ایزوله نهانجو، اجرای تست‌های سخت‌افزاری کامپیوتر، محاسبه میزان حافظه مصرفی و بررسی مشخصات استقرار.",
     
     // Security Matrix Comparison
     matrixHeading: "۱. ماتریس مقایسه‌ای معماری و امنیت",
-    matrixSubheading: "مقایسه ویژگی‌های امنیتی نهانجو در برابر سرویس‌های ابری عمومی، ابر اختصاصی و سرورهای محلی.",
+    matrixSubheading: "مقایسه معماری محلی دسکتاپ نهانجو در برابر سرویس‌های ابری عمومی، ابر اختصاصی و درگاه‌های API.",
     matrixColFeature: "معیار امنیتی",
-    matrixColNahanjoo: "نهانجو (RAG سمت کامپیوتر)",
+    matrixColNahanjoo: "نهانجو دسکتاپ (PySide6 محلی)",
     matrixColPublicCloud: "هوش مصنوعی ابری عمومی",
     matrixColPrivateCloud: "ابر اختصاصی سازمانی",
-    matrixColLocalServer: "سرور محلی (Ollama)",
+    matrixColLocalServer: "درگاه API ریموت",
 
     matrixRow1Label: "انتقال داده‌ها در شبکه",
     matrixRow1Nahanjoo: "بدون ارتباط شبکه‌ای (۰ کیلوبایت)",
-    matrixRow1PublicCloud: "ارسال بایت‌ها روی اینترنت عمومی",
+    matrixRow1PublicCloud: "ارسال داده روی اینترنت عمومی",
     matrixRow1PrivateCloud: "تونل VPC / TLS اختصاصی",
-    matrixRow1LocalServer: "ارتباط شبکه داخلی (Loopback)",
+    matrixRow1LocalServer: "سوکت‌های شبکه داخلی",
 
-    matrixRow2Label: "انطباق با HIPAA و PHI",
-    matrixRow2Nahanjoo: "بومی و ایزوله کامل",
-    matrixRow2PublicCloud: "نیازمند توافق‌نامه BAA",
-    matrixRow2PrivateCloud: "قابل تنظیم با BAA",
-    matrixRow2LocalServer: "نیازمند پیکربندی دستی",
+    matrixRow2Label: "دقت پردازش متون فارسی",
+    matrixRow2Nahanjoo: "خط‌لوله اختصاصی PersianNormalizer",
+    matrixRow2PublicCloud: "عمومی / بهم‌ریختگی حروف",
+    matrixRow2PrivateCloud: "توکنایزر استاندارد",
+    matrixRow2LocalServer: "غیربهینه برای فارسی",
 
-    matrixRow3Label: "حق فراموشی (GDPR)",
-    matrixRow3Nahanjoo: "فوری (پاکسازی حافظه کامپیوتر)",
+    matrixRow3Label: "حریم خصوصی و نگهداشت داده",
+    matrixRow3Nahanjoo: "۱۰۰٪ محلی (درون CPU/RAM)",
     matrixRow3PublicCloud: "مهلت ۳۰ تا ۹۰ روزه سرور",
     matrixRow3PrivateCloud: "حذف دستی پایگاه داده",
-    matrixRow3LocalServer: "حذف فایل محلی",
+    matrixRow3LocalServer: "لاگ‌های فایل محلی",
 
     matrixRow4Label: "آموزش مجدد مدل‌های AI",
-    matrixRow4Nahanjoo: "غیرممکن (عدم ارسال داده)",
+    matrixRow4Nahanjoo: "غیرممکن (عدم خروج داده)",
     matrixRow4PublicCloud: "ریسک استفاده در آموزش",
     matrixRow4PrivateCloud: "تضمین قراردادی عدم آموزش",
     matrixRow4LocalServer: "غیرممکن",
 
     matrixRow5Label: "هزینه زیرساخت",
-    matrixRow5Nahanjoo: "۰ دلار (پردازش روی دستگاه)",
+    matrixRow5Nahanjoo: "۰ دلار (پردازش روی کامپیوتر محلی)",
     matrixRow5PublicCloud: "اشتراک و پرداخت بر اساس توکن",
     matrixRow5PrivateCloud: "اجاره ساعتی و سنگین GPU",
-    matrixRow5LocalServer: "خرید سخت‌افزار سرور محلی",
+    matrixRow5LocalServer: "خرید تجهیزات سخت‌افزاری",
 
     // Industry Compliance Evaluator
     evaluatorHeading: "۲. ارزیابی انطباق‌پذیری مقرراتی صنایع",
@@ -389,7 +389,7 @@ export const translations = {
     sectors: {
       healthcare: "بهداشت و درمان (HIPAA / HITECH)",
       legal: "خدمات حقوقی، مالی و بانکداری (SOC 2 / SEC)",
-      defense: "دفاعی، نظامی و حکومتی (شبکه‌های ایزوله / FedRAMP)",
+      defense: "دفاعی، نظامی و حکومتی (شبکه‌های ایزوله / SCIF)",
       corporate: "تحقیق و توسعه و مالکیت فکری (ISO 27001)"
     },
     complianceScoreLabel: "امتیاز انطباق با محیط ایزوله",
@@ -398,100 +398,100 @@ export const translations = {
     recommendedPolicyLabel: "استراتژی استقرار پیشنهادی",
 
     // Hardware Benchmark Diagnostic Tool
-    benchmarkHeading: "۳. عیب‌یابی و سنجش سخت‌افزار کامپیوتر",
-    benchmarkSubheading: "بررسی قدرت پردازشی کامپیوتر، شتاب‌دهنده سخت‌افزاری WebGPU، پردازش چندنخی WebAssembly و سرعت تخمینی بردارسازی.",
+    benchmarkHeading: "۳. تست سخت‌افزاری کامپیوتر محلی",
+    benchmarkSubheading: "بررسی توان پردازشی کامپیوتر، حافظه رم در دسترس، پردازش چندنخی و سرعت استریم توکن‌های مدل Qwen 2.5 3B.",
     runDiagnosticBtn: "اجرای ارزیابی سخت‌افزار کامپیوتر",
-    diagnosticRunning: "در حال تحلیل پردازنده...",
-    webgpuStatusLabel: "شتاب‌دهنده WebGPU",
-    webgpuSupported: "شتاب‌دهنده سخت‌افزاری فعال است",
-    webgpuFallback: "حالت پشتیبان موتور پردازشی WASM",
-    wasmThreadsLabel: "پردازش چندنخی WebAssembly",
-    wasmActive: "پردازش چندنخی SharedArrayBuffer فعال است",
-    wasmSingle: "حالت تک‌نخی استاندارد",
-    memoryLimitLabel: "حافظه در دسترس کامپیوتر",
-    estimatedThroughputLabel: "سرعت تخمینی بردارسازی",
+    diagnosticRunning: "در حال آنالیز سخت‌افزار محلی...",
+    webgpuStatusLabel: "پردازش چندنخی CPU (llama-cpp)",
+    webgpuSupported: "شتاب‌دهی AVX2 / سخت‌افزاری",
+    webgpuFallback: "اجرای استاندارد CPU",
+    wasmThreadsLabel: "موتور واسط کاربری PySide6 Qt6",
+    wasmActive: "پردازش ناهمگام QThread فعال",
+    wasmSingle: "تک‌نخی",
+    memoryLimitLabel: "حافظه رم در دسترس",
+    estimatedThroughputLabel: "سرعت برآوردی استریم توکن",
     tokensPerSec: "توکن در ثانیه",
-    queryLatencyLabel: "تاخیر تخمینی جستجوی برداری",
+    queryLatencyLabel: "تاخیر جستجوی برداری FAISS",
 
     // Memory Footprint Calculator
-    calcHeading: "۴. محاسبه‌گر میزان حافظه و فضای ذخیره‌سازی",
-    calcSubheading: "تخمین حجم پایگاه داده برداری IndexedDB، میزان مصرف حافظه RAM و سرعت جستجو بر اساس تعداد صفحات اسناد.",
-    pageCountLabel: "تعداد صفحات سند:",
+    calcHeading: "۴. محاسبه‌گر حافظه رم و پایگاه داده FAISS",
+    calcSubheading: "تخمین حجم پایگاه داده FAISS، میزان مصرف حافظه رم و سرعت جستجو بر اساس تعداد صفحات PDF.",
+    pageCountLabel: "تعداد صفحات PDF:",
     pagesUnit: "صفحه",
-    estChunksLabel: "تعداد تکه‌های متنی تولیدی",
-    estVectorDbSizeLabel: "حجم پایگاه داده IndexedDB",
-    estRamConsumptionLabel: "حداکثر حافظه RAM مورد نیاز",
-    estSearchLatencyLabel: "سرعت جستجوی کسینوسی",
+    estChunksLabel: "تکه‌های متن (۸۰۰ کاراکتر)",
+    estVectorDbSizeLabel: "حجم پایگاه داده FAISS",
+    estRamConsumptionLabel: "حداکثر رم مورد نیاز",
+    estSearchLatencyLabel: "سرعت جستجوی FAISS",
 
     // Deployment Configurator
-    deployHeading: "۵. تولیدکننده پیکربندی استقرار ایزوله",
-    deploySubheading: "کپی دستورالعمل‌ها و فایل‌های پیکربندی آماده برای محیط‌های ایزوله و سازمانی.",
-    tabSingleHtml: "بسته تک فایل HTML",
-    tabDocker: "کانتینر Docker Nginx",
-    tabPolicy: "خط‌مشی Chrome JSON",
-    tabTauri: "پیکربندی Tauri Desktop",
+    deployHeading: "۵. مشخصات اجرا و نسخه قابل حمل USB",
+    deploySubheading: "مشاهده دستورات اجرا و تنظیمات بسته‌بندی پرتابل نرم‌افزار نهانجو.",
+    tabSingleHtml: "اجرای محلی پایتون",
+    tabDocker: "سازنده نسخه USB",
+    tabPolicy: "مشخصات نمایه FAISS",
+    tabTauri: "مشخصات PySide6 Qt6",
     copyConfigBtn: "کپی پیکربندی",
     configCopied: "کپی شد!",
 
     // How It Works / Architecture Tab
-    archTitle: "نهانجو چگونه در سمت کاربر کار می‌کند؟",
-    archSub: "برخلاف سرویس‌های ابری هوش مصنوعی که مستلزم ارسال اسناد شما به سرورهای عمومی هستند، نهانجو تمام مراحل را درون پردازنده دستگاه محلی شما اجرا می‌کند.",
+    archTitle: "معماری سیستم و خط‌لوله‌های اجرا در نهانجو",
+    archSub: "نهانجو از طریق دو خط‌لوله اصلی اجرا می‌شود: پردازش اسناد و نمایه و استخراج پاسخ با هوش مصنوعی.",
     
-    archStep1Num: "گام ۰۱",
-    archStep2Num: "گام ۰۲",
-    archStep3Num: "گام ۰۳",
-    archStep4Num: "گام ۰۴",
+    archStep1Num: "خط‌لوله ۰۱ — گام ۱",
+    archStep2Num: "خط‌لوله ۰۱ — گام ۲",
+    archStep3Num: "خط‌لوله ۰۱ — گام ۳",
+    archStep4Num: "خط‌لوله ۰۲ — پرسش",
 
-    archStep1Title: "ورود و پارس فایل",
-    archStep1Desc: "فایل PDF یا Word مستقیماً وارد پنجره می‌شود. برنامه بایت‌های فایل را روی کامپیوتر بدون ارسال به هیچ سروری خوانده و پردازش می‌کند.",
+    archStep1Title: "استخراج و نرمال‌سازی PDF فارسی",
+    archStep1Desc: "فایل‌های PDF با PyMuPDF خوانده شده و از نرمال‌ساز اختصاصی PersianNormalizer (اصلاح حروف، نیم‌فاصله‌ها و لیگاتورها) عبور می‌کنند.",
     
-    archStep2Title: "تکه‌تکه‌سازی محلی",
-    archStep2Desc: "متن به تکه‌های کوچک دارای همپوشانی تقسیم می‌شود تا بافت متن هنگام اسکن شباهت حفظ شود.",
+    archStep2Title: "تقسیم‌بندی متون (Chunking)",
+    archStep2Desc: "متن نرمال‌شده به تکه‌های ۸۰۰ کاراکتری با ۲۰۰ کاراکتر همپوشانی تقسیم می‌شود تا پیوستگی کلمات حفظ گردد.",
     
-    archStep3Title: "مدل‌سازی روی دستگاه",
-    archStep3Desc: "مدل‌های سبک هوش مصنوعی با WebAssembly و WebGPU اجرا می‌شوند. هر تکه به یک بردار ریاضی تبدیل می‌شود.",
+    archStep3Title: "نمایه‌سازی برداری FAISS",
+    archStep3Desc: "مدل چندزبانه paraphrase-multilingual-MiniLM-L12-v2 بردارها را تولید کرده و در پوشه ./VectorStore ذخیره می‌نماید.",
     
-    archStep4Title: "بازیابی و پاسخگویی تعاملی",
-    archStep4Desc: "هنگام پرسش، کامپیوتر شما شباهت‌های ریاضی را محاسبه کرده، تکه‌های مرتبط را استخراج نموده و پاسخ را به صورت محلی تولید می‌کند.",
+    archStep4Title: "پاسخ‌دهی با Qwen 2.5 3B",
+    archStep4Desc: "زبان سوال تشخیص داده شده، K سند برتر از FAISS فراخوانی شده و مدل Qwen 2.5 3B پاسخ زنجیره تفکر را استریم می‌کند.",
 
-    embeddingConceptBadge: "مفهوم بردارهای معنایی",
-    embeddingConceptTitle: "بردارهای معنایی چیست؟",
-    embeddingConceptSimple: "بردارهای معنایی، متن را به مختصات عددی تبدیل می‌کنند که معنا و مفهوم آن را نشان می‌دهد. عبارات با معانی مشابه در فاصله ریاضی نزدیک به هم قرار می‌گیرند تا هوش مصنوعی به جای تطبیق کلمات دقیق، مفاهیم را جستجو کند!",
+    embeddingConceptBadge: "مفهوم پردازش متن فارسی",
+    embeddingConceptTitle: "چرا نرمال‌سازی متن فارسی ضروری است؟",
+    embeddingConceptSimple: "استخراج‌کننده‌های عادی PDF متون فارسی را دچار بهم‌ریختگی حروف، قطع نیم‌فاصله‌ها و اشتباه در اعداد عربی/فارسی می‌کنند. موتور PersianNormalizer نهانجو کلیه متون را پیش از بردارسازی اصلاح می‌کند!",
 
-    embeddingTooltipStep1: "در گام ۱، متن سند مستقیماً در حافظه دستگاه استخراج می‌شود تا در مراحل بعدی به بردارهای معنایی (نقشه‌های عددی از مفاهیم) تبدیل شود.",
-    embeddingTooltipStep2: "متن به تکه‌های کوچک‌تر تقسیم می‌شود تا هر بردار معنایی بدون از دست رفتن جزییات، بر روی یک مفهوم مشخص تمرکز کند.",
-    embeddingTooltipStep3: "هوش مصنوعی محلی، تکه‌های متن را به مجموعه‌ای از اعداد (بردار) تبدیل می‌کند. عبارات هم‌معنی در فضای ریاضی نزدیک یکدیگر قرار می‌گیرند!",
-    embeddingTooltipStep4: "سوال شما نیز به بردار تبدیل می‌شود. سیستم بردار سوال را با بردارهای سند روی کامپیوتر شما مقایسه کرده و نزدیک‌ترین بخش را بلافاصله پیدا می‌کند.",
+    embeddingTooltipStep1: "در گام ۱، متون PDF خوانده شده و نرمال‌ساز نهانجو اشکالات حروف و نیم‌فاصله‌ها را رفع می‌کند.",
+    embeddingTooltipStep2: "متن به تکه‌های ۸۰۰ کاراکتری برای بردارسازی دقیق تقسیم می‌شود.",
+    embeddingTooltipStep3: "مدل بردارساز چندزبانه، متون را به بردارهای ۳۸۴ بعدی در پایگاه داده FAISS تبدیل می‌کند.",
+    embeddingTooltipStep4: "مدل Qwen 2.5 3B با تحلیل اسناد، پاسخ دقیق و بدون توهم به همراه ارجاع به شماره صفحه ارائه می‌دهد.",
 
-    underTheHood: "فناوری‌های زیربنایی",
-    onnxTitle: "محیط اجرا ONNX و Transformers.js",
-    onnxDesc: "استفاده از نخ‌های پردازشی WebAssembly و خط لوله WebGPU برای شتاب‌دهی شبکه عصبی در کروم، فایرفاکس و سافاری بدون نیاز به نصب درایور.",
-    htmlCompilationTitle: "کامپایل به فایل تک‌صفحه‌ای HTML",
-    htmlCompilationDesc: "نهانجو تمامی کدها، استایل‌ها و منطق برنامه را در یک فایل HTML یکپارچه بسته‌بندی می‌کند که برای سیستم‌های کاملاً ایزوله ایده‌آل است.",
+    underTheHood: "پشته فنی نرم‌افزار نهانجو",
+    onnxTitle: "Qwen 2.5 3B Instruct و llama-cpp-python",
+    onnxDesc: "استفاده از فرمت GGUF کوانتایز شده Q4_K_M برای استنتاج فوق‌العاده سریع محلی روی CPU با استریم زنده توکن‌ها.",
+    htmlCompilationTitle: "واسط کاربری PySide6 Qt6 و نسخه USB",
+    htmlCompilationDesc: "رابط دسکتاپ تاریک و مدرن Qt6 با اجرای چندنخی QThread، قابل بسته‌بندی روی فلش USB با build_usb_portable.py.",
 
     // Get Started Tab
-    guideTitle: "شروع به کار با نهانجو",
-    guideSub: "نهانجو را روی سیستم خود به صورت محلی اجرا کنید. بدون نیاز به نصب سرور یا وابستگی‌های پیچیده پایتون. فقط کلون کنید، کامپایل کنید یا فایل HTML را باز کنید.",
-    cmdTitle: "دستورات خط فرمان",
+    guideTitle: "راهنمای نصب و اجرای نهانجو دسکتاپ",
+    guideSub: "نهانجو را به راحتی روی کامپیوتر ویندوزی خود اجرا کنید یا یک نسخه پرتابل روی فلش USB بسازید.",
+    cmdTitle: "دستورات راه اندازی در محیط پایتون",
     copiedBtn: "کپی شد!",
     copyCmdBtn: "کپی دستورات",
 
-    guideStep1Title: "کلون و اجرا",
-    guideStep1Desc: "مخزن را از گیت‌هاب کلون کنید. کدها بسیار ساختاریافته، ماژولار و با React و TypeScript نوشته شده‌اند.",
+    guideStep1Title: "کلون مخزن و پیش‌نیازها",
+    guideStep1Desc: "مطمئن شوید پایتون 3.10 یا بالاتر نصب است. مخزن اصلی را کلون کنید: https://github.com/ZhiwarSajadi/Nahanjoo.git",
 
-    guideStep2Title: "خروجی فایل مستقل تک‌صفحه‌ای",
-    guideStep2Desc: "دستور `npm run build:offline` را اجرا کنید تا تمام کدهای برنامه به یک فایل HTML سبُک تبدیل شوند که روی هر کامپیوتر و سیستمی باز می‌شود.",
+    guideStep2Title: "نصب کتابخانه‌های پایتون",
+    guideStep2Desc: "کتابخانه‌های PySide6، PyMuPDF، FAISS، sentence-transformers و llama-cpp-python را با دستور pip install -r requirements.txt نصب کنید.",
 
-    guideStep3Title: "استقرار در محیط‌های کاملاً ایزوله",
-    guideStep3Desc: "فایل HTML تولید شده را روی سیستم بدون اینترنت خود کپی کرده و از قابلیت‌های کامل جستجوی هوشمند بدون اتصال به اینترنت لذت ببرید.",
+    guideStep3Title: "اجرای نرم‌افزار نهانجو",
+    guideStep3Desc: "برنامه را با دستور python main.py اجرا کنید. اسناد PDF فارسی خود را در پوشه ./Documents قرار دهید تا نمایه برداری خودکار ساخته شود!",
 
-    contributeTitle: "مشارکت و ستاره دادن",
-    contributeDesc: "نهانجو یک پروژه متن‌باز و جامعه‌محور برای دفاع از حریم خصوصی داده‌هاست. اگر این پروژه برای شما مفید بود، لطفاً به مخزن گیت‌هاب ستاره بدهید و نظرات خود را به اشتراک بگذارید!",
-    starGithubBtn: "ستاره در گیت‌هاب",
+    contributeTitle: "متن‌باز و مشارکت",
+    contributeDesc: "نهانجو یک پروژه متن‌باز است که به عنوان پروژه پایانی کارشناسی در دانشگاه آزاد اسلامی واحد سنندج توسعه یافته است. در گیت‌هاب به ما ستاره دهید!",
+    starGithubBtn: "ستاره دادن در گیت‌هاب",
 
     // Footer
-    footerPlatform: "پلتفرم اختصاصی هوش مصنوعی ۱۰۰٪ سمت کاربر",
-    footerCoreRepo: "سورس اصلی نهانجو",
-    footerWebsiteRepo: "مخزن وب‌سایت"
+    footerPlatform: "نرم‌افزار دسکتاپ RAG ۱۰۰٪ آفلاین",
+    footerCoreRepo: "مخزن اصلی نهانجو (پایتون)",
+    footerWebsiteRepo: "ویترین وب‌سایت"
   }
 };

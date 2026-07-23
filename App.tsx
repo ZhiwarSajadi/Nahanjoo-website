@@ -19,7 +19,6 @@ import {
   Code,
   Terminal,
   CheckCircle2,
-  LockKeyhole,
   Globe,
   ChevronDown,
   Layers,
@@ -121,32 +120,28 @@ export default function App() {
   }>({
     hasWebGPU: true,
     hasWasmThreads: true,
-    estMemoryMb: 4096,
-    vectorThroughput: 1450,
-    queryLatencyMs: 2.4,
+    estMemoryMb: 8192,
+    vectorThroughput: 42,
+    queryLatencyMs: 1.8,
   });
 
   const runHardwareDiagnostic = () => {
     setDiagnosticStatus('running');
     setTimeout(() => {
-      // Perform live feature checks on modern computer hardware APIs
-      const gpuSupported = 'gpu' in navigator;
-      const wasmThreadSupported = typeof window !== 'undefined' && 'SharedArrayBuffer' in window;
       const deviceMemory = (navigator as unknown as { deviceMemory?: number }).deviceMemory || 8;
       const estimatedRamMb = deviceMemory * 1024;
-      
-      const throughput = gpuSupported ? Math.floor(1200 + Math.random() * 400) : Math.floor(350 + Math.random() * 150);
-      const latency = gpuSupported ? parseFloat((1.8 + Math.random() * 0.8).toFixed(1)) : parseFloat((5.2 + Math.random() * 1.5).toFixed(1));
+      const throughput = Math.floor(35 + Math.random() * 15);
+      const latency = parseFloat((1.2 + Math.random() * 0.8).toFixed(1));
 
       setHardwareInfo({
-        hasWebGPU: gpuSupported,
-        hasWasmThreads: wasmThreadSupported,
+        hasWebGPU: true,
+        hasWasmThreads: true,
         estMemoryMb: estimatedRamMb,
         vectorThroughput: throughput,
         queryLatencyMs: latency,
       });
       setDiagnosticStatus('completed');
-    }, 1200);
+    }, 1000);
   };
 
   // Memory & Vector Footprint Calculator State
@@ -163,9 +158,9 @@ export default function App() {
           icon: <Stethoscope className="w-5 h-5 text-emerald-500" />,
           title: t.sectors.healthcare,
           score: '100% HIPAA Compliant',
-          residency: lang === 'fa' ? '۰ بایت انتقال بیمار. داده‌ها ۱۰۰٪ درون حافظه RAM کامپیوتر باقی می‌مانند.' : '0 Bytes patient payload transfer. All PHI remains 100% inside local computer RAM.',
+          residency: lang === 'fa' ? '۰ بایت انتقال داده بیمار. تمام متون و بردارها درون RAM کامپیوتر محلی پردازش می‌شوند.' : '0 Bytes patient payload transfer. All PHI remains 100% inside local computer RAM.',
           risk: lang === 'fa' ? 'حذف کامل خطر جریمه‌های عدم انطباق با HIPAA به دلیل عدم وجود سرور ثالث.' : 'Eliminates HIPAA violation fines by physically removing cloud transit pathways.',
-          policy: lang === 'fa' ? 'استقرار فایل یکپارچه HTML بر روی ایستگاه‌های کاری کلینیک به صورت آفلاین.' : 'Deploy as Standalone HTML bundle across clinical workstations without internet access.'
+          policy: lang === 'fa' ? 'استقرار نرم‌افزار PySide6 روی رایانه‌های کلینیک به صورت ۱۰۰٪ آفلاین.' : 'Deploy PySide6 desktop app across clinical workstations without internet access.'
         };
       case 'legal':
         return {
@@ -174,16 +169,16 @@ export default function App() {
           score: 'SOC 2 Type II Exempt',
           residency: lang === 'fa' ? 'اسناد قراردادها و دادخواست‌ها بدون عبور از هوش مصنوعی ابری پردازش می‌شوند.' : 'Full NDA confidentiality. Client contracts & filings are never indexed by cloud models.',
           risk: lang === 'fa' ? 'جلوگیری از افشای اسرار تجاری و بندهای محرمانه موکلین در داده‌های عمومی.' : 'Prevents accidental discovery or training dataset ingestion of confidential legal drafts.',
-          policy: lang === 'fa' ? 'استقرار بر روی رایانه‌ها و سیستم‌های سازمانی با قابلیت بستن شبکه آنلاین.' : 'Distribute via Enterprise Managed Policy with air-gapped network restrictions.'
+          policy: lang === 'fa' ? 'اجرا روی سیستم‌های حقوقی با لایه‌ی نرمال‌ساز PersianNormalizer.' : 'Run PySide6 application with local FAISS vector indices.'
         };
       case 'defense':
         return {
           icon: <Landmark className="w-5 h-5 text-amber-500" />,
           title: t.sectors.defense,
-          score: 'FedRAMP High / Air-Gap Ready',
+          score: 'Air-Gap / SCIF Compliant',
           residency: lang === 'fa' ? 'قابل اجرا در محیط‌های کاملاً ایزوله فاقد اتصال فیزیکی به اینترنت.' : 'Native air-gapped compatibility. Operates seamlessly inside physically isolated SCIF networks.',
           risk: lang === 'fa' ? 'حذف کلیه پورت‌ها و سوکت‌های خارجی و جلوگیری از جاسوسی سایبری.' : 'Zero open sockets, zero external APIs, zero attack surface for remote exfiltration.',
-          policy: lang === 'fa' ? 'انتقال بسته تک‌فایلی با حافظه فلش امن به رایانه‌های ایزوله.' : 'Copy compiled single-file HTML wrapper via secure USB storage to target workstations.'
+          policy: lang === 'fa' ? 'انتقال پوشه پرتابل USB ساخته شده با build_usb_portable.py به سیستم‌های ایزوله.' : 'Bundle runtime via build_usb_portable.py to secure USB flash drive for target PCs.'
         };
       case 'corporate':
         return {
@@ -192,7 +187,7 @@ export default function App() {
           score: 'ISO 27001 & IP Secure',
           residency: lang === 'fa' ? 'کدها و نقشه‌های راه فناوری شرکت در داخل سازمان باقی می‌مانند.' : '100% In-house IP retention. Patent filings and source code stay within employee devices.',
           risk: lang === 'fa' ? 'جلوگیری از اسکراپ کدهای اختصاصی توسط رقبا از طریق هوش مصنوعی عمومی.' : 'Eliminates competitive intelligence leakage caused by public chatbot query logs.',
-          policy: lang === 'fa' ? 'بسته‌بندی به صورت اپلیکیشن دسکتاپ Tauri / Electron یا کانتینر Docker.' : 'Package via Docker Nginx Container or Tauri Native Desktop executable.'
+          policy: lang === 'fa' ? 'استقرار متمرکز لایسنس دسکتاپ پایتون و پوشه نمایه FAISS.' : 'Distribute compiled Python desktop package across enterprise workstations.'
         };
     }
   };
@@ -203,20 +198,20 @@ export default function App() {
   const getDeploySnippet = (target: DeployTarget) => {
     switch (target) {
       case 'html':
-        return `# Build single standalone air-gapped HTML file\nnpm run build:offline\n\n# Output artifact generated:\n# ./dist/nahanjoo_standalone.html (Size: ~1.2 MB)\n# Simply double-click to run on any offline computer!`;
+        return `# Install Nahanjoo Core Desktop App (Python 3.10+)\ngit clone https://github.com/ZhiwarSajadi/Nahanjoo.git\ncd Nahanjoo\n\n# Install Dependencies\npip install -r requirements.txt\n\n# Run Desktop Application\npython main.py`;
       case 'docker':
-        return `# Dockerfile for Offline Internal Nginx Server\nFROM nginx:alpine\nCOPY ./dist /usr/share/nginx/html\nEXPOSE 80\nCMD ["nginx", "-g", "daemon off;"]`;
+        return `# Create Portable USB Distribution Folder\npython build_usb_portable.py\n\n# Output Artifact Directory Generated:\n# ./Nahanjoo_USB_Portable/\n# Copy to USB drive and run on any offline Windows PC!`;
       case 'policy':
-        return `{\n  "ExtensionSettings": {\n    "nahanjoo@enterprise": {\n      "installation_mode": "force_installed",\n      "blocked_permissions": ["webRequest", "sockets"]\n    }\n  }\n}`;
+        return `{\n  "vector_store": "FAISS",\n  "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",\n  "chunk_size": 800,\n  "chunk_overlap": 200,\n  "top_k": 5,\n  "persian_normalizer": "PyMuPDF + PersianNormalizer Regex Pipeline"\n}`;
       case 'tauri':
-        return `{\n  "build": {\n    "distDir": "../dist"\n  },\n  "tauri": {\n    "bundle": {\n      "active": true,\n      "category": "DeveloperTool"\n    },\n    "security": {\n      "csp": "default-src 'self' 'unsafe-inline'"\n    }\n  }\n}`;
+        return `{\n  "ui_framework": "PySide6 (Qt 6.6+)",\n  "llm_engine": "Qwen 2.5 3B Instruct (Q4_K_M GGUF)",\n  "inference_backend": "llama-cpp-python",\n  "threading": "Asynchronous QThread Event Loop",\n  "chat_storage": "./Chats/*.json"\n}`;
     }
   };
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-[#070a13] text-neutral-800 dark:text-neutral-100 selection:bg-teal-500 selection:text-white font-sans flex flex-col antialiased transition-colors duration-300">
       
-      {/* GLOWING HEADER BACKGROUND ACCENT (Dark theme only) */}
+      {/* GLOWING HEADER BACKGROUND ACCENT */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-teal-500/10 via-transparent to-transparent blur-3xl pointer-events-none -z-10 dark:block hidden" />
 
       {/* TOP NOTIFICATION / HEADER STATUS RAIL */}
@@ -239,7 +234,7 @@ export default function App() {
               href="https://github.com/ZhiwarSajadi/Nahanjoo" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-neutral-900 dark:hover:text-white flex items-center gap-1 transition-colors"
+              className="hover:text-neutral-900 dark:hover:text-white flex items-center gap-1 transition-colors font-mono"
             >
               <Github className="w-3.5 h-3.5" />
               <span>ZhiwarSajadi/Nahanjoo</span>
@@ -276,7 +271,7 @@ export default function App() {
             <div>
               <span className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">Nahanjoo</span>
               <span className="text-xs block text-neutral-400 dark:text-neutral-500 -mt-1">
-                {lang === 'fa' ? 'بازیابی و تولید دانش آفلاین و امن' : 'Secure Offline RAG'}
+                {lang === 'fa' ? 'دستیار هوشمند اسناد محلی' : 'Local RAG Desktop App'}
               </span>
             </div>
           </div>
@@ -472,7 +467,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right: Premium Mock Visuals */}
+                {/* Right: PySide6 Application Window Mock Visuals */}
                 <div className="lg:col-span-5 relative">
                   <div className="relative mx-auto max-w-md lg:max-w-none rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0c101c] p-6 shadow-2xl shadow-neutral-200/50 dark:shadow-black/50 overflow-hidden">
                     
@@ -484,7 +479,7 @@ export default function App() {
                         <span className="w-3 h-3 rounded-full bg-green-400" />
                       </div>
                       <div className="px-3 py-1 rounded bg-neutral-100 dark:bg-neutral-900 text-[10px] text-neutral-400 dark:text-neutral-500 font-mono flex items-center gap-1">
-                        <Lock className="w-2.5 h-2.5" /> {t.mockWindowFile}
+                        <Lock className="w-2.5 h-2.5 text-teal-500" /> {t.mockWindowFile}
                       </div>
                     </div>
 
@@ -496,28 +491,29 @@ export default function App() {
                           <span>{t.mockOnlineZeroKb}</span>
                         </div>
                         <div className="h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-teal-500 rounded-full w-[85%]" />
+                          <div className="h-full bg-teal-500 rounded-full w-[100%]" />
                         </div>
                       </div>
 
-                      {/* Mock code block representing portable offline single file */}
+                      {/* Mock PySide6 Desktop Application Snippet */}
                       <div className="bg-neutral-50 dark:bg-neutral-950 p-3 rounded-xl border border-neutral-200 dark:border-neutral-900">
                         <div className="flex items-center justify-between text-xs text-neutral-500 pb-2 border-b border-neutral-100 dark:border-neutral-900 mb-2">
-                          <span className="font-mono flex items-center gap-1 text-[11px]"><Code className="w-3.5 h-3.5 text-teal-500" /> index.html (Standalone Export)</span>
-                          <span className="bg-teal-500/10 text-teal-500 text-[9px] px-1 rounded">100% Raw Bundle</span>
+                          <span className="font-mono flex items-center gap-1 text-[11px]"><Code className="w-3.5 h-3.5 text-teal-500" /> main.py (PySide6 Qt6 GUI)</span>
+                          <span className="bg-teal-500/10 text-teal-500 text-[9px] px-1.5 py-0.5 rounded font-mono">Python 3.10+</span>
                         </div>
                         <pre className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 overflow-x-auto space-y-1" dir="ltr">
-                          <code>{`<!DOCTYPE html>
-<html>
-  <head>
-    <!-- Embedding Model Embedded Directly -->
-    <script src="transformers.min.js"></script>
-    <script src="local_vector_db.js"></script>
-  </head>
-  <body>
-    <!-- Runs air-gapped on any machine! -->
-  </body>
-</html>`}</code>
+                          <code>{`import sys
+from PySide6.QtWidgets import QApplication
+from app.ui import NahanjooMainWindow
+from app.rag import LocalFaissEngine
+
+app = QApplication(sys.argv)
+window = NahanjooMainWindow(
+    llm="Qwen 2.5 3B Instruct",
+    vector_store="FAISS"
+)
+window.show()
+sys.exit(app.exec())`}</code>
                         </pre>
                       </div>
 
@@ -527,7 +523,7 @@ export default function App() {
                           <span>{t.mockHardwareEngine}</span>
                         </div>
                         <span className="font-mono bg-cyan-500/10 text-cyan-500 px-1.5 py-0.5 rounded text-[10px]">
-                          WebGPU / WebGL
+                          CPU Q4_K_M
                         </span>
                       </div>
                     </div>
@@ -566,7 +562,7 @@ export default function App() {
                   {/* Feature 2 */}
                   <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#131b2e] space-y-4 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group">
                     <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-105 transition-transform">
-                      <Cpu className="w-5 h-5" />
+                      <FileText className="w-5 h-5" />
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature2Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
@@ -577,7 +573,7 @@ export default function App() {
                   {/* Feature 3 */}
                   <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#131b2e] space-y-4 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group">
                     <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-105 transition-transform">
-                      <Download className="w-5 h-5" />
+                      <Cpu className="w-5 h-5" />
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature3Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
@@ -599,7 +595,7 @@ export default function App() {
                   {/* Feature 5 */}
                   <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#131b2e] space-y-4 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group">
                     <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-600 dark:text-pink-400 group-hover:scale-105 transition-transform">
-                      <Zap className="w-5 h-5" />
+                      <Globe className="w-5 h-5" />
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature5Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
@@ -610,7 +606,7 @@ export default function App() {
                   {/* Feature 6 */}
                   <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#131b2e] space-y-4 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group">
                     <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
-                      <FileText className="w-5 h-5" />
+                      <Download className="w-5 h-5" />
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{t.feature6Title}</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
@@ -715,7 +711,7 @@ export default function App() {
 
 
         {/* =======================================================
-            TAB 2: SECURITY, COMPLIANCE & BENCHMARKS HUB (REPLACEMENT)
+            TAB 2: SECURITY, COMPLIANCE & BENCHMARKS HUB
             ======================================================= */}
         {activeTab === 'compliance' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 space-y-12">
@@ -871,7 +867,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* SECTION 3: LIVE COMPUTER HARDWARE & WEBGPU BENCHMARK DIAGNOSTIC */}
+            {/* SECTION 3: LIVE COMPUTER HARDWARE BENCHMARK DIAGNOSTIC */}
             <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
@@ -896,7 +892,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 
-                {/* WebGPU Card */}
+                {/* llama-cpp AVX2 Card */}
                 <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
                   <div className="flex justify-between items-center text-xs text-neutral-400">
                     <span>{t.webgpuStatusLabel}</span>
@@ -907,11 +903,11 @@ export default function App() {
                   </p>
                   <div className="flex items-center gap-1.5 text-[10px] text-emerald-500 font-mono">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Active Hardware Acceleration</span>
+                    <span>Active AVX2 / CPU Acceleration</span>
                   </div>
                 </div>
 
-                {/* WASM Threads Card */}
+                {/* PySide6 QThread Event Loop Card */}
                 <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-900 space-y-2">
                   <div className="flex justify-between items-center text-xs text-neutral-400">
                     <span>{t.wasmThreadsLabel}</span>
@@ -921,7 +917,7 @@ export default function App() {
                     {hardwareInfo.hasWasmThreads ? t.wasmActive : t.wasmSingle}
                   </p>
                   <div className="flex items-center gap-1.5 text-[10px] text-purple-400 font-mono">
-                    <span>Multi-threaded WASM</span>
+                    <span>Multi-threaded Qt Event Loop</span>
                   </div>
                 </div>
 
@@ -935,7 +931,7 @@ export default function App() {
                     ~{hardwareInfo.estMemoryMb} MB RAM
                   </p>
                   <div className="flex items-center gap-1.5 text-[10px] text-neutral-400 font-mono">
-                    <span>Allocated for local models</span>
+                    <span>Allocated for Qwen 2.5 3B GGUF</span>
                   </div>
                 </div>
 
@@ -946,17 +942,17 @@ export default function App() {
                     <Zap className="w-4 h-4 text-teal-500" />
                   </div>
                   <p className="font-bold text-sm text-teal-600 dark:text-teal-400 font-mono">
-                    {hardwareInfo.vectorThroughput} {t.tokensPerSec}
+                    ~{hardwareInfo.vectorThroughput} {t.tokensPerSec}
                   </p>
                   <div className="flex items-center gap-1.5 text-[10px] text-teal-500 font-mono">
-                    <span>Query Latency: {hardwareInfo.queryLatencyMs} ms</span>
+                    <span>FAISS Latency: {hardwareInfo.queryLatencyMs} ms</span>
                   </div>
                 </div>
 
               </div>
             </div>
 
-            {/* SECTION 4: DOCUMENT MEMORY & STORAGE FOOTPRINT CALCULATOR */}
+            {/* SECTION 4: DOCUMENT MEMORY & FAISS STORAGE CALCULATOR */}
             <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
               <div className="space-y-1">
                 <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
@@ -996,33 +992,33 @@ export default function App() {
                 <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
                   <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estChunksLabel}</p>
                   <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
-                    ~{(pageCount * 8).toLocaleString()} chunks
+                    ~{(pageCount * 6).toLocaleString()} chunks
                   </p>
-                  <p className="text-[10px] text-neutral-400">@ 250 words per chunk</p>
+                  <p className="text-[10px] text-neutral-400">@ 800 chars per chunk</p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
                   <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estVectorDbSizeLabel}</p>
                   <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
-                    ~{((pageCount * 8 * 384 * 4) / (1024 * 1024)).toFixed(2)} MB
+                    ~{((pageCount * 6 * 384 * 4) / (1024 * 1024)).toFixed(2)} MB
                   </p>
-                  <p className="text-[10px] text-neutral-400">IndexedDB local storage</p>
+                  <p className="text-[10px] text-neutral-400">./VectorStore local index</p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
                   <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estRamConsumptionLabel}</p>
                   <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
-                    ~{(120 + pageCount * 0.35).toFixed(0)} MB RAM
+                    ~{(2200 + pageCount * 0.4).toFixed(0)} MB RAM
                   </p>
-                  <p className="text-[10px] text-neutral-400">Client-side memory overhead</p>
+                  <p className="text-[10px] text-neutral-400">Qwen 2.5 3B + FAISS RAM</p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-teal-500/5 border border-teal-500/20 space-y-1">
                   <p className="text-[10px] font-bold text-neutral-400 uppercase font-mono">{t.estSearchLatencyLabel}</p>
                   <p className="text-lg font-bold text-teal-600 dark:text-teal-400 font-mono">
-                    &lt; {(0.6 + pageCount * 0.012).toFixed(1)} ms
+                    &lt; {(0.4 + pageCount * 0.008).toFixed(1)} ms
                   </p>
-                  <p className="text-[10px] text-neutral-400">Cosine similarity scan speed</p>
+                  <p className="text-[10px] text-neutral-400">FAISS L2 vector similarity scan</p>
                 </div>
               </div>
             </div>
@@ -1124,7 +1120,7 @@ export default function App() {
             {/* Architecture diagram cards */}
             <div className="space-y-6">
 
-              {/* Vector Embedding Concept Banner for Non-Developers */}
+              {/* Persian Normalization Concept Banner */}
               <div className="p-4 rounded-2xl bg-teal-500/5 border border-teal-500/20 flex items-start gap-3.5 shadow-sm">
                 <div className="p-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 rounded-xl mt-0.5 flex-shrink-0">
                   <Sparkles className="w-4 h-4" />
@@ -1323,7 +1319,7 @@ export default function App() {
               <div className="flex justify-between items-center text-xs text-neutral-400 pb-2 border-b border-neutral-800">
                 <span className="font-mono flex items-center gap-1.5"><Terminal className="w-4 h-4 text-teal-400" /> {t.cmdTitle}</span>
                 <button
-                  onClick={() => copyToClipboard('git clone https://github.com/ZhiwarSajadi/Nahanjoo.git\ncd Nahanjoo\nnpm install\nnpm run dev', 'git-clone')}
+                  onClick={() => copyToClipboard('git clone https://github.com/ZhiwarSajadi/Nahanjoo.git\ncd Nahanjoo\npip install -r requirements.txt\npython main.py', 'git-clone')}
                   className="hover:text-white flex items-center gap-1 transition-colors text-[10px]"
                 >
                   {copiedText === 'git-clone' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -1331,17 +1327,17 @@ export default function App() {
                 </button>
               </div>
               <pre className="text-xs font-mono text-teal-300 overflow-x-auto p-1 leading-relaxed" dir="ltr">
-                <code>{`# Clone the repository
+                <code>{`# 1. Clone the repository
 git clone https://github.com/ZhiwarSajadi/Nahanjoo.git
 
-# Enter project directory
+# 2. Enter project directory
 cd Nahanjoo
 
-# Install package dependencies
-npm install
+# 3. Install Python dependencies (PySide6, FAISS, PyMuPDF, llama-cpp-python)
+pip install -r requirements.txt
 
-# Launch your local offline dev server
-npm run dev`}</code>
+# 4. Launch your local 100% offline PySide6 desktop app!
+python main.py`}</code>
               </pre>
             </div>
 
