@@ -18,7 +18,7 @@ export const translations = {
     // Hero Section
     heroBadge: "The Ultimate Secure Offline Retrieval Solution",
     heroTitlePart1: "Your Documents.",
-    heroTitlePart2: "Your Browser.",
+    heroTitlePart2: "Your Computer.",
     heroTitleHighlight: "100% Offline AI.",
     heroDesc: "Nahanjoo (نهانجو) is a portable, ultra-secure, client-side RAG application. Process sensitive documents, generate embeddings, and query them completely locally. No API keys, no subscriptions, and zero database queries leaving your machine.",
     heroCtaSecurity: "Explore Security & Benchmarks",
@@ -41,12 +41,12 @@ export const translations = {
     feature1Desc: "Absolutely zero cloud dependency. Your personal tax records, legal drafts, and medical papers never pass through corporate servers or network logs. Fully local.",
     
     feature2Title: "Local Embedding Models",
-    feature2Desc: "Nahanjoo embeds tiny, ultra-optimized transformer embedding models (like Xenova/all-MiniLM-L6-v2) directly inside your browser cache. Local tokenization and local vector creation.",
+    feature2Desc: "Nahanjoo embeds tiny, ultra-optimized transformer embedding models (like Xenova/all-MiniLM-L6-v2) directly inside your computer's local cache. Local tokenization and local vector creation.",
     
     feature3Title: "The Portable HTML Trick",
     feature3Desc: "A standalone web wrapper. Export Nahanjoo as a single independent HTML file package. Throw it on an air-gapped secure computer, double click to run, and analyze documents immediately offline.",
     
-    feature4Title: "Browser-native Vector DB",
+    feature4Title: "Computer-native Vector DB",
     feature4Desc: "Uses IndexedDB and standard client-side storage structures to maintain structured indices. Instantly search hundreds of pages of document chunks in milliseconds using Cosine Similarity.",
     
     feature5Title: "No Subscription Costs",
@@ -57,7 +57,7 @@ export const translations = {
 
     // CTA Banner
     ctaTitle: "Need Enterprise Air-Gapped Security?",
-    ctaDesc: "Explore our interactive Security Matrix, run real-time browser WebGPU hardware diagnostics, calculate vector memory footprints, and generate air-gap deployment configurations.",
+    ctaDesc: "Explore our interactive Security Matrix, run real-time computer hardware diagnostics, calculate vector memory footprints, and generate air-gap deployment configurations.",
     ctaOpenSecurity: "Explore Security Hub",
     ctaGetGuide: "Get Offline Bundle Guide",
 
@@ -68,15 +68,15 @@ export const translations = {
     faqs: [
       {
         q: "How does local RAG differ from traditional cloud-based AI tools?",
-        a: "Traditional RAG sends your uploaded documents over the internet to remote cloud servers for vector embedding and retrieval. Nahanjoo performs document parsing, vector generation, and semantic similarity searching 100% locally inside your browser using WebGPU and WebAssembly. Zero bytes leave your machine."
+        a: "Traditional RAG sends your uploaded documents over the internet to remote cloud servers for vector embedding and retrieval. Nahanjoo performs document parsing, vector generation, and semantic similarity searching 100% locally on your computer using WebGPU and WebAssembly. Zero bytes leave your machine."
       },
       {
         q: "Is my document data completely private and safe from AI training?",
-        a: "Yes! Absolute privacy is enforced by physical architecture. Because Nahanjoo processes all files inside your browser's local memory and IndexedDB storage, no third party, cloud server, or AI training pipeline ever receives your documents or search queries."
+        a: "Yes! Absolute privacy is enforced by physical architecture. Because Nahanjoo processes all files inside your computer's local memory and local storage, no third party, cloud server, or AI training pipeline ever receives your documents or search queries."
       },
       {
         q: "What file formats and sizes are supported?",
-        a: "Nahanjoo supports PDF documents, Microsoft Word files (.docx), Markdown files (.md), and plain text logs (.txt). There are no artificial paywall limits; processing performance scales with your device's browser memory (RAM), easily handling hundreds of document pages."
+        a: "Nahanjoo supports PDF documents, Microsoft Word files (.docx), Markdown files (.md), and plain text logs (.txt). There are no artificial paywall limits; processing performance scales with your computer's memory (RAM), easily handling hundreds of document pages."
       },
       {
         q: "Do I need an active internet connection or specialized GPU?",
@@ -94,7 +94,7 @@ export const translations = {
 
     // Security & Compliance Hub Tab
     securityTitle: "Enterprise Security, Compliance & Benchmarks",
-    securitySubtitle: "Evaluate Nahanjoo's air-gapped security posture, run live browser hardware diagnostics, calculate local vector storage footprints, and export air-gap deployment policies.",
+    securitySubtitle: "Evaluate Nahanjoo's air-gapped security posture, run live computer hardware diagnostics, calculate local vector storage footprints, and export air-gap deployment policies.",
     
     // Security Matrix Comparison
     matrixHeading: "1. Security & Architecture Posture Matrix",
@@ -151,9 +151,9 @@ export const translations = {
     recommendedPolicyLabel: "Recommended Deployment Strategy",
 
     // Hardware Benchmark Diagnostic Tool
-    benchmarkHeading: "3. Live Browser Hardware & Accelerator Diagnostic",
-    benchmarkSubheading: "Inspect your browser's local processing engine, WebGPU hardware acceleration, WebAssembly thread pool, and estimated vector throughput.",
-    runDiagnosticBtn: "Run Browser Environment Diagnostic",
+    benchmarkHeading: "3. Live Computer Hardware & Accelerator Diagnostic",
+    benchmarkSubheading: "Inspect your computer's local processing engine, WebGPU hardware acceleration, WebAssembly thread pool, and estimated vector throughput.",
+    runDiagnosticBtn: "Run Computer Environment Diagnostic",
     diagnosticRunning: "Analyzing Hardware Pipeline...",
     webgpuStatusLabel: "WebGPU Acceleration",
     webgpuSupported: "Hardware Accelerated (Active)",
@@ -161,7 +161,7 @@ export const translations = {
     wasmThreadsLabel: "WebAssembly Multi-Threading",
     wasmActive: "SharedArrayBuffer Multi-Thread Active",
     wasmSingle: "Single-Thread Standard",
-    memoryLimitLabel: "Available Browser Heap Storage",
+    memoryLimitLabel: "Available Computer Memory",
     estimatedThroughputLabel: "Est. Vector Throughput",
     tokensPerSec: "tokens/sec",
     queryLatencyLabel: "Est. Local Vector Query Latency",
@@ -196,7 +196,7 @@ export const translations = {
     archStep4Num: "STEP 04",
 
     archStep1Title: "File Ingress & Parse",
-    archStep1Desc: "A PDF, Word, or TXT file is dragged directly into the window. The browser pulls the binary array into memory with zero server transmission.",
+    archStep1Desc: "A PDF, Word, or TXT file is loaded. The application pulls the binary array into memory on your computer with zero server transmission.",
     
     archStep2Title: "Local Chunking",
     archStep2Desc: "Plaintext content is divided into tiny overlapping chunk tokens. This helps maintain context during similarity scans.",
@@ -205,7 +205,7 @@ export const translations = {
     archStep3Desc: "Lightweight embedder models run locally using WebGPU or WebAssembly. Each chunk is mapped into a vector representing its semantics.",
     
     archStep4Title: "Interactive RAG",
-    archStep4Desc: "When queried, the browser calculates mathematical similarities, pulls matching chunks, and feeds them locally to an offline client-side LLM.",
+    archStep4Desc: "When queried, your computer calculates mathematical similarities, pulls matching chunks, and feeds them locally to an offline client-side LLM.",
 
     embeddingConceptBadge: "Vector Embeddings Concept",
     embeddingConceptTitle: "What are Vector Embeddings?",
@@ -214,7 +214,7 @@ export const translations = {
     embeddingTooltipStep1: "In Step 1, your document's raw text is extracted locally in memory so it can be transformed into vector embeddings (numerical maps of meaning) in Step 3.",
     embeddingTooltipStep2: "Text is broken into smaller chunks so that each vector embedding accurately captures a single focused concept without losing detail.",
     embeddingTooltipStep3: "The local AI converts text chunks into lists of numbers (vectors). Phrases with similar meanings end up close together in mathematical space!",
-    embeddingTooltipStep4: "Your question is also converted into a vector. The browser compares your question vector against document vectors to find the most relevant paragraphs instantly.",
+    embeddingTooltipStep4: "Your question is also converted into a vector. The system compares your question vector against document vectors on your computer to find the most relevant paragraphs instantly.",
 
     underTheHood: "Under the Hood Stack",
     onnxTitle: "ONNX Runtime & Transformers.js",
@@ -265,7 +265,7 @@ export const translations = {
     // Hero Section
     heroBadge: "راهکار امن و نهایی بازیابی اطلاعات بدون اینترنت",
     heroTitlePart1: "اسناد شما.",
-    heroTitlePart2: "مرورگر شما.",
+    heroTitlePart2: "کامپیوتر شما.",
     heroTitleHighlight: "هوش مصنوعی ۱۰۰٪ آفلاین.",
     heroDesc: "نهانجو (Nahanjoo) یک برنامه کاربردی RAG فوق‌العاده امن، قابل حمل و کاملاً سمت کاربر است. اسناد حساس خود را پردازش کنید، بردارسازی کنید و کاملاً محلی از آن‌ها سوال بپرسید. بدون نیاز به کلید API، اشتراک، یا ارسال حتی یک کوئری به بیرون.",
     heroCtaSecurity: "بررسی امنیت و ارزیابی کارایی",
@@ -288,12 +288,12 @@ export const translations = {
     feature1Desc: "کاملاً مستقل از ابر. پرونده‌های مالیاتی، پیش‌نویس‌های قانونی و مدارک پزشکی شما هرگز از سرورهای شرکتی یا شبکه رد نمی‌شوند.",
     
     feature2Title: "مدل‌های بردارساز محلی",
-    feature2Desc: "نهانجو مدل‌های مینیاتوری بهینه‌شده ترنسفورمر (مانند Xenova/all-MiniLM-L6-v2) را مستقیماً در حافظه پنهان مرورگر شما اجرا می‌کند.",
+    feature2Desc: "نهانجو مدل‌های مینیاتوری بهینه‌شده ترنسفورمر (مانند Xenova/all-MiniLM-L6-v2) را مستقیماً روی حافظه محلی کامپیوتر شما اجرا می‌کند.",
     
     feature3Title: "فایل تک‌صفحه‌ای HTML قابل حمل",
     feature3Desc: "امکان خروجی گرفتن از نهانجو به صورت یک فایل HTML مستقل. آن را روی سیستم ایزوله و بدون اینترنت اجرا کنید و سند را بلافاصله تحلیل نمایید.",
     
-    feature4Title: "پایگاه داده برداری بومی مرورگر",
+    feature4Title: "پایگاه داده برداری بومی کامپیوتر",
     feature4Desc: "استفاده از IndexedDB و ساختارهای ذخیره‌سازی سمت کاربر برای جستجوی میلی‌ثانیه‌ای در صدها صفحه سند با شباهت کسینوسی.",
     
     feature5Title: "بدون هزینه اشتراک",
@@ -304,7 +304,7 @@ export const translations = {
 
     // CTA Banner
     ctaTitle: "نیازمند امنیت سازمانی در محیط ایزوله هستید؟",
-    ctaDesc: "ماتریس تعاملی امنیت را بررسی کنید، تست سخت‌افزاری مرورگر خود را اجرا نمایید، میزان حافظه مصرفی را محاسبه کرده و فایل‌های تنظیمات استقرار را دریافت کنید.",
+    ctaDesc: "ماتریس تعاملی امنیت را بررسی کنید، تست سخت‌افزاری کامپیوتر خود را اجرا نمایید، میزان حافظه مصرفی را محاسبه کرده و فایل‌های تنظیمات استقرار را دریافت کنید.",
     ctaOpenSecurity: "ورود به مرکز امنیت",
     ctaGetGuide: "راهنمای فایل آفلاین",
 
@@ -315,11 +315,11 @@ export const translations = {
     faqs: [
       {
         q: "تفاوت RAG محلی نهانجو با ابزارهای ابری هوش مصنوعی چیست؟",
-        a: "در ابزارهای ابری، اسناد شما از طریق اینترنت به سرورهای خارجی ارسال می‌شوند. اما نهانجو فرآیند استخراج سند، تولید بردارها و جستجوی شباهت معنایی را ۱۰۰٪ به صورت محلی در مرورگر شما (با فناوری WebGPU و WebAssembly) انجام می‌دهد و حتی یک بایت داده از دستگاه شما خارج نمی‌شود."
+        a: "در ابزارهای ابری، اسناد شما از طریق اینترنت به سرورهای خارجی ارسال می‌شوند. اما نهانجو فرآیند استخراج سند، تولید بردارها و جستجوی شباهت معنایی را ۱۰۰٪ به صورت محلی روی کامپیوتر شما (با فناوری WebGPU و WebAssembly) انجام می‌دهد و حتی یک بایت داده از دستگاه شما خارج نمی‌شود."
       },
       {
         q: "آیا اسناد من کاملاً خصوصی و امن باقی می‌مانند؟",
-        a: "بله! امنیت و حریم خصوصی در نهانجو بر اساس معماری فیزیکی تضمین شده است. از آنجا که کلیه فایل‌ها درون حافظه موقت مرورگر و پایگاه داده IndexedDB دستگاه شما پردازش می‌شوند، هیچ سرور ابری، شخص ثالث یا سیستم آموزش هوش مصنوعی به اسناد یا سوالات شما دسترسی ندارد."
+        a: "بله! امنیت و حریم خصوصی در نهانجو بر اساس معماری فیزیکی تضمین شده است. از آنجا که کلیه فایل‌ها درون حافظه موقت کامپیوتر و پایگاه داده محلی دستگاه شما پردازش می‌شوند، هیچ سرور ابری، شخص ثالث یا سیستم آموزش هوش مصنوعی به اسناد یا سوالات شما دسترسی ندارد."
       },
       {
         q: "چه فرمت‌ها و حجم‌هایی از فایل پشتیبانی می‌شوند؟",
@@ -341,13 +341,13 @@ export const translations = {
 
     // Security & Compliance Hub Tab
     securityTitle: "امنیت سازمانی، انطباق‌پذیری و ارزیابی کارایی",
-    securitySubtitle: "ارزیابی معماری ایزوله نهانجو، اجرای تست‌های سخت‌افزاری مرورگر، محاسبه میزان حافظه مصرفی و دریافت پیکربندی‌های استقرار سازمانی.",
+    securitySubtitle: "ارزیابی معماری ایزوله نهانجو، اجرای تست‌های سخت‌افزاری کامپیوتر، محاسبه میزان حافظه مصرفی و دریافت پیکربندی‌های استقرار سازمانی.",
     
     // Security Matrix Comparison
     matrixHeading: "۱. ماتریس مقایسه‌ای معماری و امنیت",
     matrixSubheading: "مقایسه ویژگی‌های امنیتی نهانجو در برابر سرویس‌های ابری عمومی، ابر اختصاصی و سرورهای محلی.",
     matrixColFeature: "معیار امنیتی",
-    matrixColNahanjoo: "نهانجو (RAG سمت مرورگر)",
+    matrixColNahanjoo: "نهانجو (RAG سمت کامپیوتر)",
     matrixColPublicCloud: "هوش مصنوعی ابری عمومی",
     matrixColPrivateCloud: "ابر اختصاصی سازمانی",
     matrixColLocalServer: "سرور محلی (Ollama)",
@@ -365,7 +365,7 @@ export const translations = {
     matrixRow2LocalServer: "نیازمند پیکربندی دستی",
 
     matrixRow3Label: "حق فراموشی (GDPR)",
-    matrixRow3Nahanjoo: "فوری (پاکسازی مرورگر)",
+    matrixRow3Nahanjoo: "فوری (پاکسازی حافظه کامپیوتر)",
     matrixRow3PublicCloud: "مهلت ۳۰ تا ۹۰ روزه سرور",
     matrixRow3PrivateCloud: "حذف دستی پایگاه داده",
     matrixRow3LocalServer: "حذف فایل محلی",
@@ -398,9 +398,9 @@ export const translations = {
     recommendedPolicyLabel: "استراتژی استقرار پیشنهادی",
 
     // Hardware Benchmark Diagnostic Tool
-    benchmarkHeading: "۳. عیب‌یابی و سنجش سخت‌افزار مرورگر",
-    benchmarkSubheading: "بررسی قدرت پردازشی مرورگر، شتاب‌دهنده سخت‌افزاری WebGPU، پردازش چندنخی WebAssembly و سرعت تخمینی بردارسازی.",
-    runDiagnosticBtn: "اجرای ارزیابی سخت‌افزار مرورگر",
+    benchmarkHeading: "۳. عیب‌یابی و سنجش سخت‌افزار کامپیوتر",
+    benchmarkSubheading: "بررسی قدرت پردازشی کامپیوتر، شتاب‌دهنده سخت‌افزاری WebGPU، پردازش چندنخی WebAssembly و سرعت تخمینی بردارسازی.",
+    runDiagnosticBtn: "اجرای ارزیابی سخت‌افزار کامپیوتر",
     diagnosticRunning: "در حال تحلیل پردازنده...",
     webgpuStatusLabel: "شتاب‌دهنده WebGPU",
     webgpuSupported: "شتاب‌دهنده سخت‌افزاری فعال است",
@@ -408,7 +408,7 @@ export const translations = {
     wasmThreadsLabel: "پردازش چندنخی WebAssembly",
     wasmActive: "پردازش چندنخی SharedArrayBuffer فعال است",
     wasmSingle: "حالت تک‌نخی استاندارد",
-    memoryLimitLabel: "حافظه در دسترس مرورگر",
+    memoryLimitLabel: "حافظه در دسترس کامپیوتر",
     estimatedThroughputLabel: "سرعت تخمینی بردارسازی",
     tokensPerSec: "توکن در ثانیه",
     queryLatencyLabel: "تاخیر تخمینی جستجوی برداری",
@@ -443,7 +443,7 @@ export const translations = {
     archStep4Num: "گام ۰۴",
 
     archStep1Title: "ورود و پارس فایل",
-    archStep1Desc: "فایل PDF یا Word مستقیماً وارد پنجره می‌شود. مرورگر بایت‌های فایل را بدون ارسال به هیچ سروری خوانده و پردازش می‌کند.",
+    archStep1Desc: "فایل PDF یا Word مستقیماً وارد پنجره می‌شود. برنامه بایت‌های فایل را روی کامپیوتر بدون ارسال به هیچ سروری خوانده و پردازش می‌کند.",
     
     archStep2Title: "تکه‌تکه‌سازی محلی",
     archStep2Desc: "متن به تکه‌های کوچک دارای همپوشانی تقسیم می‌شود تا بافت متن هنگام اسکن شباهت حفظ شود.",
@@ -452,7 +452,7 @@ export const translations = {
     archStep3Desc: "مدل‌های سبک هوش مصنوعی با WebAssembly و WebGPU اجرا می‌شوند. هر تکه به یک بردار ریاضی تبدیل می‌شود.",
     
     archStep4Title: "بازیابی و پاسخگویی تعاملی",
-    archStep4Desc: "هنگام پرسش، مرورگر شباهت‌های ریاضی را محاسبه کرده، تکه‌های مرتبط را استخراج نموده و پاسخ را به صورت محلی تولید می‌کند.",
+    archStep4Desc: "هنگام پرسش، کامپیوتر شما شباهت‌های ریاضی را محاسبه کرده، تکه‌های مرتبط را استخراج نموده و پاسخ را به صورت محلی تولید می‌کند.",
 
     embeddingConceptBadge: "مفهوم بردارهای معنایی",
     embeddingConceptTitle: "بردارهای معنایی چیست؟",
@@ -461,7 +461,7 @@ export const translations = {
     embeddingTooltipStep1: "در گام ۱، متن سند مستقیماً در حافظه دستگاه استخراج می‌شود تا در مراحل بعدی به بردارهای معنایی (نقشه‌های عددی از مفاهیم) تبدیل شود.",
     embeddingTooltipStep2: "متن به تکه‌های کوچک‌تر تقسیم می‌شود تا هر بردار معنایی بدون از دست رفتن جزییات، بر روی یک مفهوم مشخص تمرکز کند.",
     embeddingTooltipStep3: "هوش مصنوعی محلی، تکه‌های متن را به مجموعه‌ای از اعداد (بردار) تبدیل می‌کند. عبارات هم‌معنی در فضای ریاضی نزدیک یکدیگر قرار می‌گیرند!",
-    embeddingTooltipStep4: "سوال شما نیز به بردار تبدیل می‌شود. مرورگر بردار سوال را با بردارهای سند مقایسه کرده و نزدیک‌ترین بخش را بلافاصله پیدا می‌کند.",
+    embeddingTooltipStep4: "سوال شما نیز به بردار تبدیل می‌شود. سیستم بردار سوال را با بردارهای سند روی کامپیوتر شما مقایسه کرده و نزدیک‌ترین بخش را بلافاصله پیدا می‌کند.",
 
     underTheHood: "فناوری‌های زیربنایی",
     onnxTitle: "محیط اجرا ONNX و Transformers.js",
@@ -480,7 +480,7 @@ export const translations = {
     guideStep1Desc: "مخزن را از گیت‌هاب کلون کنید. کدها بسیار ساختاریافته، ماژولار و با React و TypeScript نوشته شده‌اند.",
 
     guideStep2Title: "خروجی فایل مستقل تک‌صفحه‌ای",
-    guideStep2Desc: "دستور `npm run build:offline` را اجرا کنید تا تمام کدهای برنامه به یک فایل HTML سبُک تبدیل شوند که با هر مرورگری باز می‌شود.",
+    guideStep2Desc: "دستور `npm run build:offline` را اجرا کنید تا تمام کدهای برنامه به یک فایل HTML سبُک تبدیل شوند که روی هر کامپیوتر و سیستمی باز می‌شود.",
 
     guideStep3Title: "استقرار در محیط‌های کاملاً ایزوله",
     guideStep3Desc: "فایل HTML تولید شده را روی سیستم بدون اینترنت خود کپی کرده و از قابلیت‌های کامل جستجوی هوشمند بدون اتصال به اینترنت لذت ببرید.",

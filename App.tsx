@@ -129,7 +129,7 @@ export default function App() {
   const runHardwareDiagnostic = () => {
     setDiagnosticStatus('running');
     setTimeout(() => {
-      // Perform live feature checks on modern browser APIs
+      // Perform live feature checks on modern computer hardware APIs
       const gpuSupported = 'gpu' in navigator;
       const wasmThreadSupported = typeof window !== 'undefined' && 'SharedArrayBuffer' in window;
       const deviceMemory = (navigator as unknown as { deviceMemory?: number }).deviceMemory || 8;
@@ -163,7 +163,7 @@ export default function App() {
           icon: <Stethoscope className="w-5 h-5 text-emerald-500" />,
           title: t.sectors.healthcare,
           score: '100% HIPAA Compliant',
-          residency: lang === 'fa' ? '۰ بایت انتقال بیمار. داده‌ها ۱۰۰٪ درون حافظه RAM مرورگر باقی می‌مانند.' : '0 Bytes patient payload transfer. All PHI remains 100% inside local browser RAM.',
+          residency: lang === 'fa' ? '۰ بایت انتقال بیمار. داده‌ها ۱۰۰٪ درون حافظه RAM کامپیوتر باقی می‌مانند.' : '0 Bytes patient payload transfer. All PHI remains 100% inside local computer RAM.',
           risk: lang === 'fa' ? 'حذف کامل خطر جریمه‌های عدم انطباق با HIPAA به دلیل عدم وجود سرور ثالث.' : 'Eliminates HIPAA violation fines by physically removing cloud transit pathways.',
           policy: lang === 'fa' ? 'استقرار فایل یکپارچه HTML بر روی ایستگاه‌های کاری کلینیک به صورت آفلاین.' : 'Deploy as Standalone HTML bundle across clinical workstations without internet access.'
         };
@@ -174,7 +174,7 @@ export default function App() {
           score: 'SOC 2 Type II Exempt',
           residency: lang === 'fa' ? 'اسناد قراردادها و دادخواست‌ها بدون عبور از هوش مصنوعی ابری پردازش می‌شوند.' : 'Full NDA confidentiality. Client contracts & filings are never indexed by cloud models.',
           risk: lang === 'fa' ? 'جلوگیری از افشای اسرار تجاری و بندهای محرمانه موکلین در داده‌های عمومی.' : 'Prevents accidental discovery or training dataset ingestion of confidential legal drafts.',
-          policy: lang === 'fa' ? 'استقرار بر روی مرورگرهای سازمانی با قابلیت بستن شبکه آنلاین.' : 'Distribute via Chrome Enterprise Managed Policy with air-gapped network restrictions.'
+          policy: lang === 'fa' ? 'استقرار بر روی رایانه‌ها و سیستم‌های سازمانی با قابلیت بستن شبکه آنلاین.' : 'Distribute via Enterprise Managed Policy with air-gapped network restrictions.'
         };
       case 'defense':
         return {
@@ -203,7 +203,7 @@ export default function App() {
   const getDeploySnippet = (target: DeployTarget) => {
     switch (target) {
       case 'html':
-        return `# Build single standalone air-gapped HTML file\nnpm run build:offline\n\n# Output artifact generated:\n# ./dist/nahanjoo_standalone.html (Size: ~1.2 MB)\n# Simply double-click to open in any offline browser!`;
+        return `# Build single standalone air-gapped HTML file\nnpm run build:offline\n\n# Output artifact generated:\n# ./dist/nahanjoo_standalone.html (Size: ~1.2 MB)\n# Simply double-click to run on any offline computer!`;
       case 'docker':
         return `# Dockerfile for Offline Internal Nginx Server\nFROM nginx:alpine\nCOPY ./dist /usr/share/nginx/html\nEXPOSE 80\nCMD ["nginx", "-g", "daemon off;"]`;
       case 'policy':
@@ -871,7 +871,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* SECTION 3: LIVE BROWSER HARDWARE & WEBGPU BENCHMARK DIAGNOSTIC */}
+            {/* SECTION 3: LIVE COMPUTER HARDWARE & WEBGPU BENCHMARK DIAGNOSTIC */}
             <div className="bg-white dark:bg-[#0c101c] p-6 rounded-2xl border border-neutral-200 dark:border-[#121b2f] shadow-sm space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">

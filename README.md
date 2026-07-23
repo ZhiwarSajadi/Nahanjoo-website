@@ -13,10 +13,10 @@ The official public landing page and interactive client-side simulator for **[Na
 
 ## 🌟 Overview
 
-**Nahanjoo Website** serves as the public introduction and interactive sandbox for the core Nahanjoo project. It allows visitors to explore the privacy-first architecture of Nahanjoo, test an interactive browser-based RAG simulation (parsing, chunking, embedding, and semantic similarity search), and learn how to run Nahanjoo in air-gapped or sensitive environments.
+**Nahanjoo Website** serves as the public introduction and interactive sandbox for the core Nahanjoo project. It allows visitors to explore the privacy-first architecture of Nahanjoo, test an interactive computer-based RAG simulation (parsing, chunking, embedding, and semantic similarity search), and learn how to run Nahanjoo in air-gapped or sensitive environments.
 
 ### Key Highlights
-- **Interactive Sandbox Demo**: Test RAG indexing and similarity querying right in the browser with preset confidential medical/technical documents or custom text.
+- **Interactive Sandbox Demo**: Test RAG indexing and similarity querying right on your computer with preset confidential medical/technical documents or custom text.
 - **Architecture Breakdown**: Deep dive into how client-side ONNX Runtime, Transformers.js, and WebAssembly deliver zero-server AI retrieval.
 - **Responsive Dark/Light UI**: Built with React, Tailwind CSS, Lucide Icons, and Motion transitions.
 - **Zero API Key Requirements for Basic Exploration**: Demonstrates client-side document processing in complete isolation.
